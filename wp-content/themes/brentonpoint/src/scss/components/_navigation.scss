@@ -1,0 +1,25 @@
+@use '../abstracts/variables' as *;
+
+// Shared navigation utilities (dropdowns, breadcrumbs, pagination)
+.nav-links {
+  display: flex;
+  gap: calc($spacing-unit * 2);
+  align-items: center;
+}
+
+.page-numbers {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  font-size: 0.9375rem;
+  transition: background-color $transition-base, color $transition-base;
+
+  &:hover,
+  &.current {
+    background-color: $color-accent;
+    color: #fff;
+  }
+}

@@ -1,0 +1,28 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Home page specific styles
+.home {
+  .hero {
+    @include flex-center;
+    flex-direction: column;
+    text-align: center;
+    min-height: 80vh;
+    padding-block: calc($spacing-unit * 10);
+    background-color: $color-secondary;
+    color: #fff;
+
+    &__title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      color: #fff;
+      margin-bottom: calc($spacing-unit * 3);
+    }
+
+    &__subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: #ffffffcc;
+      max-width: 600px;
+      margin-bottom: calc($spacing-unit * 5);
+    }
+  }
+}

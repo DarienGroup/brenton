@@ -1,0 +1,14 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.container {
+  @include container;
+}
+
+.site-content {
+  min-height: calc(100vh - $header-height);
+}
+
+.site-main {
+  padding-block: calc($spacing-unit * 8);
+}

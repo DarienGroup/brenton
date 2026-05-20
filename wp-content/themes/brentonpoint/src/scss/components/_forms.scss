@@ -1,0 +1,40 @@
+@use '../abstracts/variables' as *;
+
+.form-field {
+  margin-bottom: calc($spacing-unit * 3);
+
+  label {
+    display: block;
+    margin-bottom: calc($spacing-unit * 1);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $color-text;
+  }
+
+  input[type='text'],
+  input[type='email'],
+  input[type='tel'],
+  input[type='search'],
+  textarea,
+  select {
+    width: 100%;
+    padding: calc($spacing-unit * 1.5) calc($spacing-unit * 2);
+    font-size: 1rem;
+    color: $color-text;
+    background-color: $color-bg;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    transition: border-color $transition-base, box-shadow $transition-base;
+
+    &:focus {
+      outline: none;
+      border-color: $color-accent;
+      box-shadow: 0 0 0 3px rgb(15 52 96 / 0.15);
+    }
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+}

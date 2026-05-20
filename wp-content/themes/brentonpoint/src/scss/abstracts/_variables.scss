@@ -1,0 +1,35 @@
+// ── Colors ──────────────────────────────────────────────────────────────
+$color-primary:   #1a1a2e;
+$color-secondary: #16213e;
+$color-accent:    #0f3460;
+$color-highlight: #e94560;
+
+$color-text:      #1a1a2e;
+$color-text-muted:#6c757d;
+$color-bg:        #ffffff;
+$color-bg-alt:    #f8f9fa;
+
+// ── Typography ──────────────────────────────────────────────────────────
+$font-heading: 'Georgia', serif;
+$font-body:    'Inter', sans-serif;
+$font-mono:    'Fira Code', monospace;
+
+$font-size-base: 16px;
+$line-height:    1.6;
+
+// ── Spacing ─────────────────────────────────────────────────────────────
+$spacing-unit: 8px;
+
+// ── Breakpoints ─────────────────────────────────────────────────────────
+$bp-sm:  576px;
+$bp-md:  768px;
+$bp-lg:  992px;
+$bp-xl:  1200px;
+$bp-xxl: 1400px;
+
+// ── Layout ──────────────────────────────────────────────────────────────
+$container-max: 1200px;
+$header-height: 80px;
+
+// ── Transitions ─────────────────────────────────────────────────────────
+$transition-base: 0.25s ease;

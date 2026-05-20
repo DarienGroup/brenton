@@ -1,0 +1,81 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: $header-height;
+  background-color: $color-bg;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.08);
+
+  &__inner {
+    @include container;
+    @include flex-between;
+    height: 100%;
+  }
+}
+
+.site-branding {
+  .site-title {
+    font-family: $font-heading;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $color-primary;
+  }
+}
+
+.main-navigation {
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+
+    @include respond-to(lg) { display: none; }
+
+    .hamburger,
+    .hamburger::before,
+    .hamburger::after {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: $color-text;
+      transition: transform $transition-base;
+    }
+
+    .hamburger {
+      position: relative;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+      }
+      &::before { top: -7px; }
+      &::after  { top: 7px; }
+    }
+  }
+
+  #primary-menu {
+    display: none;
+
+    @include respond-to(lg) {
+      display: flex;
+      gap: calc($spacing-unit * 4);
+    }
+
+    &.is-open { display: flex; }
+
+    a {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: $color-text;
+      transition: color $transition-base;
+
+      &:hover { color: $color-highlight; }
+    }
+  }
+}

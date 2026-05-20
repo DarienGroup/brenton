@@ -1,0 +1,35 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.site-footer {
+  background-color: $color-primary;
+  color: #fff;
+  padding-block: calc($spacing-unit * 5);
+
+  &__inner {
+    @include container;
+    @include flex-between;
+    flex-wrap: wrap;
+    gap: calc($spacing-unit * 3);
+  }
+
+  .footer-navigation #footer-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc($spacing-unit * 3);
+
+    a {
+      color: #ffffffcc;
+      font-size: 0.875rem;
+      transition: color $transition-base;
+
+      &:hover { color: #fff; }
+    }
+  }
+
+  .site-info {
+    font-size: 0.875rem;
+    color: #ffffff99;
+    margin: 0;
+  }
+}

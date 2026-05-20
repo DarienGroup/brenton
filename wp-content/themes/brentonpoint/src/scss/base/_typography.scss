@@ -1,0 +1,46 @@
+@use '../abstracts/variables' as *;
+
+body {
+  font-family: $font-body;
+  font-size: $font-size-base;
+  line-height: $line-height;
+  color: $color-text;
+  background-color: $color-bg;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-heading;
+  line-height: 1.2;
+  color: $color-primary;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3rem); }
+h2 { font-size: clamp(1.5rem, 4vw, 2.25rem); }
+h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.125rem; }
+h6 { font-size: 1rem; }
+
+p { margin-bottom: 1em; }
+
+a {
+  color: $color-accent;
+  transition: color $transition-base;
+
+  &:hover { color: $color-highlight; }
+}
+
+strong { font-weight: 700; }
+em     { font-style: italic; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

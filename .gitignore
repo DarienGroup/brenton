@@ -1,0 +1,54 @@
+# ──────────────────────────────────────────────
+# WordPress core — managed externally
+# ──────────────────────────────────────────────
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/index.php
+/xmlrpc.php
+/license.txt
+/readme.html
+/wp-config.php
+/.htaccess
+/local-xdebuginfo.php
+
+# ──────────────────────────────────────────────
+# wp-content: track only what's ours
+# ──────────────────────────────────────────────
+/wp-content/*
+
+# index.php stub
+!/wp-content/index.php
+
+# Only our theme; all other themes are ignored
+!/wp-content/themes/
+/wp-content/themes/*
+!/wp-content/themes/index.php
+!/wp-content/themes/brentonpoint/
+
+# No plugins tracked by default.
+# To track a custom plugin, add lines like:
+#   !/wp-content/plugins/my-custom-plugin/
+!/wp-content/plugins/
+/wp-content/plugins/*
+!/wp-content/plugins/index.php
+
+# mu-plugins are hosting-environment specific (WP Engine)
+# To track a custom mu-plugin, add lines like:
+#   !/wp-content/mu-plugins/my-mu-plugin.php
+
+# ──────────────────────────────────────────────
+# Theme build artifacts
+# ──────────────────────────────────────────────
+/wp-content/themes/brentonpoint/node_modules/
+
+# ──────────────────────────────────────────────
+# OS & editor
+# ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*.log
