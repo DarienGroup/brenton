@@ -7,6 +7,7 @@ foreach ( [
 	'nav-menus',
 	'widgets',
 	'custom-post-types',
+	'redirects',
 	'helpers',
 ] as $file ) {
 	require_once get_template_directory() . '/inc/' . $file . '.php';
