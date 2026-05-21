@@ -1,12 +1,5 @@
 import { qsa } from './utils';
 
-/**
- * Inject a "Read More / Read Less" toggle button into blocks whose combined
- * paragraph character count exceeds maxChars.
- *
- * @param {string} blockSelector  CSS selector for the repeating block wrapper
- * @param {number} maxChars       Character threshold above which the button appears
- */
 function initReadMore( blockSelector, maxChars ) {
   const blocks = qsa( blockSelector );
 

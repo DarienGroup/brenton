@@ -1,5 +1,8 @@
+@use 'sass:list';
 @use '../abstracts/variables' as *;
+@use '../abstracts/type-scale' as ts;
 
+// ── Base element styles ───────────────────────────────────────────────────
 body {
   font-family: $font-body;
   font-size: $font-size-base;
@@ -12,6 +15,8 @@ h1, h2, h3, h4, h5, h6 {
   font-family: $font-heading;
   line-height: 1.2;
   color: $color-primary;
+  // TODO: replace with @include ts.fluid-type() once heading tokens
+  // are confirmed in Figma (see $type-scale in abstracts/_type-scale.scss)
 }
 
 h1 { font-size: clamp(2rem, 5vw, 3rem); }
@@ -26,7 +31,6 @@ p { margin-bottom: 1em; }
 a {
   color: $color-accent;
   transition: color $transition-base;
-
   &:hover { color: $color-highlight; }
 }
 
@@ -43,4 +47,15 @@ em     { font-style: italic; }
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+@each $token, $values in ts.$type-scale {
+  .text-#{$token} {
+    @include ts.fluid-type(
+      list.nth($values, 1),
+      list.nth($values, 2),
+      list.nth($values, 3),
+      list.nth($values, 4)
+    );
+  }
 }

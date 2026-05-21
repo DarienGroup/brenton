@@ -1,8 +1,21 @@
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
 
 .container {
   @include container;
+}
+
+// --section-pt / --section-pb fall back to --section-py when not set.
+.section {
+  --section-py: #{fluid-between($section-py-360, $section-py-1440, 360, 1440)};
+
+  @media (min-width: 1440px) {
+    --section-py: #{fluid-between($section-py-1440, $section-py-1920, 1440, 1920)};
+  }
+
+  padding-block-start: var(--section-pt, var(--section-py));
+  padding-block-end:   var(--section-pb, var(--section-py));
 }
 
 .site-content {

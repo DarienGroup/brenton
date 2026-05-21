@@ -1,13 +1,38 @@
-// ── Colors ──────────────────────────────────────────────────────────────
-$color-primary:   #1a1a2e;
-$color-secondary: #16213e;
-$color-accent:    #0f3460;
-$color-highlight: #e94560;
+// ── Project palette ──────────────────────────────────────────────────────
+$white:          #ffffff;
+$black:          #0d0d0d;
+$secondary-gray: #f5f5f3;
+$primary-gray:   #3a3a38;
+$taupe:          #948679;
+$cream:          #d3cac0;
+$deep-teal:      #053e56;
+$sky-blue:       #7ed4f5;
+$blue-old:       #131420;
+$cyan:           #28b4e2;
 
-$color-text:      #1a1a2e;
-$color-text-muted:#6c757d;
-$color-bg:        #ffffff;
-$color-bg-alt:    #f8f9fa;
+// ── Semantic roles (palette → purpose) ───────────────────────────────────
+$color-primary:    $deep-teal;
+$color-secondary:  $blue-old;
+$color-accent:     $cyan;
+$color-highlight:  $sky-blue;
+$color-text:       $black;
+$color-text-muted: $primary-gray;
+$color-bg:         $white;
+$color-bg-alt:     $secondary-gray;
+
+// ── Palette map (drives .text-{name} / .bg-{name} utility classes) ───────
+$palette: (
+  'white':          $white,
+  'black':          $black,
+  'secondary-gray': $secondary-gray,
+  'primary-gray':   $primary-gray,
+  'taupe':          $taupe,
+  'cream':          $cream,
+  'deep-teal':      $deep-teal,
+  'sky-blue':       $sky-blue,
+  'blue-old':       $blue-old,
+  'cyan':           $cyan,
+);
 
 // ── Typography ──────────────────────────────────────────────────────────
 $font-heading: 'Georgia', serif;
@@ -28,8 +53,19 @@ $bp-xl:  1200px;
 $bp-xxl: 1400px;
 
 // ── Layout ──────────────────────────────────────────────────────────────
-$container-max: 1200px;
 $header-height: 80px;
+
+$container-outer-max: 1920px;   // locks content width on screens wider than 1920px
+
+// Horizontal container padding (unitless px) at each Figma artboard width
+$container-px-1920: 240;
+$container-px-1440:  64;
+$container-px-360:   20;
+
+// Section vertical padding (unitless px) at each Figma artboard width
+$section-py-1920: 160;
+$section-py-1440: 140;
+$section-py-360:   72;
 
 // ── Transitions ─────────────────────────────────────────────────────────
 $transition-base: 0.25s ease;

@@ -1,12 +1,5 @@
 import { qsa } from '../parts/utils';
 
-/**
- * Portfolio tab filter: All / Active / Realized
- *
- * Expects:
- *  - .portfolio-tabs button[data-block="All|Active|Realized"]
- *  - .portfolio_block article.category_portfolio-active / .category_portfolio-realized
- */
 export function initPortfolioTabs() {
   const buttons  = qsa( '.portfolio-tabs button' );
   const articles = qsa( '.portfolio_block article' );

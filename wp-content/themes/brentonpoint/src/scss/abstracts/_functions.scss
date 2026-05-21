@@ -1,3 +1,4 @@
+@use 'sass:math';
 @use 'variables' as *;
 
 @function spacing($multiplier: 1) {
@@ -5,5 +6,23 @@
 }
 
 @function rem($px) {
-  @return #{calc($px / 16)}rem;
+  @return #{math.div($px, 16)}rem;
+}
+
+// All args are unitless px. Handles both increasing and decreasing ranges.
+@function fluid-between($from-size, $to-size, $from-vw, $to-vw) {
+  @if $from-size == $to-size {
+    @return #{$from-size}px;
+  }
+
+  $slope:     math.div($to-size - $from-size, $to-vw - $from-vw);
+  $intercept: $from-size - ($slope * $from-vw);
+  $bound-lo:  math.min($from-size, $to-size);
+  $bound-hi:  math.max($from-size, $to-size);
+
+  @return clamp(
+    #{$bound-lo}px,
+    calc(#{$intercept}px + #{$slope * 100}vw),
+    #{$bound-hi}px
+  );
 }

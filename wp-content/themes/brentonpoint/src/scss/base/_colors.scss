@@ -1,0 +1,6 @@
+@use '../abstracts/variables' as *;
+
+@each $name, $value in $palette {
+  .text-color-#{$name} { color: $value; }
+  .bg-#{$name}         { background-color: $value; }
+}

@@ -2,9 +2,11 @@
 @use 'abstracts/variables';
 @use 'abstracts/functions';
 @use 'abstracts/mixins';
+@use 'abstracts/type-scale';
 
 // ── Base ─────────────────────────────────────────────────────────────────
 @use 'base/reset';
+@use 'base/colors';
 @use 'base/typography';
 
 // ── Layout ───────────────────────────────────────────────────────────────
