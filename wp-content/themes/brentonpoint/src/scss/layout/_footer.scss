@@ -1,35 +1,339 @@
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
 
 .site-footer {
-  background-color: $color-primary;
-  color: #fff;
-  padding-block: calc($spacing-unit * 5);
+  background-color: $color-secondary;
+  color: $white;
+  padding-block: calc($spacing-unit * 8) 0;
+  font-family: $font-montserrat;
 
   &__inner {
-    @include container;
-    @include flex-between;
-    flex-wrap: wrap;
-    gap: calc($spacing-unit * 3);
-  }
-
-  .footer-navigation #footer-menu {
     display: flex;
-    flex-wrap: wrap;
-    gap: calc($spacing-unit * 3);
+    flex-direction: column;
+    gap: calc($spacing-unit * 0.5);
+    padding-bottom: 0;
 
-    a {
-      color: #ffffffcc;
-      font-size: 0.875rem;
-      transition: color $transition-base;
-
-      &:hover { color: #fff; }
+    @include respond-to(md) {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: calc($spacing-unit * 6);
+      padding-bottom: calc($spacing-unit * 8);
     }
   }
 
-  .site-info {
-    font-size: 0.875rem;
-    color: #ffffff99;
+  &__brand {
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 3);
+
+    @include respond-to(md) {
+      max-width: 260px;
+    }
+
+    @media (min-width: 1024px) {
+      max-width: 360px;
+    }
+  }
+
+  &__logo img {
+    display: block;
+    height: auto;
+    max-width: 240px;
+  }
+
+  &__description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba($white, 0.8);
+    margin: 0 0 12px 0;
+  }
+
+  &__address {
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba($white, 0.8);
+    margin: 0 0 12px 0;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  // ── Menu block (nav columns + back-to-top) ─────────────────────────────
+  &__menu {
+    display: contents;
+
+    @include respond-to(md) {
+      display: flex;
+      align-items: flex-start;
+      gap: calc($spacing-unit * 4);
+      flex: 1;
+      justify-content: flex-end;
+    }
+
+    // 1px vertical divider sitting between nav and back-to-top.
+    // Shown only at 1440px+. Left gap (nav → divider) grows 0 → 80px,
+    // right gap (divider → button) grows 40 → 80px between 1440 and 1920.
+    @media (min-width: 1440px) {
+      position: relative;
+      gap: 0;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background-color: $primary-gray;
+        // distance from right edge: button width (44px) + right gap.
+        right: calc(44px + #{fluid-between(40, 80, 1440, 1920)});
+      }
+    }
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    @include respond-to(md) {
+      display: grid;
+      // 768 → 1023: flex columns fill available space.
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: calc($spacing-unit * 3);
+      flex: 1;
+      justify-content: end;
+    }
+
+    // 1024+ : fixed 160px columns per design.
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 160px);
+    }
+  }
+
+  // ── Back-to-top ────────────────────────────────────────────────────────
+  &__top {
+    display: none;
+
+    @include respond-to(md) {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba($white, 0.4);
+      background: transparent;
+      color: $white;
+      cursor: pointer;
+      transition: background-color $transition-base, border-color $transition-base;
+      flex-shrink: 0;
+
+      &:hover {
+        background-color: rgba($white, 0.08);
+        border-color: rgba($white, 0.7);
+      }
+    }
+
+    // At 1440+ the menu wrapper has gap:0 and renders the divider;
+    // restore spacing manually: left-gap + 1px divider + right-gap.
+    // 1440 → 1920: 0 + 1 + 40 = 41 → 80 + 1 + 80 = 161.
+    @media (min-width: 1440px) {
+      margin-left: fluid-between(41, 161, 1440, 1920);
+    }
+  }
+
+  // ── Bottom strip (legal + copyright) ───────────────────────────────────
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 2.5);
+    padding-top: 32px;
+    padding-bottom: 40px;
+
+    @include respond-to(md) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: calc($spacing-unit * 4);
+      padding-top: 28px;
+      padding-bottom: 66px;
+      // Swap the container-bound border for a full-viewport-width line.
+      position: relative;
+      border-top: 0;
+      border-top: 1px solid rgba($white, 0.15);
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;
+        height: 1px;
+        background-color: rgba($white, 0.15);
+      }
+    }
+  }
+
+  &__legal {
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: calc($spacing-unit * 2.5);
+
+      @include respond-to(md) {
+        flex-direction: row;
+        align-items: center;
+        gap: calc($spacing-unit * 3);
+      }
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+
+      @include respond-to(md) {
+        & + li::before {
+          content: '|';
+          color: rgba($white, 0.3);
+          margin-right: calc($spacing-unit * 3);
+        }
+      }
+    }
+
+    a {
+      color: $cream;
+      font-weight: 600;
+      font-size: 16px;
+      transition: color $transition-base;
+    }
+  }
+
+  &__copyright {
     margin: 0;
+    font-size: 0.875rem;
+    color: rgba($white, 0.7);
+  }
+}
+
+// ── Footer column (heading + list) ───────────────────────────────────────
+.footer-col {
+  border-bottom: 1px solid rgba($white, 0.12);
+
+  @include respond-to(md) {
+    border: 0;
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 160px;
+  }
+
+  &__heading {
+    appearance: none;
+    width: 100%;
+    background: transparent;
+    border: 0;
+    padding: calc($spacing-unit * 2.5) 0 calc($spacing-unit * 1.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc($spacing-unit * 2);
+    color: $taupe;
+    font-family: $font-montserrat;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    text-transform: none;
+    cursor: pointer;
+
+    @include respond-to(md) {
+      padding: 0 0 calc($spacing-unit * 3.5);
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+
+  &__chevron {
+    transition: transform $transition-base;
+
+    @include respond-to(md) {
+      display: none;
+    }
+  }
+
+  &[data-footer-col].is-open &__chevron {
+    transform: rotate(180deg);
+  }
+
+  // Collapse wrapper — uses the grid-rows 0fr → 1fr trick (needs a single
+  // direct child, which is the <ul> below).
+  &__panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows $transition-base;
+    overflow: hidden;
+
+    > * {
+      min-height: 0;
+    }
+
+    @include respond-to(md) {
+      grid-template-rows: 1fr;
+      overflow: visible;
+    }
+  }
+
+  &[data-footer-col].is-open &__panel {
+    grid-template-rows: 1fr;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    @include respond-to(md) {
+      gap: calc($spacing-unit * 3.5);
+    }
+  }
+
+  &__item {
+    @include respond-to(md) {
+      // gap on list handles spacing
+    }
+  }
+
+  &__link {
+    color: $cream;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: color $transition-base;
+
+    &:hover {
+      color: $cream;
+    }
+  }
+}
+
+// Mobile-only: wrap list items in a padded box so the accordion collapse looks clean.
+// We achieve this without extra markup by padding the list when open.
+.footer-col__list {
+  @media (max-width: #{$bp-md - 1px}) {
+    .footer-col__item {
+      padding-bottom: calc($spacing-unit * 1.5);
+    }
+    .footer-col__item:first-child {
+      padding-top: 0;
+    }
+    .footer-col__item:last-child {
+      padding-bottom: calc($spacing-unit * 2.5);
+    }
   }
 }
