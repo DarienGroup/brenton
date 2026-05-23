@@ -53,9 +53,14 @@ add_action( 'wp_head', function () {
 }, 1 );
 
 add_action( 'wp_enqueue_scripts', function () {
-	$theme_uri = get_template_directory_uri();
-	$dist      = $theme_uri . '/dist';
-	$ver       = wp_get_theme()->get( 'Version' );
+	$theme_uri  = get_template_directory_uri();
+	$theme_path = get_template_directory();
+	$dist       = $theme_uri . '/dist';
+
+	$asset_ver = static function ( $relative ) use ( $theme_path ) {
+		$file = $theme_path . '/dist/' . ltrim( $relative, '/' );
+		return file_exists( $file ) ? (string) filemtime( $file ) : wp_get_theme()->get( 'Version' );
+	};
 
 	wp_enqueue_style(
 		'brentonpoint-fonts',
@@ -68,14 +73,14 @@ add_action( 'wp_enqueue_scripts', function () {
 		'brentonpoint-main',
 		$dist . '/css/main.css',
 		[ 'brentonpoint-fonts' ],
-		$ver
+		$asset_ver( 'css/main.css' )
 	);
 
 	wp_enqueue_script(
 		'brentonpoint-main',
 		$dist . '/js/main.js',
 		[ 'jquery' ],
-		$ver,
+		$asset_ver( 'js/main.js' ),
 		true
 	);
 

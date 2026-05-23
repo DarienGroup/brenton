@@ -111,7 +111,7 @@
     gap: calc($spacing-unit * 1);
 
     a {
-      color: $color-text;
+      color: $primary-gray;
       text-decoration: none;
       font-size: 1rem;
 
@@ -125,7 +125,7 @@
     font-style: normal;
     font-size: 1rem;
     line-height: 1.5;
-    color: $color-text;
+    color: $primary-gray;
 
     p {
       margin: 0;
@@ -175,9 +175,32 @@
     position: relative;
   }
 
+  // GF renders Name fields as <fieldset>. Browsers give fieldsets a 2px groove
+  // border, `min-inline-size: min-content`, and special layout rules that
+  // *ignore* `justify-self: stretch` in grid — so without `inline-size: 100%`
+  // they shrink to their content's intrinsic width instead of filling the
+  // 1fr track (200px observed vs ~280px expected).
+  fieldset.gfield {
+    border: 0;
+    min-inline-size: 0;
+    inline-size: 100%;
+  }
+
+  // GF foundation puts width-half on `grid-column: span 6` and width-full on
+  // `grid-column: span 12` (it ships a 12-track grid). Our grid only has 1–2
+  // tracks, so those spans create 4–10 implicit tracks — each separated by
+  // our 16px column-gap, eating ~160px of the row and shrinking the visible
+  // tracks. `!important` is needed because GF's selector specificity ties
+  // ours and it loads later.
+  .gfield--width-full {
+    grid-column: 1 / -1 !important;
+  }
+
   .gfield--width-half {
+    grid-column: 1 / -1 !important;
+
     @include respond-to(md) {
-      grid-column: span 1;
+      grid-column: span 1 !important;
     }
   }
 
@@ -380,45 +403,6 @@
     display: block;
     padding: 0;
     margin-top: calc($spacing-unit * 2);
-  }
-
-  .gform_button,
-  input.gform_button,
-  button.gform_button {
-    width: 100%;
-    background-color: $color-accent;
-    color: $white;
-    border: 0;
-    border-radius: 0;
-    padding: calc($spacing-unit * 2) calc($spacing-unit * 3);
-    font-family: $font-lato;
-    font-weight: 600;
-    font-size: 1rem;
-    text-align: left;
-    cursor: pointer;
-    position: relative;
-    transition: background-color $transition-base;
-
-    &::before {
-      content: '•';
-      margin-right: calc($spacing-unit * 1);
-    }
-
-    &::after {
-      content: '›';
-      position: absolute;
-      right: calc($spacing-unit * 3);
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.25rem;
-      line-height: 1;
-    }
-
-    &:hover,
-    &:focus {
-      background-color: $color-primary;
-      outline: none;
-    }
   }
 
   .gform_confirmation_message {

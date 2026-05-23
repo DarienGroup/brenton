@@ -66,7 +66,7 @@ if ('home' === $args['variant']) {
 <section class="<?php echo esc_attr(implode(' ', $section_classes)); ?>">
     <div class="contact-section__inner container">
 
-        <h2 class="contact-section__heading text-h2 text-weight-600">
+        <h2 class="contact-section__heading text-h2 text-weight-600 text-color-black">
             <?php echo esc_html($heading); ?>
         </h2>
 

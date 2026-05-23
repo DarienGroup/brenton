@@ -206,6 +206,72 @@ padding: fluid-between(20, 64, 360, 1440); // → clamp(20px, calc(…), 64px)
 | `xl` | 1200px    |
 | `xxl`| 1400px    |
 
+### Buttons
+
+Styles in `components/_buttons.scss`. Markup produced by `brentonpoint_get_button()` (`inc/components.php`) — templates, the `[btn]` shortcode, and the GF submit-button filter all go through it.
+
+**Templates**
+
+```php
+<?php brentonpoint_button([ 'label' => 'Get in Touch', 'variant' => 'cyan', 'href' => '/contact' ]); ?>
+```
+
+`brentonpoint_button()` echoes; `brentonpoint_get_button()` returns. Pull `label` / `href` from ACF; keep `variant` hardcoded in the template.
+
+**Shortcode**
+
+```
+[btn variant="cyan" href="/contact"]Get in touch[/btn]
+```
+
+**Arguments**
+
+| Arg | Default | Notes |
+|-----|---------|-------|
+| `label` | `''` | Button text. |
+| `variant` | `'cyan'` | Key in `$button-variants`. |
+| `href` | `''` | Non-empty → `<a>`. Empty → `<button>`. |
+| `full` | `false` | Adds `btn--full`. |
+| `target` | `''` | `_blank` auto-adds `rel="noopener noreferrer"`. |
+| `type` | `'button'` | `<button>` only. `'submit'` for forms. |
+| `class`, `id`, `rel`, `attrs` | — | Pass-through. |
+
+**Color variants** are generated from the `$button-variants` map in `_buttons.scss`:
+
+```scss
+$button-variants: (
+  'cyan': (
+    bg-color:           $cyan,
+    text-color:         $white,
+    bg-color-hover:     $deep-teal,
+    text-color-hover:   $white,
+  ),
+  // 'outline-cyan': (                          // border-color keys are optional
+  //   bg-color:           transparent,
+  //   text-color:         $cyan,
+  //   border-color:       $cyan,
+  //   bg-color-hover:     $cyan,
+  //   text-color-hover:   $white,
+  //   border-color-hover: $cyan,
+  // ),
+);
+```
+
+Each entry emits a `.btn--{name}` class. Optional `border-color` / `border-color-hover` keys are applied only when present — the base button reserves a transparent 1px border, so adding a border never shifts layout.
+
+**Available variants:** `cyan` · `deep-teal`
+
+**Modifiers**
+
+| Class | Effect |
+|-------|--------|
+| *(none)* | Fixed `320px` wide (the default short button) |
+| `.btn--full` | Stretches to `100%` of its container |
+
+**Typography:** the label uses the fluid `'button'` token from `$type-scale` (18→16→18px, line-height 1) plus `letter-spacing: 0.05em`.
+
+To add a new color: add one entry to `$button-variants` — the `.btn--{name}` class is generated automatically.
+
 ---
 
 ## JavaScript Architecture
@@ -258,7 +324,9 @@ The toggle button is injected after `.entry-content` and toggles `.active` on it
 | `custom-post-types.php` | Force `our_portfolio` ordering by `menu_order ASC` |
 | `redirects.php` | 301-redirect single portfolio entries to `/portfolio/#anchor` |
 | `helpers.php` | `brentonpoint_posted_on()`, `brentonpoint_posted_by()` template tags |
-| `gravity-forms.php` | Filters `gform_required_legend` so the legend always reads "* indicates required fields" |
+| `components.php` | `brentonpoint_get_button()` / `brentonpoint_button()` — renders `.btn` markup |
+| `shortcodes.php` | Registers `[btn]` |
+| `gravity-forms.php` | `gform_required_legend` ("* indicates required fields"); `gform_submit_button` → renders submit via `brentonpoint_get_button()` |
 
 ### Portfolio ordering
 
@@ -358,6 +426,9 @@ The expected form should contain these field labels (any single Gravity Form wil
 
 - The form inputs use a fixed `60px` height, the textarea `145px`. Browsers vertically centre input text natively, so a single `top: 30px` keeps the floating label aligned to the input centre even when GF appends error markup that grows `.gfield`.
 - Gravity Forms ships its own theme framework whose stylesheet loads after `dist/css/main.css`. CSS variables on `.contact-section` (`--gform-theme-control-height`, `--gform-theme-control-textarea-min-height`, …) handle most cases; `!important` is used only on the few properties where GF's framework selectors win on specificity (label `font-size`, textarea `height`/`min-height`, input `box-shadow`).
+- **Submit button** is the shared `.btn .btn--cyan .btn--full` component (see [Buttons](#buttons)), swapped in via the `gform_submit_button` filter in `inc/gravity-forms.php`. The button carries the `gform-theme__disable` class so GF's framework reset (`all: unset` on every descendant inside `.gform-theme--framework`) doesn't strip the `.btn` styles.
+- **Grid quirks.** GF foundation ships a 12-track grid and places fields with `grid-column: span 12` (full) or `span 6` (half). The contact form uses a 2-track grid, so both `.gfield--width-full` and `.gfield--width-half` are remapped (`1 / -1` and `span 1` respectively) — otherwise CSS creates 10 implicit zero-width columns whose 16px gaps eat ~160px of the row.
+- **`<fieldset>` Name fields.** GF renders Name fields as `<fieldset>`. Browsers give fieldsets a 2px groove border, `min-inline-size: min-content`, and special layout rules that ignore `justify-self: stretch` in grid — so `_contact-section.scss` resets `border: 0; min-inline-size: 0; inline-size: 100%` on `fieldset.gfield` to make First/Last Name fill their grid tracks like the `<div>`-based fields.
 - Per-field error descriptions are hidden — the form-level error banner plus the red border + background on the field itself is enough.
 
 ---
