@@ -35,11 +35,14 @@ $palette: (
 );
 
 // ── Typography ──────────────────────────────────────────────────────────
-$font-heading: 'Georgia', serif;
-$font-body:    'Inter', sans-serif;
+$font-montserrat: 'Montserrat', sans-serif;
+$font-lato:       'Lato', sans-serif;
 $font-mono:    'Fira Code', monospace;
 
 $font-size-base: 16px;
+
+// Available weights across Lato (300/400/700) and Montserrat (400/500/600/700)
+$font-weights: (300, 400, 500, 600, 700);
 $line-height:    1.6;
 
 // ── Spacing ─────────────────────────────────────────────────────────────

@@ -1,81 +1,375 @@
+@use 'sass:color';
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
 
+// ── Header variables (override here for easy reskinning) ─────────────────
+$header-bg: $blue-old; // #131420
+$header-text: $white;
+$header-text-hover: $sky-blue;
+$header-sep-color: $taupe;
+$header-search-bg: $secondary-gray; // #f5f5f3
+$header-search-text: $primary-gray;
+
+// Desktop nav kicks in above 1024px (burger shows at 1024 and below).
+$header-nav-bp: 1025px;
+
+// ── Base header ──────────────────────────────────────────────────────────
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 100;
-  height: $header-height;
-  background-color: $color-bg;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 0.08);
+  z-index: 200;
+  background-color: $header-bg;
 
   &__inner {
-    @include container;
     @include flex-between;
-    height: 100%;
+    flex-wrap: nowrap;
+    height: $header-height;
+    gap: calc($spacing-unit * 2);
   }
 }
 
+// ── Logo / branding ──────────────────────────────────────────────────────
 .site-branding {
+  flex-shrink: 0;
+
+  // Custom logo image
+  .custom-logo-link img,
+  .custom-logo {
+    display: block;
+    height: 40px;
+    width: auto;
+  }
+
+  // Fallback text title
   .site-title {
-    font-family: $font-heading;
-    font-size: 1.25rem;
+    font-family: $font-montserrat;
+    font-size: 1.125rem;
     font-weight: 700;
-    color: $color-primary;
+    color: $header-text;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
   }
 }
 
+// ── Right-side group (nav + actions) ─────────────────────────────────────
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+// ── Desktop navigation ────────────────────────────────────────────────────
 .main-navigation {
-  .menu-toggle {
-    display: block;
+  display: none;
+
+  @media (min-width: $header-nav-bp) {
+    display: flex;
+    align-items: center;
+  }
+
+  #desktop-menu {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    // Tight at ≤1200, full (20px) at ≥1440, fluid in between.
+    gap: fluid-between(4, 20, 1200, 1440);
+
+    li .nav-link {
+      font-weight: 600;
+      color: $header-text;
+      transition: color $transition-base;
+      position: relative;
+      white-space: nowrap;
+      // Tight (10px) at ≤1200, full (20px) at ≥1440, fluid in between.
+      padding-left: fluid-between(10, 20, 1200, 1440);
+      padding-right: fluid-between(10, 20, 1200, 1440);
+      &::after {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: $header-text-hover;
+        transition: opacity $transition-base;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        left: 50%;
+        bottom: -6px;
+        transform: translateX(-50%);
+      }
+
+      &:hover,
+      &:focus-visible {
+        color: $header-text-hover;
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+
+    .current-menu-item > a,
+    .current-page-ancestor > a {
+      color: $header-text-hover;
+    }
+  }
+}
+
+// ── Header actions (search + hamburger) ──────────────────────────────────
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: calc($spacing-unit * 2);
+
+  // Vertical separator — on desktop it sits between nav links and search
+  @media (min-width: $header-nav-bp) {
+    border-left: 1px solid $header-sep-color;
+    margin-left: calc($spacing-unit * 3);
+    padding-left: calc($spacing-unit * 3);
+  }
+}
+
+.search-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $header-text;
+  padding: 6px;
+  transition: color $transition-base;
+
+  &:hover,
+  &:focus-visible,
+  &.is-active {
+    color: $header-text-hover;
+    outline: none;
+  }
+}
+
+// Separator between search icon and hamburger (mobile only)
+.header-separator {
+  display: block;
+  width: 1px;
+  height: 20px;
+  background: $header-sep-color;
+
+  @media (min-width: $header-nav-bp) {
+    display: none;
+  }
+}
+
+// ── Hamburger / close toggle (mobile only) ────────────────────────────────
+.menu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $header-text;
+  padding: 4px;
+
+  @media (min-width: $header-nav-bp) {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $header-text-hover;
+    outline-offset: 2px;
+  }
+}
+
+.menu-toggle__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity $transition-base;
+
+  &--close {
+    display: none;
+  }
+}
+
+.menu-toggle.is-open {
+  .menu-toggle__icon--open {
+    display: none;
+  }
+
+  .menu-toggle__icon--close {
+    display: flex;
+  }
+}
+
+// ── Mobile menu overlay ──────────────────────────────────────────────────
+// Sits behind the slide-down menu panel, covering the rest of the viewport.
+.mobile-menu-overlay {
+  position: fixed;
+  top: $header-height;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 180;
+  background-color: #13142063;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media (min-width: $header-nav-bp) {
+    display: none;
+  }
+}
+
+// ── Mobile menu panel ─────────────────────────────────────────────────────
+// Absolutely positioned so the sticky header bar height never changes.
+.mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 190;
+  background-color: $header-bg;
+  transform: translateY(-8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.35s ease, opacity 0.35s ease, visibility 0.35s;
+
+  &.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__nav {
+    padding-top: calc($spacing-unit * 1);
+    padding-bottom: calc($spacing-unit * 3);
+  }
+
+  #mobile-menu-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      border-bottom: 1px solid #FFFFFF1A;
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      &:last-child { border-bottom: none; }
+
+      a {
+        display: block;
+        padding: 16px;
+        font-weight: 500;
+        color: $header-text;
+        transition: color $transition-base;
+
+        &:hover,
+        &:focus-visible {
+          color: $header-text-hover;
+        }
+      }
+
+      &.current-menu-item > a,
+      &.current-page-ancestor > a {
+        color: $header-text-hover;
+      }
+    }
+  }
+}
+
+// ── Search bar panel ──────────────────────────────────────────────────────
+// Absolutely positioned so it slides down over page content without
+// changing the header's height or shifting the sticky bar.
+.search-bar {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 190;
+  background-color: $header-search-bg;
+  border-bottom: 1px solid rgba($black, 0.1);
+  transform: translateY(-8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+
+  &.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+    gap: calc($spacing-unit * 1.5);
+    height: 64px;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    color: $primary-gray;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-family: $font-lato;
+    font-size: 1rem;
+    color: $header-search-text;
+    outline: none;
+    min-width: 0;
+
+    &::placeholder {
+      color: $primary-gray;
+    }
+  }
+
+  &__clear {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px;
+    color: $primary-gray;
+    padding: 4px;
+    transition: color $transition-base;
 
-    @include respond-to(lg) { display: none; }
-
-    .hamburger,
-    .hamburger::before,
-    .hamburger::after {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: $color-text;
-      transition: transform $transition-base;
-    }
-
-    .hamburger {
-      position: relative;
-
-      &::before,
-      &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-      }
-      &::before { top: -7px; }
-      &::after  { top: 7px; }
+    &:hover {
+      color: $header-search-text;
     }
   }
 
-  #primary-menu {
-    display: none;
+  &__submit {
+    flex-shrink: 0;
+    background-color: $deep-teal;
+    color: $white;
+    border: none;
+    cursor: pointer;
+    padding: calc($spacing-unit * 1.25) calc($spacing-unit * 3);
+    font-family: $font-lato;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: background-color $transition-base;
 
-    @include respond-to(lg) {
-      display: flex;
-      gap: calc($spacing-unit * 4);
-    }
-
-    &.is-open { display: flex; }
-
-    a {
-      font-size: 0.9375rem;
-      font-weight: 500;
-      color: $color-text;
-      transition: color $transition-base;
-
-      &:hover { color: $color-highlight; }
+    &:hover {
+      background-color: color.adjust($deep-teal, $lightness: -8%);
     }
   }
 }

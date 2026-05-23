@@ -1,8 +1,8 @@
 @use 'sass:list';
 @use 'functions' as *;
 
-$bp-type-mobile:  360;
-$bp-type-medium:  1440;
+$bp-type-mobile: 360;
+$bp-type-medium: 1440;
 $bp-type-desktop: 1920;
 
 // $lh: single value (constant) or 3-item list (at-1920, at-1440, at-360).
@@ -13,7 +13,7 @@ $bp-type-desktop: 1920;
 
   @if $lh != null {
     @if $multi-lh {
-      line-height: list.nth($lh, 3);  // at-360
+      line-height: list.nth($lh, 3); // at-360
     } @else {
       line-height: $lh;
     }
@@ -24,7 +24,7 @@ $bp-type-desktop: 1920;
 
     @if $multi-lh and list.nth($lh, 2) != list.nth($lh, 3) {
       @media (min-width: #{$bp-type-medium}px) {
-        line-height: list.nth($lh, 2);  // at-1440
+        line-height: list.nth($lh, 2); // at-1440
       }
     }
 
@@ -34,7 +34,7 @@ $bp-type-desktop: 1920;
     @media (min-width: #{$bp-type-medium}px) {
       font-size: fluid-between($size-medium, $size-desktop, $bp-type-medium, $bp-type-desktop);
       @if $multi-lh {
-        line-height: list.nth($lh, 2);  // at-1440
+        line-height: list.nth($lh, 2); // at-1440
       }
     }
   }
@@ -42,17 +42,18 @@ $bp-type-desktop: 1920;
   @media (min-width: #{$bp-type-desktop}px) {
     font-size: #{$size-desktop}px;
     @if $multi-lh {
-      line-height: list.nth($lh, 1);  // at-1920
+      line-height: list.nth($lh, 1); // at-1920
     }
   }
 }
 
 // 'token': (size-at-1920, size-at-1440, size-at-360, line-height)
 $type-scale: (
-  'body-L': (21, 18, 18, 1.6),
-  'body-M': (18, 16, 16, 1.6),
-  'h1':     (64, 46, 34, (1.09, 1.139, 1.08)),
-  'h2':     (48, 36, 30, (1.139, 1.139, 1.159)),
+        'body-L': (21, 18, 18, 1.6),
+        'body-M': (18, 16, 16, 1.6),
+        'h1': (64, 46, 34, (1.09, 1.139, 1.08)),
+        'h2': (48, 36, 30, (1.139, 1.139, 1.159)),
+        'navigation': (16, 14, 16, (1, 1, 1.5)),
   // 'body-S':  (16, 14, 14, 1.6),
   // 'caption': (14, 12, 12, 1.4),
   // 'h3':      (36, 28, 22, 1.2),

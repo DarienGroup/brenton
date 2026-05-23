@@ -7,3 +7,11 @@ add_action( 'after_setup_theme', function () {
 		'footer'  => __( 'Footer Navigation', 'brentonpoint' ),
 	] );
 } );
+
+/**
+ * Add a default `nav-link` class to every menu item <a>.
+ */
+add_filter( 'nav_menu_link_attributes', function ( $atts ) {
+	$atts['class'] = isset( $atts['class'] ) ? $atts['class'] . ' nav-link' : 'text-navigation nav-link';
+	return $atts;
+} );

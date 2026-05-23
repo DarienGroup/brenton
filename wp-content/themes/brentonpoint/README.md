@@ -65,6 +65,24 @@ The palette is defined in `abstracts/_variables.scss` as both raw variables and 
 
 To add a color: declare the raw variable, add it to `$palette` — the utility classes are generated automatically.
 
+### Font Weights
+
+Weight utility classes are generated from the `$font-weights` list in `abstracts/_variables.scss`:
+
+```html
+<p class="text-weight-300">Light</p>
+<p class="text-weight-400">Regular</p>
+<p class="text-weight-500">Medium</p>
+<p class="text-weight-600">Semi-bold</p>
+<p class="text-weight-700">Bold</p>
+```
+
+**Available weights:** `300` · `400` · `500` · `600` · `700`
+
+> Note: `300` is only available for Lato; `500` and `600` are only available for Montserrat. Applying an unavailable weight causes the browser to synthesise or round to the nearest loaded weight.
+
+To add or remove a step, edit `$font-weights` — the utility classes regenerate automatically on the next build.
+
 ### Fluid Typography
 
 Design reference viewports: **1920px** (desktop) · **1440px** (medium) · **360px** (mobile).
@@ -234,7 +252,7 @@ The toggle button is injected after `.entry-content` and toggles `.active` on it
 | File | Responsibility |
 |------|----------------|
 | `setup.php` | Theme supports, `$content_width` |
-| `enqueue.php` | Enqueue `dist/css/main.css` + `dist/js/main.js` using the theme version as cache-buster |
+| `enqueue.php` | Enqueue Google Fonts (Montserrat + Lato), `dist/css/main.css`, and `dist/js/main.js`; theme version used as cache-buster |
 | `nav-menus.php` | Register Primary and Footer nav locations |
 | `widgets.php` | Register main sidebar widget area |
 | `custom-post-types.php` | Force `our_portfolio` ordering by `menu_order ASC` |

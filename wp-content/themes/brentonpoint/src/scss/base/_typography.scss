@@ -4,7 +4,7 @@
 
 // ── Base element styles ───────────────────────────────────────────────────
 body {
-  font-family: $font-body;
+  font-family: $font-lato;
   font-size: $font-size-base;
   line-height: $line-height;
   color: $color-text;
@@ -12,7 +12,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $font-heading;
+  font-family: $font-montserrat;
   line-height: 1.2;
   color: $color-primary;
   // TODO: replace with @include ts.fluid-type() once heading tokens
@@ -47,6 +47,11 @@ em     { font-style: italic; }
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+// ── Font-weight utilities (.text-weight-300 / 400 / 500 / 600 / 700) ─────
+@each $weight in $font-weights {
+  .text-weight-#{$weight} { font-weight: $weight; }
 }
 
 @each $token, $values in ts.$type-scale {
