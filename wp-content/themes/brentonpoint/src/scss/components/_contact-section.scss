@@ -1,0 +1,431 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+@use '../abstracts/type-scale' as ts;
+
+.contact-section {
+  background-color: $secondary-gray;
+  color: $color-text;
+  padding-block: fluid-between($section-py-360, $section-py-1440, 360, 1440);
+
+  @media (min-width: 1440px) {
+    padding-block: fluid-between($section-py-1440, $section-py-1920, 1440, 1920);
+  }
+
+  &--home {
+    background: linear-gradient(180deg, #F5F5F3 0%, #FFFFFF 100%);
+  }
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+
+    @include respond-to(lg) {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 60px;
+      row-gap: 72px;
+      grid-template-areas:
+        'heading     description'
+        'cards       form';
+      align-items: start;
+    }
+
+    @media (min-width: 1441px) {
+      column-gap: 72px;
+    }
+  }
+
+  &__heading {
+    margin: 0;
+
+    @include respond-to(lg) {
+      grid-area: heading;
+    }
+  }
+
+  &__description {
+    margin: 0;
+
+    @include respond-to(lg) {
+      grid-area: description;
+    }
+  }
+
+  &__cards {
+    @include respond-to(lg) {
+      grid-area: cards;
+      align-self: center;
+    }
+  }
+
+  &__form {
+    @include respond-to(lg) {
+      grid-area: form;
+      align-self: center;
+    }
+  }
+
+  &__form-missing {
+    padding: calc($spacing-unit * 2);
+    background: $white;
+    border: 1px dashed $taupe;
+    color: $color-text-muted;
+    font-style: italic;
+  }
+}
+
+.contact-section__cards {
+  display: flex;
+  flex-direction: column;
+  gap: calc($spacing-unit * 2.5);
+}
+
+.contact-card {
+  background-color: $secondary-gray;
+  padding: 16px 28px;
+  border-top: 4px solid $cream;
+  @include respond-to(md) {
+    padding: 24px 28px;
+  }
+  @include respond-to(xl) {
+    padding: 28px;
+  }
+
+  &__heading {
+    font-family: $font-lato;
+    color: $color-text;
+    margin: 0 0 calc($spacing-unit * 1.5);
+
+    @include respond-to(md) {
+      margin: 0 0 calc($spacing-unit * 2);
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 1);
+
+    a {
+      color: $color-text;
+      text-decoration: none;
+      font-size: 1rem;
+
+      &:hover {
+        color: $color-accent;
+      }
+    }
+  }
+
+  &__address {
+    font-style: normal;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: $color-text;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+// Gravity Forms overrides — scoped to .contact-section
+.contact-section {
+  --gform-theme-field-grid-row-gap: 16px;
+  --gform-theme-field-grid-column-gap: 16px;
+  --gform-theme-field-gap: 16px;
+  --gf-fields-grid-row-gap: 16px;
+  --gf-fields-grid-column-gap: 16px;
+  --gform-theme-control-label-font-size: 18px;
+  --gform-theme-control-label-font-size-secondary: 18px;
+  --gform-theme-control-sub-label-font-size: 18px;
+  --gform-theme-control-description-font-size: 18px;
+  --gform-theme-control-height: 60px;
+  --gform-theme-control-textarea-min-height: 145px;
+  --gform-theme-control-textarea-height: 145px;
+  --gform-theme-control-textarea-height-large: 145px;
+
+  .gform_wrapper,
+  .gform_wrapper.gravity-theme {
+    margin: 0;
+    width: 100%;
+  }
+
+  .gform_fields {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    row-gap: 16px !important;
+    column-gap: 16px !important;
+    grid-row-gap: 16px !important;
+    grid-column-gap: 16px !important;
+
+    @include respond-to(md) {
+      grid-template-columns: 1fr 1fr !important;
+    }
+  }
+
+  .gfield {
+    grid-column: 1 / -1;
+    padding: 0;
+    margin: 0;
+    position: relative;
+  }
+
+  .gfield--width-half {
+    @include respond-to(md) {
+      grid-column: span 1;
+    }
+  }
+
+  // Floating label. `top: 30px` (= half of fixed 60px input) keeps it
+  // centred even when GF appends error markup inside .gfield.
+  .gfield_label,
+  legend.gfield_label {
+    position: absolute;
+    top: 30px;
+    left: 28px;
+    transform: translateY(-50%);
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+    z-index: 1;
+    font-family: $font-lato;
+    font-weight: 400;
+    color: $color-text;
+    transition: opacity $transition-base;
+    @include ts.fluid-type(18, 16, 16, 1.6);
+  }
+
+  // GF's `.gform-theme--framework .gfield_label` outranks plain class
+  // selectors → !important is required to enforce the text-body-M curve.
+  .gfield_label,
+  legend.gfield_label,
+  .gform-field-label,
+  .gfield_label_before_complex,
+  .gform-field-label--type-sub,
+  .gform-field-label--type-main {
+    font-family: $font-lato !important;
+    font-weight: 400 !important;
+    color: $color-text !important;
+    line-height: 1.6 !important;
+    font-size: 16px !important;
+
+    @media (min-width: 1440px) {
+      font-size: clamp(16px, calc(13.33333px + 0.13889vw), 18px) !important;
+    }
+
+    @media (min-width: 1920px) {
+      font-size: 18px !important;
+    }
+  }
+
+  .gfield--type-textarea,
+  .gfield--input-type-textarea {
+    > .gfield_label {
+      top: 15px;
+      transform: none;
+    }
+  }
+
+  .gfield_validation_message,
+  .gfield_description.validation_message,
+  .validation_message {
+    display: none !important;
+  }
+
+  .gfield_required {
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    color: $color-accent !important;
+
+    .gfield_required_text,
+    .gfield_required_asterisk {
+      color: $color-accent !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+
+  // Floating-label fade is driven by `placeholder=" "` injected via JS.
+  .gfield:focus-within > .gfield_label,
+  .gfield:has(input:not(:placeholder-shown)) > .gfield_label,
+  .gfield:has(textarea:not(:placeholder-shown)) > .gfield_label,
+  .gfield:has(fieldset:focus-within) > .gfield_label {
+    opacity: 0;
+  }
+
+  .ginput_container {
+    input[type='text'],
+    input[type='email'],
+    input[type='tel'],
+    input[type='url'],
+    input[type='number'],
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      background-color: $secondary-gray;
+      border: 1px solid $cream;
+      border-radius: 0;
+      box-shadow: none !important;
+      font-family: $font-lato;
+      color: $color-text;
+      transition: border-color $transition-base, background-color $transition-base;
+      @include ts.fluid-type(18, 16, 16, 1.6);
+
+      &::placeholder {
+        color: transparent;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $color-accent;
+        box-shadow: none !important;
+      }
+    }
+
+    input[type='text'],
+    input[type='email'],
+    input[type='tel'],
+    input[type='url'],
+    input[type='number'] {
+      height: 60px;
+      padding: 0 28px;
+    }
+
+    textarea {
+      // GF's framework sets a tall min-height via CSS var; force ours.
+      height: 145px !important;
+      min-height: 145px !important;
+      padding: 15px 28px;
+      resize: none;
+    }
+  }
+
+  .gfield_error .ginput_container,
+  .gfield--error .ginput_container {
+    input[type='text'],
+    input[type='email'],
+    input[type='tel'],
+    input[type='url'],
+    input[type='number'],
+    textarea {
+      background-color: #FCF6F6 !important;
+      border-color: #FE6767 !important;
+    }
+  }
+
+  // Required legend is moved by JS to sit after the textarea field.
+  // `-4px` top margin makes the gap above (textarea → legend) 12px while
+  // the gap below (legend → captcha) stays 16px via grid row-gap.
+  .gform_required_legend {
+    grid-column: 1 / -1;
+    margin: -4px 0 0 0;
+    padding: 0;
+    font-family: $font-lato;
+    font-weight: 400;
+    color: $color-text;
+    @include ts.fluid-type(18, 16, 16, 1.6);
+    // Asterisk styles inherit from the global `.gfield_required` rule above.
+  }
+
+  // Invisible reCAPTCHA renders empty — show a static "Captcha" placeholder.
+  .gfield--type-captcha,
+  .gfield--type-recaptcha,
+  .gfield_captcha_container {
+    > .gfield_label {
+      display: none !important;
+    }
+
+    .ginput_container,
+    > .ginput_container_captcha {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 15.5px 0;
+      border: 1px solid #D3CAC0;
+      background: transparent;
+      text-align: center;
+
+      &::before {
+        content: 'Captcha';
+        display: block;
+        font-family: $font-lato;
+        color: $color-text;
+        @include ts.fluid-type(18, 16, 16, 1.6);
+      }
+    }
+
+    // Set by contact-form.js when window.grecaptcha is still undefined
+    // after a 4s wait (typical when Google scripts are blocked locally).
+    &.is-captcha-unloaded {
+      .ginput_container,
+      > .ginput_container_captcha {
+        border-color: #FE6767;
+        background: #FCF6F6;
+
+        &::before {
+          content: '⚠ Captcha not loaded';
+          color: #FE6767;
+        }
+      }
+    }
+  }
+
+  .gform_footer {
+    display: block;
+    padding: 0;
+    margin-top: calc($spacing-unit * 2);
+  }
+
+  .gform_button,
+  input.gform_button,
+  button.gform_button {
+    width: 100%;
+    background-color: $color-accent;
+    color: $white;
+    border: 0;
+    border-radius: 0;
+    padding: calc($spacing-unit * 2) calc($spacing-unit * 3);
+    font-family: $font-lato;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+    position: relative;
+    transition: background-color $transition-base;
+
+    &::before {
+      content: '•';
+      margin-right: calc($spacing-unit * 1);
+    }
+
+    &::after {
+      content: '›';
+      position: absolute;
+      right: calc($spacing-unit * 3);
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: $color-primary;
+      outline: none;
+    }
+  }
+
+  .gform_confirmation_message {
+    padding: calc($spacing-unit * 3);
+    background: $white;
+    border: 1px solid $cream;
+    font-size: 1rem;
+    color: $color-text;
+  }
+}

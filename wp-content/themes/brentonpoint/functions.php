@@ -9,6 +9,7 @@ foreach ( [
 	'custom-post-types',
 	'redirects',
 	'helpers',
+	'gravity-forms',
 ] as $file ) {
 	require_once get_template_directory() . '/inc/' . $file . '.php';
 }

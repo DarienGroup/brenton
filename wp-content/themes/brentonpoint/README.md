@@ -258,6 +258,7 @@ The toggle button is injected after `.entry-content` and toggles `.active` on it
 | `custom-post-types.php` | Force `our_portfolio` ordering by `menu_order ASC` |
 | `redirects.php` | 301-redirect single portfolio entries to `/portfolio/#anchor` |
 | `helpers.php` | `brentonpoint_posted_on()`, `brentonpoint_posted_by()` template tags |
+| `gravity-forms.php` | Filters `gform_required_legend` so the legend always reads "* indicates required fields" |
 
 ### Portfolio ordering
 
@@ -266,6 +267,98 @@ The toggle button is injected after `.entry-content` and toggles `.active` on it
 ### Portfolio redirects
 
 Individual `our_portfolio` entries have no standalone template. Any direct visit is 301-redirected to `/portfolio/#slug`, where the anchor is `sanitize_title($post->post_title)`. The portfolio page is expected to contain matching anchor points.
+
+---
+
+## Contact Section
+
+A reusable "Get in Touch" section used on the homepage and a Contact page.
+
+### Where it lives
+
+| File | Role |
+|------|------|
+| `template-parts/sections/contact-section.php` | The component markup |
+| `front-page.php` | Homepage; includes the section with `variant => 'home'` |
+| `page-templates/contact.php` | Page Template "Contact"; includes the section with `variant => 'default'` |
+| `src/scss/components/_contact-section.scss` | All styles, including scoped Gravity Forms overrides |
+| `src/js/parts/contact-form.js` | Floating-label placeholder, legend repositioning, captcha load check |
+
+To add the section to another page, create the appropriate template (or call directly):
+
+```php
+get_template_part(
+    'template-parts/sections/contact-section',
+    null,
+    [ 'variant' => 'default' ]   // or 'home' for the gradient background
+);
+```
+
+### Variants
+
+| Value | Effect |
+|-------|--------|
+| `default` | Solid `$secondary-gray` background |
+| `home` | Vertical gradient `#F5F5F3 → #FFFFFF` |
+
+### Layout
+
+| Viewport | Layout | Gaps |
+|----------|--------|------|
+| `< 992px` (mobile) | Single column, stacked: heading → description → cards → form | 40px |
+| `992 – 1440px` (desktop) | 2×2 grid (heading \| description / cards \| form), row 2 vertically centred | row 72px, col 60px |
+| `≥ 1441px` (wide) | Same 2×2 grid | row 72px, col 72px |
+
+### ACF fields
+
+**Global** — set on the *Site Settings* options page, reused by everything (footer + contact section):
+
+| Field name | Type | Used for |
+|------------|------|----------|
+| `contact_form_id` | Number | Gravity Form ID rendered in the form column |
+| `contact_email` | Email/Text | Contact Info card — email |
+| `phone_number` | Text | Contact Info card — phone |
+| `press_inquiries_email` | Email/Text | Press Inquiries card — email |
+| `footer_address` | Textarea | Address card body (shared with the site footer) |
+
+**Per page** — attach to the homepage and to any page using the *Contact* page template:
+
+| Field name | Type | Notes |
+|------------|------|-------|
+| `contact_section_heading` | Text | Falls back to "Get in Touch with Us" |
+| `contact_section_description` | Textarea | Optional |
+| `contact_section_show_press` | True/False | Toggles the Press Inquiries card |
+| `contact_section_info_heading` | Text | Card title, default "Contact Info" |
+| `contact_section_press_heading` | Text | Card title, default "Press Inquiries" |
+| `contact_section_address_heading` | Text | Card title, default "Address" |
+
+If any per-page field is empty the template falls back to the defaults shown above, so nothing breaks while fields are being configured.
+
+### Form rendering
+
+The form is rendered server-side via `gravity_form( $form_id, false, false, false, null, true )`. The 6th argument (`true`) enables Gravity Forms' AJAX submission — submissions never trigger a full page reload. AJAX requires jQuery, which `inc/enqueue.php` declares as a dependency of `brentonpoint-main`.
+
+The expected form should contain these field labels (any single Gravity Form will work as long as it has these — the form ID is stored in ACF):
+
+- First Name *, Last Name *
+- Email Address *
+- Phone (optional)
+- How can we help you? * (paragraph/textarea)
+- A captcha field (invisible reCAPTCHA recommended)
+
+### JS polish (`src/js/parts/contact-form.js`)
+
+`initContactForm()` does three things on page-ready and again on Gravity Forms' `gform_post_render` event:
+
+1. **Floating labels** — sets `placeholder=" "` on every input/textarea so the `:placeholder-shown` CSS selector can fade the overlaid label out when the field is filled.
+2. **Required legend repositioning** — moves `.gform_required_legend` ("* indicates required fields") to sit immediately after the textarea field, with a `-4px` top margin so the gap above (textarea → legend) is 12px and the gap below (legend → captcha) remains 16px.
+3. **Captcha load check** — 4 seconds after init, if `window.grecaptcha` is still undefined, adds `.is-captcha-unloaded` to the captcha field wrapper. The SCSS variant swaps the placeholder text to "⚠ Captcha not loaded" in red. Useful on local environments where Google's script is blocked.
+
+### Styling notes
+
+- The form inputs use a fixed `60px` height, the textarea `145px`. Browsers vertically centre input text natively, so a single `top: 30px` keeps the floating label aligned to the input centre even when GF appends error markup that grows `.gfield`.
+- Gravity Forms ships its own theme framework whose stylesheet loads after `dist/css/main.css`. CSS variables on `.contact-section` (`--gform-theme-control-height`, `--gform-theme-control-textarea-min-height`, …) handle most cases; `!important` is used only on the few properties where GF's framework selectors win on specificity (label `font-size`, textarea `height`/`min-height`, input `box-shadow`).
+- Per-field error descriptions are hidden — the form-level error banner plus the red border + background on the field itself is enough.
 
 ---
 

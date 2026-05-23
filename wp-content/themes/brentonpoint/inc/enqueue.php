@@ -74,7 +74,7 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_script(
 		'brentonpoint-main',
 		$dist . '/js/main.js',
-		[],
+		[ 'jquery' ],
 		$ver,
 		true
 	);
