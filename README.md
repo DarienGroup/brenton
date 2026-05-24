@@ -388,12 +388,13 @@ If no matching file exists, the page renders header + hero + footer only — no 
 
 ```php
 get_template_part('template-parts/components/media-text', null, [
-    'image'   => get_field('firm_about_image'),     // ACF array | attachment ID | URL
-    'heading' => 'Brenton Point Capital Partners',
-    'body'    => get_field('firm_about_body'),       // wpautop applied
-    'button'  => null,                               // optional: ['label', 'href', 'target', 'variant']
-    'reverse' => false,                              // true → image on right at lg+
-    'class'   => 'firm-about-section__media-text',   // optional extra class on the wrapper
+    'image'         => get_field('firm_about_image'),     // ACF array | attachment ID | URL
+    'heading'       => 'Brenton Point Capital Partners',
+    'heading_class' => 'text-h3',                          // default; override per callsite (e.g. 'text-h2')
+    'body'          => get_field('firm_about_body'),       // wpautop applied
+    'button'        => null,                               // optional: ['label', 'href', 'target', 'variant']
+    'reverse'       => false,                              // true → image on right at lg+
+    'class'         => 'firm-about-section__media-text',   // optional extra class on the wrapper
 ]);
 ```
 
