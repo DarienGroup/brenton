@@ -340,6 +340,75 @@ Individual `our_portfolio` entries have no standalone template. Any direct visit
 
 ---
 
+## Inner Pages
+
+Inner pages (Firm, Team, etc.) share a single page template that renders the standard chrome — header → page hero → page-specific sections → footer. Each inner page differs only in *which* sections it loads, resolved by slug at render time.
+
+### Files
+
+| File | Role |
+|------|------|
+| `page-templates/inner.php` | `Template Name: Inner page`. Renders the page hero and routes to a slug-matched sections file. |
+| `template-parts/page-sections/{slug}.php` | Page-specific composition — just `get_template_part(...)` calls for that page's sections. |
+| `template-parts/sections/{name}-section.php` | The individual section template parts (markup + ACF reads). |
+| `template-parts/components/media-text.php` | Shared two-column image + text block. See [media-text component](#media-text-component). |
+
+### How `inner.php` resolves sections
+
+```php
+$slug          = get_post_field('post_name', get_the_ID());
+$sections_file = get_template_directory() . '/template-parts/page-sections/' . $slug . '.php';
+
+if ($slug && file_exists($sections_file)) {
+    get_template_part('template-parts/page-sections/' . $slug);
+}
+```
+
+If no matching file exists, the page renders header + hero + footer only — no error.
+
+### Adding a new inner page
+
+1. **Create the page in WP admin.** Set the slug (e.g. `team`) and assign **Page Attributes → Template → Inner page**.
+2. **Create the sections file** `template-parts/page-sections/{slug}.php`. List the sections in render order:
+
+   ```php
+   <?php
+   defined('ABSPATH') || exit;
+
+   get_template_part('template-parts/sections/team-leadership-section');
+   get_template_part('template-parts/sections/team-values-section');
+   ```
+
+3. **Build each section template part** at `template-parts/sections/{name}-section.php` (markup + `get_field()` reads), plus a matching SCSS partial at `src/scss/components/_{name}-section.scss` registered in `main.scss`.
+4. **Register the ACF field group** scoped to that page. With JSON sync enabled (see below), create the group in admin and commit the generated `acf-json/group_*.json` file.
+
+### media-text component
+
+`template-parts/components/media-text.php` is the shared image-left / text-right block (image stacks below content on mobile). Pass content via `$args` — the component does no ACF lookup itself.
+
+```php
+get_template_part('template-parts/components/media-text', null, [
+    'image'   => get_field('firm_about_image'),     // ACF array | attachment ID | URL
+    'heading' => 'Brenton Point Capital Partners',
+    'body'    => get_field('firm_about_body'),       // wpautop applied
+    'button'  => null,                               // optional: ['label', 'href', 'target', 'variant']
+    'reverse' => false,                              // true → image on right at lg+
+    'class'   => 'firm-about-section__media-text',   // optional extra class on the wrapper
+]);
+```
+
+Styles live in `src/scss/components/_media-text.scss`. The component owns its internal spacing; the calling section owns vertical rhythm around it (e.g. by targeting the extra class passed via `class`).
+
+### ACF field groups (JSON sync)
+
+ACF local JSON sync is wired up in `inc/acf.php`. Field groups created or edited in **WP admin → Custom Fields** are auto-written to `acf-json/group_*.json` in the theme. Commit those JSON files alongside template / SCSS changes.
+
+On other environments, **Custom Fields → Tools** shows the groups as syncable — click *Sync* to import the JSON into that environment's database. This keeps field structure in version control without manual export/import.
+
+**Location rules.** For inner-page field groups, scope to the specific page (`Page is equal to {Page Title}`). Don't scope to `Page Template is equal to Inner page` — that would surface every inner page's fields on every inner page.
+
+---
+
 ## Contact Section
 
 A reusable "Get in Touch" section used on the homepage and a Contact page.
