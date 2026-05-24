@@ -225,6 +225,218 @@
             "message": "The Mission and Vision tabs shown on this page are pulled directly from the <strong>home page</strong>. To edit their content (tab labels, headings, body text, badge labels, image), update the fields on the home page — changes appear here automatically.\n\n<a href=\"/wp-admin/edit.php?post_type=page\">Open the Pages list →</a>",
             "new_lines": "wpautop",
             "esc_html": 0
+        },
+        {
+            "key": "field_6a1380bfa3d00",
+            "label": "Featured video section",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_6a1380cfa3d01",
+            "label": "Heading",
+            "name": "firm_video_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a1380d8a3d02",
+            "label": "Speaker name",
+            "name": "firm_video_speaker",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Shown inside the blue badge below the heading (e.g. \"With Tim Hall\").",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "With ",
+            "append": ""
+        },
+        {
+            "key": "field_6a1380e1a3d03",
+            "label": "Body",
+            "name": "firm_video_body",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_6a1380e9a3d04",
+            "label": "Card title",
+            "name": "firm_video_card_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Caption rendered beneath the video card.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a1380f2a3d05",
+            "label": "Video type",
+            "name": "firm_video_type",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "youtube": "YouTube",
+                "upload": "Uploaded file"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "default_value": "youtube",
+            "layout": "horizontal",
+            "return_format": "value",
+            "save_other_choice": 0,
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_6a1380fba3d06",
+            "label": "Cover image",
+            "name": "firm_video_cover",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Thumbnail shown before the visitor clicks play.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_6a138103a3d07",
+            "label": "YouTube URL",
+            "name": "firm_video_youtube_url",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Paste the full YouTube URL or just the video ID.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6a1380f2a3d05",
+                        "operator": "==",
+                        "value": "youtube"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "https://www.youtube.com/watch?v=…",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a13810ba3d08",
+            "label": "Video file",
+            "name": "firm_video_file",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6a1380f2a3d05",
+                        "operator": "==",
+                        "value": "upload"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": "mp4,webm,mov",
+            "allow_in_bindings": 0
         }
     ],
     "location": [
@@ -248,5 +460,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1779656011
+    "modified": 1779656935
 }

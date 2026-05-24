@@ -113,9 +113,6 @@ $section_classes = ['hear-from-us-section'];
 if ('home' === $args['variant']) {
     $section_classes[] = 'hear-from-us-section--home';
 }
-
-$play_icon = file_get_contents(get_template_directory() . '/images/play-button.svg') ?: '';
-$yt_badge  = file_get_contents(get_template_directory() . '/images/youtube-badge.svg') ?: '';
 ?>
 <section class="<?php echo esc_attr(implode(' ', $section_classes)); ?>" data-reveal>
     <div class="hear-from-us-section__inner container">
@@ -128,46 +125,7 @@ $yt_badge  = file_get_contents(get_template_directory() . '/images/youtube-badge
 
         <ul class="hear-from-us-section__list">
             <?php foreach ($items as $item) : ?>
-                <li class="hear-from-us-card">
-                    <button type="button"
-                            class="hear-from-us-card__player"
-                            data-hear-from-us
-                            data-video-type="<?php echo esc_attr($item['type']); ?>"
-                            <?php if ($item['type'] === 'youtube') : ?>
-                                data-youtube-id="<?php echo esc_attr($item['youtube_id']); ?>"
-                            <?php else : ?>
-                                data-video-url="<?php echo esc_url($item['file_url']); ?>"
-                                data-video-mime="<?php echo esc_attr($item['file_mime']); ?>"
-                            <?php endif; ?>
-                            aria-label="<?php echo esc_attr(sprintf(
-                                /* translators: %s: video title */
-                                __('Play video: %s', 'brentonpoint'),
-                                $item['title'] ?: __('Video', 'brentonpoint')
-                            )); ?>">
-                        <?php if ($item['cover_url']) : ?>
-                            <img class="hear-from-us-card__cover"
-                                 src="<?php echo esc_url($item['cover_url']); ?>"
-                                 alt="<?php echo esc_attr($item['cover_alt']); ?>"
-                                 loading="lazy">
-                        <?php endif; ?>
-
-                        <span class="hear-from-us-card__play" aria-hidden="true">
-                            <?php echo $play_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                        </span>
-
-                        <?php if ($item['type'] === 'youtube' && $yt_badge) : ?>
-                            <span class="hear-from-us-card__badge" aria-hidden="true">
-                                <?php echo $yt_badge; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                            </span>
-                        <?php endif; ?>
-                    </button>
-
-                    <?php if ($item['title']) : ?>
-                        <p class="hear-from-us-card__title text-body-M text-color-black">
-                            <?php echo esc_html($item['title']); ?>
-                        </p>
-                    <?php endif; ?>
-                </li>
+                <?php get_template_part('template-parts/components/video-card', null, array_merge($item, ['wrapper' => 'li'])); ?>
             <?php endforeach; ?>
         </ul>
 

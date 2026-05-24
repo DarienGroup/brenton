@@ -1,0 +1,97 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+// Section padding comes from the shared .section utility.
+.firm-video-section {
+  background-color: $deep-teal;
+  color: $white;
+
+  // Same two-column grid + breakpoints used by .media-text and the
+  // approach section, so all "split" blocks on this page share rhythm.
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: calc($spacing-unit * 4);
+
+    @include respond-to(lg) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: calc($spacing-unit * 7);
+    }
+
+    @media (min-width: 1440px) {
+      gap: 80px;
+    }
+  }
+
+  // Per design: when stacked (<lg), the video block drops below the
+  // text content. At lg+ source order keeps it on the left.
+  &__media {
+    @media (max-width: 991px) {
+      order: 1;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__heading {
+    margin: 0;
+    font-family: $font-lato;
+
+    // Constrain heading width at lg+ so the line breaks match the design.
+    // Mobile (stacked) keeps the natural full-width reading length.
+    @include respond-to(lg) {
+      max-width: 380px;
+    }
+  }
+
+  // Speaker pill — solid fill + gradient border. Painted via
+  // padding-box / border-box layers so the gradient border survives
+  // the 999px radius (border-image-source would clip to a rectangle).
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: calc($spacing-unit * 1);
+    margin-top: 20px;
+    padding: 8px 24px 8px 10px;
+    color: $white;
+    border-radius: 999px;
+    font-family: $font-lato;
+    font-weight: 500;
+    background: linear-gradient(rgb(57, 103, 128), rgb(57, 103, 128)) padding-box,
+                linear-gradient(180deg, rgba(72, 182, 228, 0.1) 0.42%, #48B6E4 91.02%) border-box;
+    border: 1px solid transparent;
+  }
+
+  &__badge-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+
+    svg {
+      display: block;
+    }
+  }
+
+  &__body {
+    margin-top: fluid-between(24, 32, 768, 1440);
+    font-family: $font-montserrat;
+    color: $secondary-gray;
+
+    @media (min-width: 1440px) {
+      margin-top: fluid-between(32, 40, 1440, 1920);
+    }
+
+    p {
+      margin: 0 0 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
