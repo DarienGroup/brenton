@@ -1,0 +1,201 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+// Section height scales 808px @ 1920 down to a comfortable mobile minimum.
+// 808 / 1920 ≈ 42.083vw.
+.investment-section {
+  position: relative;
+  width: 100%;
+  height: clamp(560px, 42.083vw, 808px);
+  overflow: hidden;
+  background-color: $color-secondary;
+  color: $white;
+
+  @media (min-width: 1920px) {
+    height: 808px;
+  }
+
+  // Stacked: grow with content, symmetric 72px vertical padding.
+  @media (max-width: $bp-md) {
+    height: auto;
+  }
+
+  &__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    container-type: size;
+    container-name: investment-media;
+  }
+
+  &__poster {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+
+  &__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 400ms ease-out;
+  }
+
+  &.is-video-playing &__video {
+    opacity: 1;
+  }
+
+  // Vimeo iframe: scaled to cover the media wrapper while preserving 16:9,
+  // matching the visual behaviour of `object-fit: cover` on the <video>.
+  &__iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100cqw, calc(100cqh * 16 / 9));
+    height: max(100cqh, calc(100cqw * 9 / 16));
+    transform: translate(-50%, -50%);
+    border: 0;
+    pointer-events: none;
+    display: block;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 400ms ease-out;
+  }
+
+  &.is-video-playing &__iframe {
+    opacity: 1;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(19, 20, 32, 0.43);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  // Decorative cyan ring at top-right. Scales with the section width and
+  // animates in alongside the section's general reveal.
+  &__ellipse {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: clamp(360px, 32.187vw, 618px); // 618 / 1920 ≈ 32.187vw
+    aspect-ratio: 618 / 442;
+    z-index: 3;
+    pointer-events: none;
+    transform-origin: 100% 0%;
+
+    opacity: 0;
+    transform: scale(0.92) translate(8%, -8%);
+    transition: opacity 900ms ease-out 200ms,
+                transform 900ms ease-out 200ms;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &.is-visible &__ellipse {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+
+  // Content anchored to the bottom of the section.
+  // padding-bottom 116px @ 1920 ≈ 6.04vw, scales down on smaller screens.
+  &__inner {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: clamp(40px, 6.04vw, 116px);
+    gap: clamp(24px, 2.5vw, 48px);
+
+    // Stacked: section grows with content, so no longer fills the section
+    // and bottom anchoring isn't needed — switch to symmetric 72px padding.
+    @media (max-width: $bp-md) {
+      height: auto;
+      justify-content: flex-start;
+      padding-top: 72px;
+      padding-bottom: 72px;
+    }
+  }
+
+  &__heading {
+    margin: 0;
+    font-family: $font-lato;
+  }
+
+  // Gap: 24px @1920 → 20px @1440 (linear), held at 20px below 1440.
+  &__cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(20px, calc(0.8333vw + 8px), 24px);
+
+    @media (max-width: $bp-md) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.investment-card {
+  position: relative;
+  background-color: $white;
+  color: $color-text;
+  // padding: 40px 28px @1920 → 40px 24px @1440 (horizontal interpolates only).
+  padding: 40px clamp(24px, calc(0.8333vw + 12px), 28px);
+  display: flex;
+  flex-direction: column;
+  // Gap: 20px @1920 → 16px @1440.
+  gap: clamp(16px, calc(0.8333vw + 4px), 20px);
+  border-top: 4px solid $color-accent;
+
+  // Stacked layout: tighter horizontal padding + gap.
+  @media (max-width: $bp-md) {
+    padding: 40px 16px;
+    gap: 12px;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: $font-montserrat;
+  }
+
+  &__body {
+    margin: 0;
+    color: $primary-gray;
+
+    p {
+      margin: 0;
+    }
+
+    p + p {
+      margin-top: 0.5em;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .investment-section__ellipse {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

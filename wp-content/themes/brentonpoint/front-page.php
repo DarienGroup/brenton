@@ -38,6 +38,12 @@ get_header();
         );
 
         get_template_part(
+                'template-parts/sections/investment-criteria-section',
+                null,
+                ['variant' => 'home']
+        );
+
+        get_template_part(
                 'template-parts/sections/news-section',
                 null,
                 ['variant' => 'home']

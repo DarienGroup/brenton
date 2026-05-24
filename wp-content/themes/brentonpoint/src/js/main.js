@@ -6,6 +6,7 @@ import { initScrollReveal } from './parts/animations';
 import { initPortfolioReadMore, initTeamReadMore } from './parts/read-more';
 import { initContactForm } from './parts/contact-form';
 import { initAboutTabs } from './parts/about-tabs';
+import { initInvestmentVideo } from './parts/investment-video';
 import { initHomePage } from './pages/home';
 import { initPage } from './pages/page';
 import { initPortfolioTabs } from './pages/portfolio';
@@ -18,6 +19,7 @@ ready(() => {
   initTeamReadMore();
   initContactForm();
   initAboutTabs();
+  initInvestmentVideo();
   initPortfolioTabs();
   initHomePage();
   initPage();
