@@ -4,6 +4,14 @@ get_header();
 ?>
 
     <main id="main" class="site-main site-main--home">
+        <?php
+        get_template_part(
+                'template-parts/sections/hero-section',
+                null,
+                ['variant' => 'home']
+        );
+        ?>
+
         <?php if (have_posts()) : ?>
             <?php while (have_posts()) : the_post(); ?>
                 <?php if (trim(get_the_content()) !== '') : ?>
