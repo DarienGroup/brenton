@@ -1,0 +1,11 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+// Padding is owned by the shared .section utility (layout/_grid.scss).
+// The template suppresses the top padding via inline --section-pt: 0px
+// so the tabs butt up against the approach block above.
+.firm-tabs-section {
+  background-color: $white;
+  color: $color-text;
+}

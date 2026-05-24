@@ -1,0 +1,27 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+.firm-about-section {
+  background-color: $white;
+  color: $color-text;
+  padding-block: fluid-between($section-py-360, $section-py-1440, 360, 1440);
+
+  @media (min-width: 1440px) {
+    padding-block: fluid-between($section-py-1440, $section-py-1920, 1440, 1920);
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__heading {
+    margin: 0 0 fluid-between(40, 60, 768, 1440);
+    font-family: $font-lato;
+
+    @media (min-width: 1440px) {
+      margin-bottom: fluid-between(60, 72, 1440, 1920);
+    }
+  }
+}

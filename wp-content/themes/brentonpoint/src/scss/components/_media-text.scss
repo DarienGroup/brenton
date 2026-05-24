@@ -2,10 +2,9 @@
 @use '../abstracts/mixins' as *;
 @use '../abstracts/functions' as *;
 
-// Component — lives inside .about-section (no section-level padding).
-// The outer section owns the vertical rhythm; spacing between .about-tabs
-// and this block is set in _about-section.scss.
-.partnership {
+// Generic two-column image + text block. The outer section owns its own
+// vertical rhythm — this component just lays out media and content.
+.media-text {
   display: grid;
   grid-template-columns: 1fr;
   gap: calc($spacing-unit * 4);
@@ -58,6 +57,17 @@
     font-family: $font-lato;
   }
 
+  // Tighter gap after the heading when it uses the h3 type scale:
+  // 32px @ 1920, 28px @ 1440, 24px @ 768. Beats the generic
+  // `&__content > * + *` rule above on specificity (.text-h3 adds a class).
+  &__heading.text-h3 + * {
+    margin-top: fluid-between(24, 28, 768, 1440);
+
+    @media (min-width: 1440px) {
+      margin-top: fluid-between(28, 32, 1440, 1920);
+    }
+  }
+
   &__body {
     font-family: $font-montserrat;
     color: $primary-gray;
@@ -79,6 +89,15 @@
 
     @media (min-width: 1440px) {
       margin-top: fluid-between(52, 60, 1440, 1920);
+    }
+  }
+
+  // Reverse variant — image on the right at lg+. Mobile order is unchanged
+  // (image still drops below content).
+  &--reverse {
+    @include respond-to(lg) {
+      .media-text__media { order: 2; }
+      .media-text__content { order: 1; }
     }
   }
 }

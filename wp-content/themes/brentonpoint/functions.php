@@ -12,6 +12,7 @@ foreach ( [
 	'components',
 	'shortcodes',
 	'gravity-forms',
+	'acf',
 ] as $file ) {
 	require_once get_template_directory() . '/inc/' . $file . '.php';
 }

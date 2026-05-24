@@ -1,0 +1,56 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+// Padding is owned by the shared .section utility (layout/_grid.scss).
+// The section template suppresses the top padding via inline
+// --section-pt: 0px so this block butts up to the about section.
+.firm-approach-section {
+  background-color: $white;
+  color: $color-text;
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: calc($spacing-unit * 4);
+
+    @include respond-to(lg) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: calc($spacing-unit * 7);
+    }
+
+    @media (min-width: 1440px) {
+      gap: 80px;
+    }
+  }
+
+  &__lead {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Small kicker above the heading: 24px gap at 1920, 20px at 1440,
+  // 16px at 768 — clamped on both sides.
+  &__kicker {
+    margin-bottom: 12px;
+    font-family: $font-lato;
+  }
+
+  &__heading {
+    margin: 0;
+    font-family: $font-lato;
+  }
+
+  &__body {
+    font-family: $font-montserrat;
+    color: $primary-gray;
+
+    p {
+      margin: 0 0 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
