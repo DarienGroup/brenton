@@ -79,6 +79,22 @@ $button-variants: (
     width: 100%;
   }
 
+  // Inline "Read More"-style link: transparent, no padding, full card width.
+  // Bullet + label sit on the left, chevron is pushed to the right by the
+  // base .btn__icon `margin-inline-start: auto`.
+  &--link-teal {
+    width: 100%;
+    padding: 0;
+    background-color: transparent;
+    color: $color-primary;
+    border-color: transparent;
+
+    &:hover {
+      background-color: transparent;
+      color: $color-accent;
+    }
+  }
+
   // ── Color variants (generated from $button-variants) ──────────────────────
   @each $name, $c in $button-variants {
     &--#{$name} {

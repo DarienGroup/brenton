@@ -1,0 +1,25 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/functions' as *;
+
+.quote {
+  border: 1px solid $cream;
+  color: $color-text;
+  padding: 16px 24px;
+  font-family: $font-montserrat;
+
+  @media (min-width: 768px) {
+    padding-block: fluid-between(16, 20, 768, 1200);
+  }
+
+  @media (min-width: 1200px) {
+    padding-block: 20px;
+  }
+
+  p {
+    margin: 0;
+
+    & + p {
+      margin-top: calc($spacing-unit * 1.5);
+    }
+  }
+}
