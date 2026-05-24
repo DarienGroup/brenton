@@ -1,0 +1,85 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+.news-listing-section {
+  background-color: $white;
+  color: $color-text;
+  padding-block: fluid-between($section-py-360, $section-py-1440, 360, 1440);
+
+  @media (min-width: 1440px) {
+    padding-block: fluid-between($section-py-1440, $section-py-1920, 1440, 1920);
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: calc($spacing-unit * 2);
+
+    @include respond-to(lg) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: calc($spacing-unit * 7);
+      align-items: start;
+    }
+
+    @media (min-width: 1440px) {
+      gap: 80px;
+    }
+  }
+
+  &__heading {
+    margin: 0;
+
+    @include respond-to(lg) {
+      max-width: 436px;
+    }
+  }
+
+  &__description {
+    color: $primary-gray;
+    font-family: $font-montserrat;
+
+    p {
+      margin: 0 0 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__cards {
+    list-style: none;
+    margin: 40px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: calc($spacing-unit * 2.5);
+
+    @include respond-to(md) {
+      margin-top: fluid-between(40, 60, 768, 1440);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (min-width: 1440px) {
+      margin-top: fluid-between(60, 72, 1440, 1920);
+    }
+
+    @media (min-width: 1920px) {
+      margin-top: 72px;
+    }
+
+    @include respond-to(xl) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @include respond-to(xxl) {
+      gap: calc($spacing-unit * 3);
+    }
+  }
+}

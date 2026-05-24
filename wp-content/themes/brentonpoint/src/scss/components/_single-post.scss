@@ -1,0 +1,116 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+.single-post {
+  background-color: $white;
+  color: $color-text;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 2.5);
+    max-width: 840px;
+    padding-inline: 20px;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 1.5);
+  }
+
+  &__meta {
+    color: $primary-gray;
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__featured {
+    margin: 0;
+  }
+
+  &__featured-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  &__content {
+    font-family: $font-montserrat;
+    color: $color-text;
+    line-height: 1.6;
+    max-width: 880px;
+
+    > * + * {
+      margin-top: 1.25em;
+    }
+
+    p {
+      margin: 0;
+
+      & + p {
+        margin-top: 12px;
+      }
+    }
+
+    h2, h3, h4 {
+      font-family: $font-lato;
+      color: $color-text;
+      font-weight: 600;
+      margin-top: 1.75em;
+      line-height: 1.25;
+    }
+
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.375rem; }
+    h4 { font-size: 1.125rem; }
+
+    a {
+      color: $cyan;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    ul, ol {
+      margin: 0;
+      padding-left: 1.25em;
+
+      li + li {
+        margin-top: 0.5em;
+      }
+    }
+
+    blockquote {
+      margin: 0;
+      padding-left: calc($spacing-unit * 2);
+      border-left: 3px solid $taupe;
+      color: $primary-gray;
+      font-style: italic;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    figure {
+      margin: 0;
+
+      figcaption {
+        margin-top: calc($spacing-unit * 1);
+        font-size: 0.875rem;
+        color: $primary-gray;
+      }
+    }
+  }
+}

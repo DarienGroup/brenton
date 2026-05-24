@@ -11,6 +11,54 @@ function brentonpoint_posted_by(): void {
 }
 
 /**
+ * Sanitize post content imported from legacy Enfold/Avia builds.
+ *
+ * Strips Avia shortcode wrappers like [av_section ...], [av_textblock ...],
+ * [av_image ...] and their closing tags while preserving the meaningful text
+ * and media between them. Curly/smart quotes in shortcode attributes are
+ * normalized first so the regex matches reliably. Images embedded as Avia
+ * shortcodes are converted to plain <img> tags using the `src` attribute when
+ * present.
+ *
+ * Output is run through wpautop + wp_kses_post so it's safe to echo without
+ * additional escaping.
+ */
+function brentonpoint_clean_post_content( string $content ): string {
+	if ( $content === '' ) {
+		return '';
+	}
+
+	$content = str_replace(
+		[ "\xE2\x80\x98", "\xE2\x80\x99", "\xE2\x80\x9C", "\xE2\x80\x9D" ],
+		[ "'", "'", '"', '"' ],
+		$content
+	);
+
+	$content = preg_replace_callback(
+		'/\[av_image\b([^\]]*)\]/i',
+		static function ( $m ) {
+			if ( preg_match( '/\bsrc=([\'"])(.*?)\1/i', $m[1], $src ) ) {
+				return '<img src="' . esc_url( $src[2] ) . '" alt="">';
+			}
+			if ( preg_match( '/\battachment=([\'"])(\d+)\1/i', $m[1], $att ) ) {
+				$url = wp_get_attachment_image_url( (int) $att[2], 'large' );
+				if ( $url ) {
+					return '<img src="' . esc_url( $url ) . '" alt="">';
+				}
+			}
+			return '';
+		},
+		$content
+	);
+
+	$content = preg_replace( '/\[\/?av_[a-z0-9_]*[^\]]*\]/i', '', $content );
+
+	$content = preg_replace( '/\n{3,}/', "\n\n", trim( (string) $content ) );
+
+	return wp_kses_post( wpautop( $content ) );
+}
+
+/**
  * Build the args for the about-tabs component from ACF fields on a given
  * post. Used by the homepage about section and by the firm page tabs
  * section, which pulls the same data from the front page.

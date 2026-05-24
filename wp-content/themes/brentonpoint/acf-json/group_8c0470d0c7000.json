@@ -1,0 +1,162 @@
+{
+    "key": "group_8c0470d0c7000",
+    "title": "Contact Page",
+    "fields": [
+        {
+            "key": "field_8c0470d1c7001",
+            "label": "Section heading",
+            "name": "contact_section_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Main heading above the form. Defaults to \"Get in Touch with Us\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_8c0470d2c7002",
+            "label": "Section description",
+            "name": "contact_section_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Optional intro paragraph rendered below the heading.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 4,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_8c0470d3c7003",
+            "label": "Info card heading",
+            "name": "contact_section_info_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Heading for the email \/ phone card. Defaults to \"Contact Info\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_8c0470d4c7004",
+            "label": "Show press inquiries card",
+            "name": "contact_section_show_press",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Toggle the Press Inquiries card on this page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_8c0470d5c7005",
+            "label": "Press card heading",
+            "name": "contact_section_press_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Heading for the press inquiries card. Defaults to \"Press Inquiries\".",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_8c0470d4c7004",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_8c0470d6c7006",
+            "label": "Address card heading",
+            "name": "contact_section_address_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Heading for the address card. Defaults to \"Address\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "350"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Per-page copy for the shared contact section when used on the Contact page template.",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1779664572
+}
