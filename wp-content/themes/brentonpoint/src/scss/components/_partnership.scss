@@ -1,0 +1,84 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+// Component — lives inside .about-section (no section-level padding).
+// The outer section owns the vertical rhythm; spacing between .about-tabs
+// and this block is set in _about-section.scss.
+.partnership {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: calc($spacing-unit * 4);
+
+  @include respond-to(lg) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: calc($spacing-unit * 7);
+  }
+
+  @media (min-width: 1440px) {
+    gap: 80px;
+  }
+
+  &__media {
+    position: relative;
+
+    // When the layout stacks (<lg), the image moves below the content
+    // block. At lg+ the two-column layout keeps the image on the left
+    // via natural source order (order: 0).
+    @media (max-width: 991px) {
+      order: 1;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    // Spacing between heading and body copy: 40px @ 1920, 32px @ 1440,
+    // 24px @ 768 — clamped below/above. The CTA below overrides this
+    // pair-spacing with a larger value.
+    > * + * {
+      margin-top: fluid-between(24, 32, 768, 1440);
+
+      @media (min-width: 1440px) {
+        margin-top: fluid-between(32, 40, 1440, 1920);
+      }
+    }
+  }
+
+  &__heading {
+    margin: 0;
+    font-family: $font-lato;
+  }
+
+  &__body {
+    font-family: $font-montserrat;
+    color: $primary-gray;
+
+    p {
+      margin: 0 0 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // Space between body copy and CTA button — larger than the heading→body
+  // gap above: 60px @ 1920, 52px @ 1440, 40px @ 768. Written after the
+  // generic `> * + *` rule so equal-specificity selectors win on order.
+  &__cta {
+    margin-top: fluid-between(40, 52, 768, 1440);
+
+    @media (min-width: 1440px) {
+      margin-top: fluid-between(52, 60, 1440, 1920);
+    }
+  }
+}
