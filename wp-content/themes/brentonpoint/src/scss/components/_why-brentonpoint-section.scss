@@ -42,6 +42,12 @@
     @media (min-width: 1440px) {
       grid-template-columns: minmax(0, 1fr) fluid-between(646, 668, 1440, 1920);
     }
+
+    // Stacked — single column; 40px separates the content block from
+    // the visual tile beneath it.
+    @media (max-width: ($bp-lg - 1)) {
+      gap: 40px;
+    }
   }
 
   &__content {
@@ -50,10 +56,12 @@
     flex-direction: column;
     justify-content: center;
     min-width: 0;
-    // Inner padding — fluid, mirrors the section-py curve scaled down.
-    padding: fluid-between(40, 80, 768, 1440);
+    // Asymmetric padding: left grows with the viewport (40 → 60 @ 992-1440,
+    // 60 → 80 @ 1440-1920), right stays at a tight 24px so the content
+    // can breathe to the left and keep an empty gutter against the visual.
+    padding: fluid-between(40, 60, 992, 1440) 24px fluid-between(40, 60, 992, 1440) fluid-between(40, 60, 992, 1440);
     @media (min-width: 1440px) {
-      padding: fluid-between(80, 120, 1440, 1920);
+      padding: fluid-between(60, 80, 1440, 1920) 24px fluid-between(60, 80, 1440, 1920) fluid-between(60, 80, 1440, 1920);
     }
 
     // Stack rhythm: heading → body → CTA. Larger gap before CTA below.
@@ -63,20 +71,38 @@
         margin-top: fluid-between(32, 40, 1440, 1920);
       }
     }
+
+    // Stacked layout — strip the grey background and inner padding so the
+    // content sits flush against the section's outer container.
+    @media (max-width: ($bp-lg - 1)) {
+      background-color: transparent;
+      padding: 0;
+    }
   }
 
   &__heading {
     margin: 0;
     font-family: $font-lato;
+    // Cap text columns so an empty gutter is preserved next to the visual.
+    max-width: 550px;
+
+    @media (max-width: ($bp-lg - 1)) {
+      max-width: none;
+    }
   }
 
   &__body {
     font-family: $font-montserrat;
     color: $primary-gray;
+    max-width: 550px;
 
     p {
       margin: 0 0 12px;
       &:last-child { margin-bottom: 0; }
+    }
+
+    @media (max-width: ($bp-lg - 1)) {
+      max-width: none;
     }
   }
 
@@ -180,6 +206,7 @@ $why-image-width: 664px;
   }
 
   &__pin {
+    position: relative;
     flex: 0 0 auto;
     display: inline-flex;
     align-items: center;
@@ -192,6 +219,31 @@ $why-image-width: 664px;
       display: block;
       overflow: visible;
     }
+  }
+
+  // Lighthouse decoration — sits centred on the pin's dot (cx/cy = 15,15
+  // inside the 67×30 pin SVG) and scales from 0 → 1 on bullet hover.
+  &__decoration {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 35px;
+    height: 35px;
+    transform: translate(-50%, -50%) scale(0);
+    transform-origin: center center;
+    transition: transform 500ms ease-out;
+    pointer-events: none;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+
+  &__item:hover &__decoration,
+  &__item:focus-within &__decoration {
+    transform: translate(-50%, -50%) scale(1);
   }
 
   // Pill — translucent sky-blue fill with a top→bottom gradient stroke.
@@ -249,6 +301,28 @@ $why-image-width: 664px;
     white-space: nowrap;
   }
 
+  // Optional bullet copy that sits under the pill (12px gap, 10px left
+  // inset). Absolutely positioned against the pill so it doesn't push
+  // the pill's intrinsic flex layout around. Hidden by default on
+  // desktop and revealed on bullet hover/focus; on mobile (<lg) the
+  // pill always shows its text (override in the stacked block below).
+  &__text {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 10px;
+    max-width: 218px;
+    color: $white;
+    font-family: $font-montserrat;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease-out;
+  }
+
+  &__item:hover &__text,
+  &__item:focus-within &__text {
+    opacity: 1;
+  }
+
   // ── Mobile (<lg) ────────────────────────────────────────────────────────
   // The visual block is 568px tall, the bg image is sized by height (so
   // the arc fills it vertically) and anchored to the tile's top-LEFT.
@@ -271,6 +345,12 @@ $why-image-width: 664px;
       &:nth-child(1) { top: 68px;  left: 218px; }
       &:nth-child(2) { top: 254px; }
       &:nth-child(3) { top: 440px; left: 265px; }
+    }
+
+    // In stacked mode the bullet copy is always visible — there's no
+    // hover surface to rely on for touch users.
+    &__text {
+      opacity: 1;
     }
   }
 

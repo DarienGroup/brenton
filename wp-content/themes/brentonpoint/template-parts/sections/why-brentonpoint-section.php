@@ -15,6 +15,7 @@
  *   why_bullets        (repeater, max 3) →
  *       bullet_icon  (image, SVG/PNG)
  *       bullet_label (text)
+ *       bullet_text  (textarea) — shown under the pill on hover/active
  */
 defined('ABSPATH') || exit;
 
@@ -69,8 +70,9 @@ foreach ((array) $bullets_raw as $row) {
     if (count($bullets) >= 3) { break; }
     $icon_url = $image_url($row['bullet_icon'] ?? null);
     $label    = trim((string) ($row['bullet_label'] ?? ''));
-    if (!$label && !$icon_url) { continue; }
-    $bullets[] = ['icon' => $icon_url, 'label' => $label];
+    $text     = trim((string) ($row['bullet_text'] ?? ''));
+    if (!$label && !$icon_url && !$text) { continue; }
+    $bullets[] = ['icon' => $icon_url, 'label' => $label, 'text' => $text];
 }
 
 // Bullet anchor points in IMAGE pixel coordinates (the background image
@@ -114,6 +116,9 @@ if ('home' === $args['variant']) {
 // it as a CSS pseudo-element. The gradient `id` is rewritten per bullet so
 // multiple identical defs don't collide in the DOM.
 $pin_svg_template = file_get_contents(get_template_directory() . '/images/Frame 2147236551.svg') ?: '';
+
+// Lighthouse decoration — appears centred over the pin's dot on hover.
+$lighthouse_svg = file_get_contents(get_template_directory() . '/images/brenton-lighthouse-decoration.svg') ?: '';
 ?>
 <section class="<?php echo esc_attr(implode(' ', $section_classes)); ?>" data-reveal>
     <div class="why-section__inner container">
@@ -164,6 +169,11 @@ $pin_svg_template = file_get_contents(get_template_directory() . '/images/Frame 
                                 style="--bullet-x: <?php echo esc_attr($pos['x']); ?>; --bullet-y: <?php echo esc_attr($pos['y']); ?>;">
                                 <span class="why-bullets__pin" aria-hidden="true">
                                     <?php echo $pin_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                                    <?php if ($lighthouse_svg) : ?>
+                                        <span class="why-bullets__decoration" aria-hidden="true">
+                                            <?php echo $lighthouse_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                                        </span>
+                                    <?php endif; ?>
                                 </span>
                                 <span class="why-bullets__pill">
                                     <?php if (!empty($bullet['icon'])) : ?>
@@ -173,6 +183,9 @@ $pin_svg_template = file_get_contents(get_template_directory() . '/images/Frame 
                                     <?php endif; ?>
                                     <?php if ($bullet['label']) : ?>
                                         <span class="why-bullets__label text-h4 text-weight-600"><?php echo esc_html($bullet['label']); ?></span>
+                                    <?php endif; ?>
+                                    <?php if (!empty($bullet['text'])) : ?>
+                                        <span class="why-bullets__text text-body-S"><?php echo esc_html($bullet['text']); ?></span>
                                     <?php endif; ?>
                                 </span>
                             </li>
