@@ -8,6 +8,8 @@ import { initContactForm } from './parts/contact-form';
 import { initAboutTabs } from './parts/about-tabs';
 import { initInvestmentVideo } from './parts/investment-video';
 import { initHearFromUs } from './parts/hear-from-us';
+import { initFirmTestimonials } from './parts/firm-testimonials';
+import { initTestimonialReadMore } from './parts/testimonial-read-more';
 import { initHomePage } from './pages/home';
 import { initPage } from './pages/page';
 import { initPortfolioTabs } from './pages/portfolio';
@@ -22,6 +24,8 @@ ready(() => {
   initAboutTabs();
   initInvestmentVideo();
   initHearFromUs();
+  initTestimonialReadMore();
+  initFirmTestimonials();
   initPortfolioTabs();
   initHomePage();
   initPage();

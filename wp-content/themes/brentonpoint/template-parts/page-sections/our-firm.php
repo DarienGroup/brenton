@@ -11,3 +11,4 @@ get_template_part('template-parts/sections/firm-about-section');
 get_template_part('template-parts/sections/firm-approach-section');
 get_template_part('template-parts/sections/firm-tabs-section');
 get_template_part('template-parts/sections/firm-video-section');
+get_template_part('template-parts/sections/firm-testimonials-section');

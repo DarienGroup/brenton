@@ -437,6 +437,100 @@
             "max_size": "",
             "mime_types": "mp4,webm,mov",
             "allow_in_bindings": 0
+        },
+        {
+            "key": "field_6a1390a0a3e00",
+            "label": "Testimonials",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_6a1390a1a3e01",
+            "label": "Section heading",
+            "name": "firm_testimonials_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Leave blank to hide the section heading.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Testimonials",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a1390a2a3e02",
+            "label": "Testimonials",
+            "name": "firm_testimonials",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "Select and order the testimonials shown in the slider. Manage individual testimonials under the Testimonials menu.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "testimonial"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search"
+            ],
+            "elements": [
+                "featured_image"
+            ],
+            "min": 0,
+            "max": 0,
+            "return_format": "id",
+            "bidirectional": 0,
+            "bidirectional_target": [],
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_6a1390a7a3e07",
+            "label": "Disclaimer",
+            "name": "firm_testimonials_disclaimer",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Footnote rendered in the bordered box below the slider.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
         }
     ],
     "location": [
@@ -460,5 +554,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1779656935
+    "modified": 1779700200
 }
