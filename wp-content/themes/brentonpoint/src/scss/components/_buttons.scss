@@ -18,6 +18,14 @@ $button-variants: (
     bg-color-hover:     $cyan,
     text-color-hover:   $white,
   ),
+  'cyan-outline': (
+    bg-color:           transparent,
+    text-color:         $deep-teal,
+    border-color:       $cyan,
+    bg-color-hover:     $cyan,
+    text-color-hover:   $white,
+    border-color-hover: $cyan,
+  ),
 );
 
 // ── Base button ────────────────────────────────────────────────────────────
