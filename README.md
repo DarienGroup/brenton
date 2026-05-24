@@ -23,6 +23,8 @@ Output lands in `dist/` and is enqueued by WordPress automatically:
 - `dist/css/main.css`
 - `dist/js/main.js`
 
+> **Path convention.** This README sits at the repo root, but everything tracked in the repo lives under `wp-content/themes/brentonpoint/`. Unless a path starts with `/` or `wp-content/`, treat it as relative to the theme directory — e.g. `src/scss/main.scss` means `wp-content/themes/brentonpoint/src/scss/main.scss`.
+
 ---
 
 ## SCSS Architecture
