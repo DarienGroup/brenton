@@ -78,7 +78,6 @@
 
   &__heading {
     margin: 0;
-    font-family: $font-lato;
 
     @media (min-width: 768px) {
       max-width: clamp(260px, calc(40vw - 47px), 721px);

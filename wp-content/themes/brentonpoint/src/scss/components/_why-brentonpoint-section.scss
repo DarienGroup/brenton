@@ -82,7 +82,6 @@
 
   &__heading {
     margin: 0;
-    font-family: $font-lato;
     // Cap text columns so an empty gutter is preserved next to the visual.
     max-width: 550px;
 
@@ -258,7 +257,6 @@ $why-image-width: 664px;
     background: rgba(126, 212, 245, 0.1);
     border-radius: 999px;
     color: $white;
-    font-family: $font-lato;
 
     &::after {
       content: '';

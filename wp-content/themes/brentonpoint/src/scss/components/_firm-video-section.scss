@@ -41,7 +41,6 @@
 
   &__heading {
     margin: 0;
-    font-family: $font-lato;
 
     // Constrain heading width at lg+ so the line breaks match the design.
     // Mobile (stacked) keeps the natural full-width reading length.
@@ -61,7 +60,6 @@
     padding: 8px 24px 8px 10px;
     color: $white;
     border-radius: 999px;
-    font-family: $font-lato;
     font-weight: 500;
     background: linear-gradient(rgb(57, 103, 128), rgb(57, 103, 128)) padding-box,
                 linear-gradient(180deg, rgba(72, 182, 228, 0.1) 0.42%, #48B6E4 91.02%) border-box;
