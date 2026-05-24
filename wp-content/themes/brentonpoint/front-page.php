@@ -44,6 +44,12 @@ get_header();
         );
 
         get_template_part(
+                'template-parts/sections/hear-from-us-section',
+                null,
+                ['variant' => 'home']
+        );
+
+        get_template_part(
                 'template-parts/sections/news-section',
                 null,
                 ['variant' => 'home']
