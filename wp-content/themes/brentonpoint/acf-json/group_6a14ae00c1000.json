@@ -1,0 +1,440 @@
+{
+    "key": "group_6a14ae00c1000",
+    "title": "Sector Focus Page",
+    "fields": [
+        {
+            "key": "field_6a14ae00c1001",
+            "label": "Both Focused and Flexible",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_6a14ae00c1002",
+            "label": "Section heading",
+            "name": "sector_focus_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Both Focused and Flexible",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a14ae00c1003",
+            "label": "Team Deals — icon",
+            "name": "sector_focus_deals_icon",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Small icon shown next to the \"Team Deals\" label in the left block.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "svg,png",
+            "allow_in_bindings": 0,
+            "preview_size": "thumbnail"
+        },
+        {
+            "key": "field_6a14ae00c1004",
+            "label": "Team Deals — label",
+            "name": "sector_focus_deals_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Small caption above the deal-range readout.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "67",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Team Deals",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a14ae00c1005",
+            "label": "Min deal — amount",
+            "name": "sector_focus_deals_min_amount",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Large bold amount, e.g. \"$2\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "$2",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a14ae00c1006",
+            "label": "Min deal — unit",
+            "name": "sector_focus_deals_min_unit",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Smaller denomination, e.g. \"Million\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Million",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a14ae00c1007",
+            "label": "Max deal — amount",
+            "name": "sector_focus_deals_max_amount",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Large bold amount, e.g. \"$700\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "$700",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a14ae00c1008",
+            "label": "Max deal — unit",
+            "name": "sector_focus_deals_max_unit",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Smaller denomination, e.g. \"Million\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Million",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a14ae00c1009",
+            "label": "Intro",
+            "name": "sector_focus_intro",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Top text block in the right column. Use multiple paragraphs as needed.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_6a14ae00c100b",
+            "label": "Industries — label",
+            "name": "sector_focus_industries_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Heading shown above the industry list.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Industries:",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a14ae00c100c",
+            "label": "Industries",
+            "name": "sector_focus_industries",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Each row renders as a bordered chip in the right column.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add industry",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6a14ae00c100d",
+                    "label": "Name",
+                    "name": "industry_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6a14ae00c100c"
+                }
+            ]
+        },
+        {
+            "key": "field_6a14ae00c100e",
+            "label": "Closing paragraph",
+            "name": "sector_focus_outro",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Paragraph rendered below the industries list.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_6a14ae00c100f",
+            "label": "Criteria section",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "Static-image variant of the homepage Investment Criteria section.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_6a14ae00c1010",
+            "label": "Heading",
+            "name": "sector_focus_criteria_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a14ae00c1011",
+            "label": "Background image",
+            "name": "sector_focus_criteria_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Full-bleed background image rendered under the dark overlay.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_6a14ae00c1012",
+            "label": "Cards",
+            "name": "sector_focus_criteria_cards",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Up to 3 cards rendered across the bottom of the section.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 3,
+            "collapsed": "",
+            "button_label": "Add card",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6a14ae00c1013",
+                    "label": "Card title",
+                    "name": "card_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6a14ae00c1012"
+                },
+                {
+                    "key": "field_6a14ae00c1014",
+                    "label": "Card body",
+                    "name": "card_body",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "rows": "",
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_6a14ae00c1012"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "452"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1779800400
+}
