@@ -114,6 +114,10 @@ $header-nav-bp: 1025px;
     .current-menu-item > a,
     .current-page-ancestor > a {
       color: $header-text-hover;
+
+      &::after {
+        opacity: 1;
+      }
     }
   }
 }

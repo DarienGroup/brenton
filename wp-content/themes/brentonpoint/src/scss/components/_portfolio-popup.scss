@@ -1,0 +1,284 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+// Native <dialog> popup for a single portfolio item. Image column is locked to
+// a 1:1 aspect ratio at every breakpoint; the layout flips to a stacked column
+// (image above body) below `md`.
+.portfolio-popup {
+  // Reset native UA padding/border on the dialog itself — the panel inside owns
+  // the visual chrome.
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: $color-text;
+  // Locks to 1440px once the viewport has room (with a 16px breathing
+  // gutter on each side); below that, shrinks fluidly with the viewport.
+  width: min(100% - 32px, 1440px);
+  max-height: calc(100dvh - 32px);
+  overflow: visible;
+
+  &::backdrop {
+    background-color: rgba($black, 0.45);
+  }
+
+  &[open] {
+    display: block;
+  }
+
+  &__panel {
+    position: relative;
+    background-color: $white;
+    padding: calc($spacing-unit * 3);
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
+
+    @include respond-to(md) {
+      padding: calc($spacing-unit * 5);
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: calc($spacing-unit * 2);
+    right: calc($spacing-unit * 2);
+    width: 40px;
+    height: 40px;
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: $color-text;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color $transition-base, color $transition-base;
+    z-index: 1;
+
+    &:hover,
+    &:focus-visible {
+      background-color: $secondary-gray;
+      color: $color-primary;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-primary;
+      outline-offset: 2px;
+    }
+  }
+
+  &__layout {
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 3);
+
+    @include respond-to(md) {
+      flex-direction: row;
+      align-items: stretch;
+      gap: calc($spacing-unit * 4);
+    }
+
+    @include respond-to(lg) {
+      gap: calc($spacing-unit * 6);
+    }
+  }
+
+  // ── Media column ─────────────────────────────────────────────────────────
+  &__media {
+    position: relative;
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: $secondary-gray;
+    overflow: hidden;
+
+    @include respond-to(md) {
+      // Roughly matches the on-design proportion (≈ image takes 1/3 of layout).
+      flex-basis: 38%;
+      max-width: 460px;
+    }
+  }
+
+  &__image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    &--placeholder {
+      background-color: $primary-gray;
+    }
+  }
+
+  &__logo-wrap {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    pointer-events: none;
+  }
+
+  &__logo {
+    display: block;
+    max-width: 50%;
+    max-height: 56px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  // ── Body column ──────────────────────────────────────────────────────────
+  // The body is a 2-row flex stack: title at the top, mission+stats at the
+  // bottom. `justify-content: space-between` pushes the second child to the
+  // bottom edge so the mission paragraph sits visually adjacent to the stats
+  // bar (the design pairs them as a single block).
+  &__body {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: calc($spacing-unit * 3);
+  }
+
+  &__title {
+    margin: 0;
+    // Leave room above the absolutely-positioned close button.
+    padding-right: 48px;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 3);
+  }
+
+  &__mission {
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 1);
+  }
+
+  &__mission-label {
+    margin: 0;
+  }
+
+  &__mission-body {
+    p {
+      margin: 0 0 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // ── Stats bar ────────────────────────────────────────────────────────────
+  // Mobile: vertical stack inside the bordered box, CTA last.
+  // Desktop (lg+): horizontal row, stat-group on the left, CTA pinned right.
+  // When the panel shrinks far enough that the stat-group + CTA can't share
+  // a line, `flex-wrap` pushes the CTA onto its own row below the stats. We
+  // use `justify-content: space-between` (rather than `margin-left: auto` on
+  // the CTA) so that the CTA right-aligns on a shared row but falls back to
+  // a default start (left) alignment once it's alone on its own wrapped row.
+  &__stats {
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 2);
+    padding: calc($spacing-unit * 2);
+    border: 1px solid rgba($black, 0.08);
+
+    @include respond-to(lg) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: calc($spacing-unit * 3);
+      padding: calc($spacing-unit * 1.5) calc($spacing-unit * 2);
+    }
+  }
+
+  &__stat-group {
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 2);
+
+    @include respond-to(lg) {
+      flex-direction: row;
+      align-items: center;
+      gap: 0;
+    }
+  }
+
+  &__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    @include respond-to(lg) {
+      // Side padding equals the desired space between the cell content and the
+      // vertical divider. Scales fluidly from 16px @ 992 → 28px @ 1920.
+      padding: 0 fluid-between(16, 28, 992, 1920);
+
+      // Vertical dividers between cells. First cell has no left border / left
+      // padding so it aligns flush with the stats bar's left edge.
+      border-left: 1px solid rgba($black, 0.08);
+
+      &:first-child {
+        border-left: 0;
+        padding-left: 0;
+      }
+    }
+  }
+
+  &__stat-label {
+    margin: 0;
+  }
+
+  &__stat-value {
+    margin: 0;
+    color: $color-text;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    &--status {
+      color: $color-text-muted;
+    }
+
+    &--active {
+      color: $cyan;
+    }
+
+    &--realized {
+      color: $primary-gray;
+    }
+  }
+
+  &__status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+    flex: 0 0 auto;
+  }
+
+  // .btn--short already sets `width: auto; min-width: 260px;` for the deep-teal
+  // CTA, so the wrapper just needs to stretch its child below sm. Horizontal
+  // alignment at lg+ is owned by `__stats { justify-content: space-between }`.
+  &__cta {
+    .btn {
+      width: 100%;
+
+      @include respond-to(sm) {
+        width: auto;
+      }
+    }
+  }
+}
+

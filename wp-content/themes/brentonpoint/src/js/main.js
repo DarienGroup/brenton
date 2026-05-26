@@ -13,7 +13,7 @@ import { initTestimonialReadMore } from './parts/testimonial-read-more';
 import { initTeamMemberGallery } from './parts/team-member-gallery';
 import { initHomePage } from './pages/home';
 import { initPage } from './pages/page';
-import { initPortfolioTabs } from './pages/portfolio';
+import { initPortfolioTabs, initPortfolioPopups } from './pages/portfolio';
 
 ready(() => {
   initNavigation();
@@ -29,6 +29,7 @@ ready(() => {
   initFirmTestimonials();
   initTeamMemberGallery();
   initPortfolioTabs();
+  initPortfolioPopups();
   initHomePage();
   initPage();
 });

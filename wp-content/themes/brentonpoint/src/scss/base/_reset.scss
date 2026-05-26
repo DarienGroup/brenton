@@ -53,3 +53,11 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+// Freeze background scroll while any native <dialog> is open. All modal
+// popups in the theme use <dialog>.showModal() (see src/js/parts/modal.js),
+// so this one rule covers them all instead of each component declaring its
+// own body-class / per-selector lock.
+html:has(dialog[open]) {
+  overflow: hidden;
+}

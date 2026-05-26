@@ -117,6 +117,29 @@
             "append": ""
         },
         {
+            "key": "field_ab2470c0c8107",
+            "label": "Add-on acquisitions",
+            "name": "portfolio_addon_acquisitions",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Count of add-on acquisitions made under this company. Leave empty (or 0) to hide the stat from the detail popup.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 0,
+            "max": "",
+            "step": 1,
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_ab2470c0c8104",
             "label": "Mission",
             "name": "portfolio_mission",

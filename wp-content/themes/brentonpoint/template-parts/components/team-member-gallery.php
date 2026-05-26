@@ -114,13 +114,10 @@ $count_label = (string) count($images);
     <?php endif; ?>
 
     <?php if ($multi) : ?>
-    <div
+    <dialog
         class="team-member-gallery__lightbox"
         data-team-gallery-lightbox
-        role="dialog"
-        aria-modal="true"
         aria-label="<?php esc_attr_e('Photo viewer', 'brentonpoint'); ?>"
-        hidden
     >
         <div class="team-member-gallery__lightbox-stage">
             <img
@@ -133,7 +130,7 @@ $count_label = (string) count($images);
             <button
                 type="button"
                 class="team-member-gallery__lightbox-close"
-                data-team-gallery-close
+                data-modal-close
                 aria-label="<?php esc_attr_e('Close', 'brentonpoint'); ?>"
             >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -169,6 +166,6 @@ $count_label = (string) count($images);
                 </button>
             </div>
         </div>
-    </div>
+    </dialog>
     <?php endif; ?>
 </div>

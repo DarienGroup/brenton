@@ -57,7 +57,11 @@ $logo_html = $logo_id
     ])
     : '';
 ?>
-<article id="post-<?php echo esc_attr($post_id); ?>" <?php post_class('portfolio-card', $post_id); ?>>
+<article
+    id="post-<?php echo esc_attr($post_id); ?>"
+    <?php post_class('portfolio-card', $post_id); ?>
+    data-portfolio-card
+>
     <div class="portfolio-card__media">
         <?php if ($image_html) : ?>
             <?php echo $image_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
@@ -72,9 +76,20 @@ $logo_html = $logo_id
                 <?php endif; ?>
             </div>
 
-            <button type="button" class="portfolio-card__open" aria-label="<?php echo esc_attr(sprintf(__('Open details: %s', 'brentonpoint'), $title)); ?>">
+            <button
+                type="button"
+                class="portfolio-card__open"
+                aria-label="<?php echo esc_attr(sprintf(__('Open details: %s', 'brentonpoint'), $title)); ?>"
+                aria-haspopup="dialog"
+                aria-controls="<?php echo esc_attr('portfolio-popup-' . $post_id); ?>"
+                data-portfolio-popup-open
+            >
                 <span aria-hidden="true">+</span>
             </button>
         </div>
     </div>
+
+    <?php get_template_part('template-parts/components/portfolio-popup', null, [
+        'post_id' => $post_id,
+    ]); ?>
 </article>

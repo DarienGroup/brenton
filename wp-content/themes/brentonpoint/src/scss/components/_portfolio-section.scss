@@ -143,6 +143,12 @@
       background-color: $color-primary;
       border-color: $color-primary;
       color: $white;
+
+      &:hover,
+      &:focus-visible {
+        background-color: $cyan;
+        border-color: $cyan;
+      }
     }
 
     &:focus-visible {
