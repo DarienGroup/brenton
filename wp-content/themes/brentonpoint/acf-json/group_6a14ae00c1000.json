@@ -541,6 +541,210 @@
                     "parent_repeater": "field_6a14ae00c1018"
                 }
             ]
+        },
+        {
+            "key": "field_6a14ae00c101b",
+            "label": "Testimonials section",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "Two-column layout with a left rail (heading + nav + body + stat) and a single-card-per-view slider on the right.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_6a14ae00c101c",
+            "label": "Heading",
+            "name": "sector_focus_testimonials_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Testimonials",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a14ae00c101d",
+            "label": "Body",
+            "name": "sector_focus_testimonials_body",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Copy rendered below the heading and nav.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_6a14ae00c101e",
+            "label": "Stat — icon",
+            "name": "sector_focus_testimonials_stat_icon",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Small icon above the stat line.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "svg,png",
+            "allow_in_bindings": 0,
+            "preview_size": "thumbnail"
+        },
+        {
+            "key": "field_6a14ae00c101f",
+            "label": "Stat — prefix",
+            "name": "sector_focus_testimonials_stat_prefix",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g. \"Over\"",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "22",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Over",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a14ae00c1020",
+            "label": "Stat — number",
+            "name": "sector_focus_testimonials_stat_number",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Large highlighted figure, e.g. \"20\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "22",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "20",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a14ae00c1021",
+            "label": "Stat — label",
+            "name": "sector_focus_testimonials_stat_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g. \"repeat executive partnerships\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "repeat executive partnerships",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a14ae00c1022",
+            "label": "Testimonials",
+            "name": "sector_focus_testimonials",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "Select and order the testimonials shown in the slider. Manage individual testimonials under the Testimonials menu.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "testimonial"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search"
+            ],
+            "elements": [
+                "featured_image"
+            ],
+            "min": 0,
+            "max": 0,
+            "return_format": "id",
+            "bidirectional": 0,
+            "bidirectional_target": [],
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_6a14ae00c1023",
+            "label": "Disclaimer",
+            "name": "sector_focus_testimonials_disclaimer",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Footnote rendered in the bordered box below the slider.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
         }
     ],
     "location": [

@@ -1,0 +1,173 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+// Sector Focus — Testimonials.
+//
+// Two-column layout: left rail (heading + nav + body + stat) and right card
+// slider. Reuses .testimonial-card and the .firm-testimonials-section__nav-btn
+// button styling, plus the shared slider JS via `data-testimonials`.
+.sector-testimonials-section {
+  background-color: $white;
+  color: $color-text;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  &__cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 64px;
+
+    @media (max-width: $bp-lg) {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+
+  // The left rail is split into two semantic blocks:
+  //   __top    — heading + slider nav (40px gap)
+  //   __bottom — body + stat          (8px gap)
+  // The rail itself is a column flexbox with 52px gap and space-between, so
+  // the two blocks anchor to the top and bottom of the rail. When the body
+  // is missing, __bottom collapses to just the stat and still anchors to
+  // the bottom — matching the height of the slider on the right.
+  &__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 52px;
+  }
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__heading {
+    margin: 0;
+  }
+
+  // Two nav variants — one in the left rail (desktop), one full-width under
+  // the slider when stacked (mobile). The JS attaches handlers to all
+  // matching prev/next buttons, so both pairs control the same slider.
+  &__nav {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__nav--desktop {
+    @media (max-width: $bp-lg) {
+      display: none;
+    }
+  }
+
+  &__nav--mobile {
+    display: none;
+
+    @media (max-width: $bp-lg) {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin-top: 24px;
+    }
+  }
+
+  &__body {
+    font-family: $font-montserrat;
+    max-width: 540px;
+
+    p {
+      margin: 0 0 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // The right column needs an explicit min-width:0 so its grid track can
+  // shrink — otherwise the slide content's intrinsic minimum width pushes
+  // the column (and the page) past the viewport on narrow screens.
+  &__right {
+    min-width: 0;
+    width: 100%;
+  }
+
+  // Slider plumbing — fixed to one card per view (per-view=1 is enforced via
+  // the section's data attribute, JS reads slide width from the DOM).
+  &__slider {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  &__track {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    min-width: 0;
+    transition: transform 0.4s ease;
+    will-change: transform;
+  }
+
+  &__slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  &__disclaimer {
+    // Spacing handled by the shared .quote / .text-quote utilities.
+  }
+}
+
+// Left-rail stat — same visual language as .sector-focus-deals on this page:
+// a sky-blue vertical rule with content sitting to its right.
+.sector-testimonials-stat {
+  padding: 8px 0 8px 24px;
+  border-left: 4px solid $color-highlight;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &__icon {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+
+    img,
+    svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__line {
+    margin: 0;
+    font-family: $font-montserrat;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 8px;
+    row-gap: 4px;
+  }
+
+  &__number {
+    font-weight: 600;
+  }
+}

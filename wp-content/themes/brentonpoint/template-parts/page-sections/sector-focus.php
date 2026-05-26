@@ -10,3 +10,4 @@ defined('ABSPATH') || exit;
 get_template_part('template-parts/sections/sector-focus-section');
 get_template_part('template-parts/sections/sector-focus-criteria-section');
 get_template_part('template-parts/sections/sector-focus-partnership-section');
+get_template_part('template-parts/sections/sector-focus-testimonials-section');

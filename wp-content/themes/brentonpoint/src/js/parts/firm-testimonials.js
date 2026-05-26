@@ -1,15 +1,23 @@
 /**
- * Firm page — Testimonials slider.
+ * Testimonials slider.
  *
- * Lightweight transform-based slider. Two slides per view at >=992px,
- * one below. Arrow buttons step by one slide and loop around at the
- * bounds (next from the last slide jumps to the first). Recalculates
- * on resize because slide width is fluid.
+ * Lightweight transform-based slider. By default shows two slides per view at
+ * >=992px and one below; sections can opt into a fixed slides-per-view count
+ * via the `data-testimonials-per-view` attribute (e.g. the sector-focus page
+ * shows a single card per view at every breakpoint). Arrow buttons step by
+ * one slide and loop around at the bounds. Recalculates on resize because
+ * slide width is fluid.
+ *
+ * Attach by adding `data-testimonials` to the section.
  */
 
 const LG_BREAKPOINT = 992;
 
-function slidesPerView() {
+function slidesPerView(section) {
+  const override = parseInt(section?.dataset?.testimonialsPerView ?? '', 10);
+  if (Number.isFinite(override) && override > 0) {
+    return override;
+  }
   return window.innerWidth >= LG_BREAKPOINT ? 2 : 1;
 }
 
@@ -20,8 +28,10 @@ function wrap(value, length) {
 
 function init(section) {
   const track = section.querySelector('[data-testimonials-track]');
-  const prevBtn = section.querySelector('[data-testimonials-prev]');
-  const nextBtn = section.querySelector('[data-testimonials-next]');
+  // A section can declare multiple prev/next button pairs (e.g. one in the
+  // left rail for desktop and a stacked row near the slider on mobile).
+  const prevBtns = section.querySelectorAll('[data-testimonials-prev]');
+  const nextBtns = section.querySelectorAll('[data-testimonials-next]');
   if (!track) return;
 
   const slides = Array.from(track.children);
@@ -32,7 +42,7 @@ function init(section) {
   // Number of distinct positions the track can rest at. Looping is by slide,
   // so we wrap across all slides — when index would push the trailing edge
   // past the end we reset to 0 instead of clamping.
-  const positionCount = () => Math.max(1, slides.length - slidesPerView() + 1);
+  const positionCount = () => Math.max(1, slides.length - slidesPerView(section) + 1);
 
   const update = () => {
     const first = slides[0];
@@ -50,8 +60,8 @@ function init(section) {
     update();
   };
 
-  if (prevBtn) prevBtn.addEventListener('click', () => go(index - 1));
-  if (nextBtn) nextBtn.addEventListener('click', () => go(index + 1));
+  prevBtns.forEach((btn) => btn.addEventListener('click', () => go(index - 1)));
+  nextBtns.forEach((btn) => btn.addEventListener('click', () => go(index + 1)));
 
   // Keyboard support when the slider has focus.
   section.addEventListener('keydown', (event) => {
@@ -86,5 +96,5 @@ function init(section) {
 }
 
 export function initFirmTestimonials() {
-  document.querySelectorAll('.firm-testimonials-section').forEach(init);
+  document.querySelectorAll('[data-testimonials]').forEach(init);
 }

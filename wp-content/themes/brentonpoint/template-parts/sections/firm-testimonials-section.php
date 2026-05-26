@@ -56,7 +56,7 @@ if (empty($testimonials)) {
     return;
 }
 ?>
-<section class="firm-testimonials-section section" data-reveal>
+<section class="firm-testimonials-section section" data-reveal data-testimonials>
     <div class="firm-testimonials-section__inner container">
 
         <header class="firm-testimonials-section__header">
