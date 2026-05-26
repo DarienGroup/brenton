@@ -413,6 +413,134 @@
                     "parent_repeater": "field_6a14ae00c1012"
                 }
             ]
+        },
+        {
+            "key": "field_6a14ae00c1015",
+            "label": "Partnership section",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "\"A Partnership, Not a Transaction\" — two-column heading + intro above a 2×2 grid of auto-numbered cards.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_6a14ae00c1016",
+            "label": "Heading",
+            "name": "sector_focus_partnership_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "A Partnership, Not a Transaction",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6a14ae00c1017",
+            "label": "Intro",
+            "name": "sector_focus_partnership_intro",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Short copy rendered to the right of the heading.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_6a14ae00c1018",
+            "label": "Cards",
+            "name": "sector_focus_partnership_cards",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Each row renders as a numbered white card with a taupe rule on top. Index is generated automatically.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add card",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6a14ae00c1019",
+                    "label": "Card title",
+                    "name": "card_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6a14ae00c1018"
+                },
+                {
+                    "key": "field_6a14ae00c101a",
+                    "label": "Card body",
+                    "name": "card_body",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "rows": 3,
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_6a14ae00c1018"
+                }
+            ]
         }
     ],
     "location": [

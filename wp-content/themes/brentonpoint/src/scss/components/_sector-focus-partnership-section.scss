@@ -1,0 +1,110 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+// "A Partnership, Not a Transaction" — header row (heading + intro) above a
+// 2×2 grid of taupe-ruled white cards on a secondary-gray field.
+.sector-partnership-section {
+  background-color: $secondary-gray;
+  color: $color-text;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+
+    @media (max-width: $bp-md) {
+      gap: 40px;
+    }
+  }
+
+  // Heading left, intro right. Heading column slightly wider, items aligned
+  // to the top, 60px column gap.
+  &__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 60px;
+
+    @media (max-width: $bp-md) {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  &__heading {
+    margin: 0;
+  }
+
+  &__intro {
+    font-family: $font-montserrat;
+    max-width: 570px;
+  }
+
+  &__cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 24px;
+
+    @media (max-width: $bp-md) {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+}
+
+// Numbered cards — white field with a 4px taupe rule across the top and a
+// short stack of (index → title → body).
+//
+// Padding (vertical / horizontal):
+//   ≥1920 → 24px 28px
+//   1440  → 24px 24px
+//    768  → 20px 16px
+//
+// padding-block reaches 24px naturally from the 768→1440 clamp, so the
+// ≥1440 / ≥1920 blocks only need to drive padding-inline upward.
+.sector-partnership-card {
+  background-color: $white;
+  border-top: 4px solid $taupe;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: $font-montserrat;
+
+  padding-block:  20px;
+  padding-inline: 16px;
+
+  @media (min-width: $bp-md) {
+    padding-block:  fluid-between(20, 24, 768, 1440);
+    padding-inline: fluid-between(16, 24, 768, 1440);
+  }
+
+  @media (min-width: 1440px) {
+    padding-inline: fluid-between(24, 28, 1440, 1920);
+  }
+
+  &__index,
+  &__title,
+  &__body {
+    margin: 0;
+  }
+
+  &__index {
+    letter-spacing: 0.04em;
+  }
+}
+
+// Shared paragraph rhythm inside the Montserrat copy blocks in this section.
+.sector-partnership-section__intro,
+.sector-partnership-card__body {
+  p {
+    margin: 0 0 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
