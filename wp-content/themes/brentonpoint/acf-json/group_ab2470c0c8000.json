@@ -1,0 +1,198 @@
+{
+    "key": "group_ab2470c0c8000",
+    "title": "Portfolio Page",
+    "fields": [
+        {
+            "key": "field_ab2470c0c8001",
+            "label": "Heading",
+            "name": "portfolio_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Section heading shown above the partner-companies grid.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Vision Is the Common Denominator",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ab2470c0c8002",
+            "label": "Description",
+            "name": "portfolio_description",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Intro copy rendered to the right of the heading.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_ab2470c0c8010",
+            "label": "Empty state",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "Shown in place of the grid when the selected filter (Active / Realized) has no matching companies.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_ab2470c0c8011",
+            "label": "Empty state icon",
+            "name": "portfolio_empty_icon",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Small icon shown above the empty-state heading. Same icon is reused for both Active and Realized.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "thumbnail",
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_ab2470c0c8012",
+            "label": "Active — heading",
+            "name": "portfolio_empty_active_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Heading shown when the Active filter has zero matching companies.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Active investments will appear here soon.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ab2470c0c8013",
+            "label": "Active — description",
+            "name": "portfolio_empty_active_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Supporting copy under the Active empty-state heading.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "We're continuing to grow and evolve our portfolio over time.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_ab2470c0c8014",
+            "label": "Realized — heading",
+            "name": "portfolio_empty_realized_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Heading shown when the Realized filter has zero matching companies.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Realized investments will appear here in the future.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ab2470c0c8015",
+            "label": "Realized — description",
+            "name": "portfolio_empty_realized_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Supporting copy under the Realized empty-state heading.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "We're continuing to grow and evolve our portfolio over time.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "264"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1779800000
+}

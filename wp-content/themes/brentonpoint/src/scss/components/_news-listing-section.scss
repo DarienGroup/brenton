@@ -3,6 +3,11 @@
 @use '../abstracts/functions' as *;
 
 .news-listing-section {
+  // Heading column width on lg+. Override per-instance with
+  //   <section class="news-listing-section" style="--heading-max-width: 600px">
+  // or by re-declaring on a child class.
+  --heading-max-width: 436px;
+
   background-color: $white;
   color: $color-text;
   padding-block: fluid-between($section-py-360, $section-py-1440, 360, 1440);
@@ -36,7 +41,7 @@
     margin: 0;
 
     @include respond-to(lg) {
-      max-width: 436px;
+      max-width: var(--heading-max-width);
     }
   }
 
