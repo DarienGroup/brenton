@@ -1,0 +1,49 @@
+{
+    "key": "group_9d2470c0c7100",
+    "title": "Team Member",
+    "fields": [
+        {
+            "key": "field_9d2470c1c7101",
+            "label": "Position",
+            "name": "team_position",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Role shown on the team grid card, e.g. \"Managing Partner\" or \"Vice President, Business Development\". If left blank, the first <h4> in the post body is used.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "teams"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields for the teams custom post type.",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1779700300
+}

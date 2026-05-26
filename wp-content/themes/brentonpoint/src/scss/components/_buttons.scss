@@ -26,6 +26,14 @@ $button-variants: (
     text-color-hover:   $white,
     border-color-hover: $cyan,
   ),
+  'white-outline': (
+    bg-color:           transparent,
+    text-color:         $white,
+    border-color:       rgba($white, 0.4),
+    bg-color-hover:     $cyan,
+    text-color-hover:   $white,
+    border-color-hover: $cyan,
+  ),
 );
 
 // ── Base button ────────────────────────────────────────────────────────────
@@ -79,6 +87,12 @@ $button-variants: (
 
   &:hover {
     .btn__label { transform: translateX(var(--btn-shift)); }
+  }
+
+  // Phone-width buttons span the available row — overrides the 320px base
+  // width and is intentionally project-wide (every .btn).
+  @media (max-width: 467px) {
+    width: 100%;
   }
 
   // ── Modifiers ─────────────────────────────────────────────────────────────

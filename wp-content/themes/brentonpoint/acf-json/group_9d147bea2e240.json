@@ -1,0 +1,280 @@
+{
+    "key": "group_9d147bea2e240",
+    "title": "Team Page",
+    "fields": [
+        {
+            "key": "field_9d147bea2e241",
+            "label": "Team list",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_9d147bea2e242",
+            "label": "Heading",
+            "name": "team_list_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Section heading shown above the operating team grid.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "What We Bring to the Table",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_9d147bea2e243",
+            "label": "Description",
+            "name": "team_list_description",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Intro copy rendered to the right of the heading.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_9d147bea2e244",
+            "label": "Executive Advisory Board",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_9d147bea2e245",
+            "label": "Heading",
+            "name": "team_advisory_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Section heading shown above the advisory board section.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Our Executive Advisory Board",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_9d147bea2e246",
+            "label": "Description",
+            "name": "team_advisory_description",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Intro copy rendered directly under the heading.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_9d147bea2e24b",
+            "label": "Top disclaimer",
+            "name": "team_advisory_disclaimer_top",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Short caption shown in a bordered box between the stats and the advisor grid.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_9d147bea2e247",
+            "label": "Stats",
+            "name": "team_advisory_stats",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Four headline numbers shown above the advisor grid.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 4,
+            "collapsed": "",
+            "button_label": "Add stat",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_9d147bea2e248",
+                    "label": "Value",
+                    "name": "value",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Primary number or label, e.g. \"30\", \"600+\", \"400k+\".",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_9d147bea2e247"
+                },
+                {
+                    "key": "field_9d147bea2e249",
+                    "label": "Suffix",
+                    "name": "suffix",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Optional small unit appended to the value, e.g. \"years\".",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_9d147bea2e247"
+                },
+                {
+                    "key": "field_9d147bea2e24a",
+                    "label": "Label",
+                    "name": "label",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Caption shown under the number.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "rows": "",
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_9d147bea2e247"
+                }
+            ]
+        },
+        {
+            "key": "field_9d147bea2e24c",
+            "label": "Footnote",
+            "name": "team_advisory_disclaimer_bottom",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Longer disclaimer rendered in a bordered box below the advisor grid.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 5,
+            "placeholder": "",
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "240"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1779743149
+}

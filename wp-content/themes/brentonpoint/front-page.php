@@ -32,6 +32,12 @@ get_header();
         );
 
         get_template_part(
+                'template-parts/sections/relationships-section',
+                null,
+                ['variant' => 'home']
+        );
+
+        get_template_part(
                 'template-parts/sections/why-brentonpoint-section',
                 null,
                 ['variant' => 'home']

@@ -1,0 +1,174 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+// Padding is owned by the shared .section utility (layout/_grid.scss).
+// When two grids stack, the second one suppresses its top padding via the
+// inline `--section-pt: 0px` override on the section element.
+.team-grid-section {
+  background-color: $white;
+  color: $color-text;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: calc($spacing-unit * 2);
+
+    @include respond-to(lg) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: calc($spacing-unit * 7);
+      align-items: start;
+    }
+
+    @media (min-width: 1440px) {
+      gap: 80px;
+    }
+  }
+
+  &__heading {
+    margin: 0;
+
+    @include respond-to(lg) {
+      max-width: 436px;
+    }
+  }
+
+  &__description {
+    color: $primary-gray;
+    font-family: $font-montserrat;
+
+    p {
+      margin: 0 0 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__grid {
+    list-style: none;
+    margin: 40px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: calc($spacing-unit * 3);
+
+    @include respond-to(sm) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include respond-to(md) {
+      margin-top: fluid-between(40, 60, 768, 1440);
+      gap: calc($spacing-unit * 3);
+    }
+
+    @include respond-to(lg) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @include respond-to(xl) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    @media (min-width: 1440px) {
+      margin-top: fluid-between(60, 72, 1440, 1920);
+    }
+
+    @media (min-width: 1920px) {
+      margin-top: 72px;
+    }
+  }
+
+  &__item {
+    margin: 0;
+    display: flex;
+  }
+}
+
+.team-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: $white;
+  color: inherit;
+  text-decoration: none;
+  border-top: 4px solid rgba(148, 134, 121, 1);
+
+  &__media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: $secondary-gray;
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform $transition-base;
+
+    &--placeholder {
+      background-color: $secondary-gray;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 1.5);
+    padding: 20px;
+    background-color: $secondary-gray;
+  }
+
+  &__name {
+    margin: 0;
+  }
+
+  &__footer {
+    position: relative;
+    height: 52px;
+  }
+
+  &__role {
+    margin: 0;
+    font-family: $font-montserrat;
+  }
+
+  &__chevron {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    color: $color-text;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform $transition-base;
+  }
+
+  &--linked {
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      .team-card__image {
+        transform: scale(1.03);
+      }
+      .team-card__chevron {
+        transform: translateX(4px);
+        color: $color-primary;
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-primary;
+      outline-offset: 4px;
+    }
+  }
+}

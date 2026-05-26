@@ -1,0 +1,126 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+// Padding is owned by the shared .section utility (layout/_grid.scss).
+// When the primary Team grid sits directly above, the template suppresses
+// top padding via the inline `--section-pt: 0px` override on the section.
+.team-advisory-section {
+  background-color: $white;
+  color: $color-text;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+
+    // Per-pair vertical rhythm. Default sibling gap is 72px; the two
+    // overrides below tighten the spacing around the stats and footnote.
+    // `:not(:first-child)` adds a pseudo-class to bump specificity above
+    // the children's own `margin: 0` resets (e.g. `.…__grid { margin: 0 }`).
+    > *:not(:first-child) {
+      margin-top: 72px;
+    }
+  }
+
+  &__stats + &__disclaimer:not(&__disclaimer--footnote) {
+    margin-top: 40px;
+  }
+
+  &__grid + &__disclaimer--footnote {
+    margin-top: 24px;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 3);
+  }
+
+  &__heading {
+    margin: 0;
+  }
+
+  &__description {
+    color: $primary-gray;
+    font-family: $font-montserrat;
+    max-width: 878px;
+
+    p {
+      margin: 0 0 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__stats {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: calc($spacing-unit * 2);
+
+    @include respond-to(sm) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include respond-to(lg) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: calc($spacing-unit * 3);
+    }
+  }
+
+  &__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: calc($spacing-unit * 3);
+
+    @include respond-to(sm) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include respond-to(lg) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @include respond-to(xl) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  &__item {
+    margin: 0;
+    display: flex;
+  }
+
+  &__disclaimer {
+    margin: 0;
+  }
+}
+
+.team-advisory-stat {
+  margin: 0;
+  padding: calc($spacing-unit * 3);
+  background-color: $secondary-gray;
+  border-top: 4px solid $cream;
+  display: flex;
+  flex-direction: column;
+  gap: calc($spacing-unit * 1.5);
+
+  &__value {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: calc($spacing-unit * 1);
+    line-height: 1;
+  }
+
+  &__label {
+    margin: 0;
+  }
+}
