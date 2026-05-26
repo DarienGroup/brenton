@@ -8,7 +8,7 @@
             "name": "team_position",
             "aria-label": "",
             "type": "text",
-            "instructions": "Role shown on the team grid card, e.g. \"Managing Partner\" or \"Vice President, Business Development\". If left blank, the first <h4> in the post body is used.",
+            "instructions": "Role shown on the team grid card and single profile, e.g. \"Managing Partner\" or \"Vice President, Business Development\". If left blank, the first <h4> in the post body is used.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -22,6 +22,77 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_9d2470c1c7102",
+            "label": "Education",
+            "name": "team_education",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Education paragraph shown under the \"Education\" heading on the single team profile. Hidden if empty.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_9d2470c1c7103",
+            "label": "Personal",
+            "name": "team_personal",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Personal callout shown under the \"Personal\" heading on the single team profile. Renders inside the highlighted box. Hidden if empty.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_9d2470c1c7104",
+            "label": "Photo gallery",
+            "name": "team_gallery",
+            "aria-label": "",
+            "type": "gallery",
+            "instructions": "Additional photos shown in the slider next to the bio. The featured image is always shown first; these images come after it. Slider controls are hidden automatically when only the featured image is present.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "insert": "append",
+            "library": "all",
+            "min": "",
+            "max": "",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0
         }
     ],
     "location": [
@@ -34,7 +105,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "side",
+    "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
@@ -45,5 +116,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1779700300
+    "modified": 1779789028
 }

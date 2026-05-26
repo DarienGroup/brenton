@@ -10,6 +10,7 @@ import { initInvestmentVideo } from './parts/investment-video';
 import { initHearFromUs } from './parts/hear-from-us';
 import { initFirmTestimonials } from './parts/firm-testimonials';
 import { initTestimonialReadMore } from './parts/testimonial-read-more';
+import { initTeamMemberGallery } from './parts/team-member-gallery';
 import { initHomePage } from './pages/home';
 import { initPage } from './pages/page';
 import { initPortfolioTabs } from './pages/portfolio';
@@ -26,6 +27,7 @@ ready(() => {
   initHearFromUs();
   initTestimonialReadMore();
   initFirmTestimonials();
+  initTeamMemberGallery();
   initPortfolioTabs();
   initHomePage();
   initPage();

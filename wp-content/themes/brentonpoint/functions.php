@@ -13,6 +13,7 @@ foreach ( [
 	'shortcodes',
 	'gravity-forms',
 	'acf',
+	'attachment-focal-point',
 ] as $file ) {
 	require_once get_template_directory() . '/inc/' . $file . '.php';
 }

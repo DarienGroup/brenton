@@ -1,0 +1,426 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+// Square photo column width on lg+. Spec: "should be 410px wide (square shape)
+// and should not shrink".
+$gallery-size: 410px;
+
+// Vertical rhythm between bio sections (and between section body and the
+// divider above the next section). Per spec:
+//   768px  → 24px
+//   1440px → 32px
+//   1920px → 40px
+@mixin team-member-vertical-gap($prop: gap) {
+  #{$prop}: 24px;
+
+  @include respond-to(md) {
+    #{$prop}: fluid-between(24, 32, 768, 1440);
+  }
+  @media (min-width: 1440px) {
+    #{$prop}: fluid-between(32, 40, 1440, 1920);
+  }
+  @media (min-width: 1920px) {
+    #{$prop}: 40px;
+  }
+}
+
+.team-member {
+  background-color: $white;
+  color: $color-text;
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'header'
+      'media'
+      'body';
+    column-gap: calc($spacing-unit * 6);
+    row-gap: calc($spacing-unit * 3);
+
+    @include respond-to(lg) {
+      grid-template-columns: minmax(0, 1fr) $gallery-size;
+      grid-template-areas:
+        'header media'
+        'body   media';
+      column-gap: calc($spacing-unit * 8);
+      row-gap: calc($spacing-unit * 4);
+      align-items: start;
+    }
+  }
+
+  &__header {
+    grid-area: header;
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 1);
+  }
+
+  &__name {
+    margin: 0;
+  }
+
+  &__role {
+    margin: 0;
+  }
+
+  &__media {
+    grid-area: media;
+    display: flex;
+    justify-content: flex-start;
+
+    @include respond-to(lg) {
+      // Keep the gallery column at exactly 410px on lg+ — never shrink.
+      width: $gallery-size;
+      flex: 0 0 $gallery-size;
+    }
+  }
+
+  &__body {
+    grid-area: body;
+    display: flex;
+    flex-direction: column;
+    max-width: 954px;
+    @include team-member-vertical-gap(gap);
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: calc($spacing-unit * 2);
+    border-bottom: 1px solid rgba($primary-gray, 0.15);
+    @include team-member-vertical-gap(padding-bottom);
+
+    &:last-of-type {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  &__section-title {
+    margin: 0;
+  }
+
+  &__section-body {
+    color: $primary-gray;
+    font-family: $font-montserrat;
+    line-height: 1.6;
+
+    > * + * {
+      margin-top: 1em;
+    }
+
+    p {
+      margin: 0;
+
+      & + p {
+        margin-top: 12px;
+      }
+    }
+
+    a {
+      color: $cyan;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    ul, ol {
+      margin: 0;
+      padding-left: 1.25em;
+
+      li + li {
+        margin-top: 0.5em;
+      }
+    }
+  }
+
+  // ── Personal callout ──────────────────────────────────────────────────
+  &__callout {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: calc($spacing-unit * 2);
+    padding: 20px 24px;
+    background-color: rgba($sky-blue, 0.12);
+    border-left: 4px solid $sky-blue;
+    border-radius: 2px;
+  }
+
+  &__callout-icon {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__callout-body {
+    flex: 1 1 auto;
+    font-family: $font-montserrat;
+    line-height: 1.5;
+
+    p {
+      margin: 0;
+
+      & + p {
+        margin-top: 8px;
+      }
+    }
+  }
+
+  // ── Back link ─────────────────────────────────────────────────────────
+  // Visual styling comes from the shared `.btn` + `.btn--outline` component
+  // (see _buttons.scss). This selector only handles spacing/alignment that's
+  // specific to where the button sits inside the bio column.
+  &__back {
+    align-self: flex-start;
+    margin-top: calc($spacing-unit * 2);
+  }
+}
+
+// ── Gallery component ───────────────────────────────────────────────────
+.team-member-gallery {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @include respond-to(lg) {
+    width: $gallery-size;
+  }
+
+  &__viewport {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: $secondary-gray;
+  }
+
+  &__track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+
+    &.is-active {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc($spacing-unit * 2);
+    background-color: $secondary-gray;
+    border-top: 1px solid $white;
+    // Vertical padding: 768 → 16, 1440 → 20, 1920 → 24. Horizontal stays 16.
+    padding: fluid-between(16, 20, 768, 1440) 16px;
+
+    @media (min-width: 1440px) {
+      padding: fluid-between(20, 24, 1440, 1920) 16px;
+    }
+    @media (min-width: 1920px) {
+      padding: 24px 16px;
+    }
+  }
+
+  &__nav-group {
+    display: flex;
+    align-items: center;
+    gap: calc($spacing-unit * 1.5);
+  }
+
+  &__nav {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: transparent;
+    color: $color-text;
+    border: 0;
+    cursor: pointer;
+    transition: color $transition-base;
+
+    &:hover,
+    &:focus-visible {
+      color: $cyan;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $deep-teal;
+      outline-offset: 2px;
+    }
+  }
+
+  &__counter {
+    font-family: $font-montserrat;
+    color: $primary-gray;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  &__counter-slash {
+    margin: 0 2px;
+  }
+
+  &__expand {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: $white;
+    color: $color-text;
+    border: 1px solid rgba($primary-gray, 0.2);
+    cursor: pointer;
+    transition: color $transition-base, border-color $transition-base;
+
+    &:hover,
+    &:focus-visible {
+      color: $cyan;
+      border-color: $sky-blue;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $deep-teal;
+      outline-offset: 2px;
+    }
+  }
+
+  // ── Lightbox ──────────────────────────────────────────────────────────
+  &__lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background-color: rgba($black, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc($spacing-unit * 3);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__lightbox-stage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-width: min(90vw, 720px);
+    width: 100%;
+  }
+
+  &__lightbox-image {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+    display: block;
+    background-color: $white;
+    border: 0;
+    box-sizing: border-box;
+    // 768px → 16, 1440px → 28, 1920px → 40 (top + sides; 0 bottom flush with controls bar)
+    $p: fluid-between(16, 28, 768, 1440);
+    padding: $p $p 0 $p;
+
+    @media (min-width: 1440px) {
+      $p: fluid-between(28, 40, 1440, 1920);
+      padding: $p $p 0 $p;
+    }
+    @media (min-width: 1920px) {
+      padding: 40px 40px 0 40px;
+    }
+  }
+
+  &__lightbox-close {
+    position: absolute;
+    top: calc($spacing-unit * 1.5);
+    right: calc($spacing-unit * 1.5);
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: $white;
+    color: $color-text;
+    border: 0;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: color $transition-base, background-color $transition-base;
+
+    &:hover,
+    &:focus-visible {
+      color: $cyan;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $sky-blue;
+      outline-offset: 2px;
+    }
+  }
+
+  &__lightbox-controls {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc($spacing-unit * 2);
+    background-color: $secondary-gray;
+    box-sizing: border-box;
+    // 768px → 12, 1440px → 20, 1920px → 24
+    padding: fluid-between(12, 20, 768, 1440);
+
+    @media (min-width: 1440px) {
+      padding: fluid-between(20, 24, 1440, 1920);
+    }
+    @media (min-width: 1920px) {
+      padding: 24px;
+    }
+  }
+}
+
+// Lock body scroll while the lightbox is open. JS toggles this class.
+body.team-member-gallery-open {
+  overflow: hidden;
+}

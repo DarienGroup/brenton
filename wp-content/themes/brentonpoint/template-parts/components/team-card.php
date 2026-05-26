@@ -40,11 +40,19 @@ if ($position === '') {
     }
 }
 
-$image_html = get_the_post_thumbnail($post_id, 'medium_large', [
+$img_attrs = [
     'class'   => 'team-card__image',
     'loading' => 'lazy',
     'alt'     => $name,
-]);
+];
+$thumb_id = get_post_thumbnail_id($post_id);
+if ($thumb_id && function_exists('brentonpoint_attachment_focal_point')) {
+    $focal = brentonpoint_attachment_focal_point((int) $thumb_id);
+    if ($focal['x'] !== 50 || $focal['y'] !== 50) {
+        $img_attrs['style'] = sprintf('object-position: %d%% %d%%;', $focal['x'], $focal['y']);
+    }
+}
+$image_html = get_the_post_thumbnail($post_id, 'medium_large', $img_attrs);
 
 $linked = (bool) $args['linked'];
 $href   = $linked ? get_permalink($post_id) : '';
