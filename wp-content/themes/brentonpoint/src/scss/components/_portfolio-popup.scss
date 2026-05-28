@@ -80,7 +80,7 @@
     }
 
     @include respond-to(lg) {
-      gap: calc($spacing-unit * 6);
+      gap: calc($spacing-unit * 7.5);
     }
   }
 
@@ -107,6 +107,12 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    // Focal point + zoom from the attachment picker. Set via inline CSS
+    // variables in template-parts/components/portfolio-popup.php; defaults
+    // are centered crop, no zoom.
+    object-position: var(--focal-x, 50%) var(--focal-y, 50%);
+    transform: scale(var(--focal-zoom, 1));
+    transform-origin: var(--focal-x, 50%) var(--focal-y, 50%);
 
     &--placeholder {
       background-color: $primary-gray;

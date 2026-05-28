@@ -49,6 +49,11 @@ $icon_url = is_array($deals_icon) ? ($deals_icon['url'] ?? '') : (string) $deals
 $icon_alt = is_array($deals_icon) ? ($deals_icon['alt'] ?? '') : '';
 ?>
 <section class="sector-focus-section section" data-reveal>
+    <img class="sector-focus-section__decoration"
+         src="<?php echo esc_url(get_template_directory_uri() . '/images/approach-section-decoration.svg'); ?>"
+         alt=""
+         aria-hidden="true"
+         loading="lazy">
     <div class="sector-focus-section__inner container">
 
         <?php if ($heading) : ?>

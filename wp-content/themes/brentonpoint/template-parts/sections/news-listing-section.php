@@ -46,6 +46,11 @@ if (!$news_query->have_posts()) {
 }
 ?>
 <section class="news-listing-section" data-reveal>
+    <img class="news-listing-section__decoration"
+         src="<?php echo esc_url(get_template_directory_uri() . '/images/news-listing-decoration.svg'); ?>"
+         alt=""
+         aria-hidden="true"
+         loading="lazy">
     <div class="news-listing-section__inner container">
 
         <div class="news-listing-section__header">

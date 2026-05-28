@@ -31,13 +31,14 @@ $position = function_exists('get_field') ? (string) get_field('team_position', $
 if ($position === '') {
     $content = get_post_field('post_content', $post_id);
     if ($content && preg_match('/<h4[^>]*>(.*?)<\/h4>/is', $content, $m)) {
-        $raw = trim(wp_strip_all_tags($m[1]));
-        // Existing posts store the role in uppercase ("VICE PRESIDENT"). Convert
-        // to Title Case for display while leaving non-uppercase strings alone.
-        $position = ($raw && $raw === mb_strtoupper($raw, 'UTF-8'))
-            ? mb_convert_case(mb_strtolower($raw, 'UTF-8'), MB_CASE_TITLE, 'UTF-8')
-            : $raw;
+        $position = trim(wp_strip_all_tags($m[1]));
     }
+}
+// Existing posts store the role in uppercase ("VICE PRESIDENT") in either the
+// ACF field or the body <h4>. Convert all-caps values to Title Case while
+// leaving mixed-case strings alone.
+if ($position !== '' && $position === mb_strtoupper($position, 'UTF-8')) {
+    $position = mb_convert_case(mb_strtolower($position, 'UTF-8'), MB_CASE_TITLE, 'UTF-8');
 }
 
 $img_attrs = [

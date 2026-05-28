@@ -144,6 +144,12 @@
   &__role {
     margin: 0;
     font-family: $font-montserrat;
+    // Keep the position on a single line; reserve room on the right for the
+    // absolutely-positioned chevron (20px icon + 4px offset + breathing room).
+    padding-right: 32px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__chevron {

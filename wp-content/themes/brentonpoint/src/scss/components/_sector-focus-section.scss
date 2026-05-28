@@ -6,10 +6,32 @@
 // Two-column layout (left: fixed Team Deals readout, right: copy + industries),
 // stacking under $bp-md.
 .sector-focus-section {
+  position: relative;
+  overflow: hidden;
   background-color: $white;
   color: $color-text;
 
+  // Decorative ring anchored to the bottom-left edge of the section. The SVG
+  // path already extends to the left of its viewBox, so the off-screen
+  // portion is hidden by the section's `overflow: hidden`.
+  &__decoration {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: clamp(180px, 13.8vw, 265px); // 265 / 1920 ≈ 13.8vw
+    height: auto;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+
+    @media (max-width: $bp-md) {
+      display: none;
+    }
+  }
+
   &__inner {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: clamp(32px, 3.33vw, 64px);
@@ -19,35 +41,39 @@
     margin: 0;
   }
 
-  // 24px gap between columns. Left column intrinsically sized and does not
-  // shrink; right column fills the remaining space. Stacks under $bp-md.
+  // Three-column grid that mirrors `.investment-section__cards` below it so
+  // column boundaries (and the gap rail) line up across both sections.
+  // Left = Team Deals (1 track), Right = copy + industries (2 tracks).
+  // Gap matches the cards' fluid gap (20→24px) for the same reason.
+  // Stacks under $bp-md — the stacked layout is untouched.
   &__cols {
-    display: flex;
-    align-items: flex-start;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: clamp(20px, calc(0.8333vw + 8px), 24px);
 
     @media (max-width: $bp-md) {
-      flex-direction: column;
+      grid-template-columns: 1fr;
       gap: 32px;
     }
   }
 
   &__left {
-    flex: 0 0 auto;
+    grid-column: span 1;
     min-width: 0;
-
-    @media (max-width: $bp-md) {
-      width: 100%;
-    }
   }
 
   &__right {
-    flex: 1 1 0;
+    grid-column: span 2;
     min-width: 0;
     display: flex;
     flex-direction: column;
     // 40px gap between the top text block and the industries block.
     gap: 40px;
+
+    @media (max-width: $bp-md) {
+      grid-column: 1;
+    }
   }
 
   &__intro,

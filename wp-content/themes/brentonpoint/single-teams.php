@@ -27,12 +27,12 @@ while (have_posts()) : the_post();
     $position  = function_exists('get_field') ? (string) get_field('team_position', $post_id) : '';
     $content   = get_the_content();
     if ($position === '' && $content && preg_match('/<h4[^>]*>(.*?)<\/h4>/is', $content, $m)) {
-        $raw = trim(wp_strip_all_tags($m[1]));
-        $position = ($raw && $raw === mb_strtoupper($raw, 'UTF-8'))
-            ? mb_convert_case(mb_strtolower($raw, 'UTF-8'), MB_CASE_TITLE, 'UTF-8')
-            : $raw;
+        $position = trim(wp_strip_all_tags($m[1]));
         // Drop the first <h4> from the body so the role isn't shown twice.
         $content = preg_replace('/<h4[^>]*>.*?<\/h4>/is', '', $content, 1);
+    }
+    if ($position !== '' && $position === mb_strtoupper($position, 'UTF-8')) {
+        $position = mb_convert_case(mb_strtolower($position, 'UTF-8'), MB_CASE_TITLE, 'UTF-8');
     }
     $experience = brentonpoint_clean_post_content((string) $content);
 
@@ -99,7 +99,7 @@ while (have_posts()) : the_post();
 ?>
 
 <main id="main" class="site-main site-main--inner">
-    <article id="post-<?php the_ID(); ?>" <?php post_class('team-member section'); ?>>
+    <article id="post-<?php the_ID(); ?>" <?php post_class('team-member section'); ?> style="--section-pt: 120px;">
         <div class="team-member__inner container">
 
             <header class="team-member__header">

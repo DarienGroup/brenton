@@ -40,13 +40,25 @@ $attachment_id = static function ($value): int {
 };
 
 $image_id = function_exists('get_field') ? $attachment_id(get_field('portfolio_image', $post_id)) : 0;
-$image_html = $image_id
-    ? wp_get_attachment_image($image_id, 'large', false, [
-        'class'   => 'portfolio-card__image',
-        'loading' => 'lazy',
-        'alt'     => $title,
-    ])
-    : '';
+$image_attr = [
+    'class'   => 'portfolio-card__image',
+    'loading' => 'lazy',
+    'alt'     => $title,
+];
+if ($image_id && function_exists('brentonpoint_attachment_focal_point')) {
+    $focal = brentonpoint_attachment_focal_point((int) $image_id);
+    // size = side of the focal square as % of the image's smaller dimension.
+    // zoom = how much we scale the rendered image so that square fills the
+    // viewport's smaller dimension. size=100 → zoom=1 (no extra zoom).
+    $zoom = $focal['size'] > 0 ? 100 / $focal['size'] : 1;
+    $image_attr['style'] = sprintf(
+        '--focal-x: %d%%; --focal-y: %d%%; --focal-zoom: %s;',
+        $focal['x'],
+        $focal['y'],
+        rtrim(rtrim(number_format($zoom, 4, '.', ''), '0'), '.')
+    );
+}
+$image_html = $image_id ? wp_get_attachment_image($image_id, 'large', false, $image_attr) : '';
 
 $logo_id   = function_exists('get_field') ? $attachment_id(get_field('portfolio_logo', $post_id)) : 0;
 $logo_html = $logo_id

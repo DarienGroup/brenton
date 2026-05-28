@@ -58,13 +58,24 @@ if (is_array($terms)) {
     }
 }
 
-$image_html = $image_id
-    ? wp_get_attachment_image($image_id, 'large', false, [
-        'class'   => 'portfolio-popup__image',
-        'loading' => 'lazy',
-        'alt'     => $title,
-    ])
-    : '';
+$image_attr = [
+    'class'   => 'portfolio-popup__image',
+    'loading' => 'lazy',
+    'alt'     => $title,
+];
+if ($image_id && function_exists('brentonpoint_attachment_focal_point')) {
+    // Same focal-point + size system as the portfolio grid card so the
+    // editor's crop choice is honored in the detail modal too.
+    $focal = brentonpoint_attachment_focal_point((int) $image_id);
+    $zoom = $focal['size'] > 0 ? 100 / $focal['size'] : 1;
+    $image_attr['style'] = sprintf(
+        '--focal-x: %d%%; --focal-y: %d%%; --focal-zoom: %s;',
+        $focal['x'],
+        $focal['y'],
+        rtrim(rtrim(number_format($zoom, 4, '.', ''), '0'), '.')
+    );
+}
+$image_html = $image_id ? wp_get_attachment_image($image_id, 'large', false, $image_attr) : '';
 
 $logo_html = $logo_id
     ? wp_get_attachment_image($logo_id, 'medium', false, [

@@ -63,6 +63,9 @@ $gallery-size: 410px;
 
   &__role {
     margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__media {
@@ -355,19 +358,28 @@ $gallery-size: 410px;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
+    // Shrink to the natural width of the image (plus its padding) instead of
+    // stretching to the full 720px. The max-width still caps very wide images
+    // at the original design ceiling.
+    width: max-content;
     max-width: min(90vw, 720px);
-    width: 100%;
   }
 
   &__lightbox-image {
-    width: 100%;
+    // `width: auto` lets the image render at its natural size; `max-width:
+    // 100%` of the stage and `max-height: 80vh` keep it within the viewport.
+    // `box-sizing: content-box` keeps the padding *outside* the image bitmap
+    // so the white border around the photo stays visually uniform (top +
+    // sides) regardless of how small the source image is.
+    width: auto;
     height: auto;
+    max-width: 100%;
     max-height: 80vh;
     object-fit: contain;
     display: block;
     background-color: $white;
     border: 0;
-    box-sizing: border-box;
+    box-sizing: content-box;
     // 768px → 16, 1440px → 28, 1920px → 40 (top + sides; 0 bottom flush with controls bar)
     $p: fluid-between(16, 28, 768, 1440);
     padding: $p $p 0 $p;

@@ -16,24 +16,31 @@
  */
 defined('ABSPATH') || exit;
 
-const BRENTONPOINT_FOCAL_META_X = '_bp_focal_x';
-const BRENTONPOINT_FOCAL_META_Y = '_bp_focal_y';
+const BRENTONPOINT_FOCAL_META_X    = '_bp_focal_x';
+const BRENTONPOINT_FOCAL_META_Y    = '_bp_focal_y';
+// Size of the focal square as a percentage of the image's smaller dimension.
+// 100 = the full max-square (legacy behaviour). Lower values zoom in.
+const BRENTONPOINT_FOCAL_META_SIZE = '_bp_focal_size';
 
 /**
- * Read the focal point for an attachment. Defaults to 50/50 (center).
+ * Read the focal point for an attachment. Defaults to 50/50/100 (center,
+ * full square).
  *
- * @return array{x:int,y:int}
+ * @return array{x:int,y:int,size:int}
  */
 function brentonpoint_attachment_focal_point(int $attachment_id): array {
     $x = get_post_meta($attachment_id, BRENTONPOINT_FOCAL_META_X, true);
     $y = get_post_meta($attachment_id, BRENTONPOINT_FOCAL_META_Y, true);
+    $s = get_post_meta($attachment_id, BRENTONPOINT_FOCAL_META_SIZE, true);
 
     $x = is_numeric($x) ? (int) round((float) $x) : 50;
     $y = is_numeric($y) ? (int) round((float) $y) : 50;
+    $s = is_numeric($s) ? (int) round((float) $s) : 100;
 
     return [
-        'x' => max(0, min(100, $x)),
-        'y' => max(0, min(100, $y)),
+        'x'    => max(0, min(100, $x)),
+        'y'    => max(0, min(100, $y)),
+        'size' => max(10, min(100, $s)),
     ];
 }
 
@@ -59,12 +66,23 @@ add_filter('attachment_fields_to_edit', function ($form_fields, $post) {
             <div class="bp-focal-picker__square" data-bp-focal-square hidden></div>
         </div>
         <p class="bp-focal-picker__help description">
-            <?php esc_html_e('Drag the square to pick the area of the image that stays visible when cropped (e.g. the team grid and single profile gallery). For already-square images the box fills the whole image.', 'brentonpoint'); ?>
+            <?php esc_html_e('Drag the square to pick the area of the image that stays visible when cropped (e.g. the team grid and single profile gallery). Use the size slider to make the square smaller — this zooms the cropped area in.', 'brentonpoint'); ?>
         </p>
         <p class="bp-focal-picker__values">
             <strong><?php esc_html_e('Focal point:', 'brentonpoint'); ?></strong>
-            <span data-bp-focal-readout><?php echo esc_html(sprintf('%d%% × %d%%', $focal['x'], $focal['y'])); ?></span>
+            <span data-bp-focal-readout><?php echo esc_html(sprintf('%d%% × %d%% · size %d%%', $focal['x'], $focal['y'], $focal['size'])); ?></span>
         </p>
+        <label class="bp-focal-picker__size">
+            <span><?php esc_html_e('Square size', 'brentonpoint'); ?></span>
+            <input
+                type="range"
+                min="10"
+                max="100"
+                step="1"
+                value="<?php echo esc_attr((string) $focal['size']); ?>"
+                data-bp-focal-size-slider
+            >
+        </label>
         <input
             type="hidden"
             name="attachments[<?php echo esc_attr((string) $post->ID); ?>][bp_focal_x]"
@@ -76,6 +94,12 @@ add_filter('attachment_fields_to_edit', function ($form_fields, $post) {
             name="attachments[<?php echo esc_attr((string) $post->ID); ?>][bp_focal_y]"
             value="<?php echo esc_attr((string) $focal['y']); ?>"
             data-bp-focal-input-y
+        >
+        <input
+            type="hidden"
+            name="attachments[<?php echo esc_attr((string) $post->ID); ?>][bp_focal_size]"
+            value="<?php echo esc_attr((string) $focal['size']); ?>"
+            data-bp-focal-input-size
         >
     </div>
     <?php
@@ -99,7 +123,7 @@ add_filter('attachment_fields_to_save', function ($post, $attachment) {
     }
 
     $id = (int) $post['ID'];
-    $write = static function (string $key, string $meta) use ($id, $attachment): void {
+    $write = static function (string $key, string $meta, int $min = 0, int $max = 100) use ($id, $attachment): void {
         if (!array_key_exists($key, $attachment)) {
             return;
         }
@@ -108,12 +132,13 @@ add_filter('attachment_fields_to_save', function ($post, $attachment) {
             delete_post_meta($id, $meta);
             return;
         }
-        $clamped = max(0, min(100, (int) round((float) $v)));
+        $clamped = max($min, min($max, (int) round((float) $v)));
         update_post_meta($id, $meta, $clamped);
     };
 
-    $write('bp_focal_x', BRENTONPOINT_FOCAL_META_X);
-    $write('bp_focal_y', BRENTONPOINT_FOCAL_META_Y);
+    $write('bp_focal_x',    BRENTONPOINT_FOCAL_META_X);
+    $write('bp_focal_y',    BRENTONPOINT_FOCAL_META_Y);
+    $write('bp_focal_size', BRENTONPOINT_FOCAL_META_SIZE, 10, 100);
 
     return $post;
 }, 10, 2);
@@ -178,6 +203,14 @@ add_action('admin_print_footer_scripts', function () {
         }
         .bp-focal-picker__help { margin-top: 6px; }
         .bp-focal-picker__values { margin-top: 4px; font-size: 12px; }
+        .bp-focal-picker__size {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+            font-size: 12px;
+        }
+        .bp-focal-picker__size input[type="range"] { flex: 1 1 auto; min-width: 0; }
     </style>
     <script id="bp-focal-picker-js">
     (function () {
@@ -185,13 +218,21 @@ add_action('admin_print_footer_scripts', function () {
 
         function pickerState(picker) {
             return {
-                stage:   picker.querySelector('[data-bp-focal-stage]'),
-                image:   picker.querySelector('[data-bp-focal-image]'),
-                square:  picker.querySelector('[data-bp-focal-square]'),
-                inputX:  picker.querySelector('[data-bp-focal-input-x]'),
-                inputY:  picker.querySelector('[data-bp-focal-input-y]'),
-                readout: picker.querySelector('[data-bp-focal-readout]'),
+                stage:     picker.querySelector('[data-bp-focal-stage]'),
+                image:     picker.querySelector('[data-bp-focal-image]'),
+                square:    picker.querySelector('[data-bp-focal-square]'),
+                inputX:    picker.querySelector('[data-bp-focal-input-x]'),
+                inputY:    picker.querySelector('[data-bp-focal-input-y]'),
+                inputSize: picker.querySelector('[data-bp-focal-input-size]'),
+                slider:    picker.querySelector('[data-bp-focal-size-slider]'),
+                readout:   picker.querySelector('[data-bp-focal-readout]'),
             };
+        }
+
+        function readSizePct(s) {
+            var v = parseFloat(s.inputSize && s.inputSize.value);
+            if (isNaN(v)) v = 100;
+            return Math.max(10, Math.min(100, v));
         }
 
         /**
@@ -206,7 +247,8 @@ add_action('admin_print_footer_scripts', function () {
             var h = s.image.clientHeight;
             if (w === 0 || h === 0) return;
 
-            var size = Math.min(w, h);
+            var sizePct = readSizePct(s);
+            var size = (Math.min(w, h) * sizePct) / 100;
             var maxLeft = Math.max(0, w - size);
             var maxTop  = Math.max(0, h - size);
 
@@ -231,7 +273,8 @@ add_action('admin_print_footer_scripts', function () {
             var yi = Math.max(0, Math.min(100, Math.round(fy)));
             if (s.inputX) s.inputX.value = xi;
             if (s.inputY) s.inputY.value = yi;
-            if (s.readout) s.readout.textContent = xi + '% × ' + yi + '%';
+            var sz = Math.round(readSizePct(s));
+            if (s.readout) s.readout.textContent = xi + '% × ' + yi + '% · size ' + sz + '%';
             if (s.inputX) s.inputX.dispatchEvent(new Event('change', { bubbles: true }));
         }
 
@@ -242,7 +285,8 @@ add_action('admin_print_footer_scripts', function () {
             var w = imgRect.width, h = imgRect.height;
             if (w === 0 || h === 0) return;
 
-            var size = Math.min(w, h);
+            var sizePct = readSizePct(s);
+            var size = (Math.min(w, h) * sizePct) / 100;
             var maxLeft = Math.max(0, w - size);
             var maxTop  = Math.max(0, h - size);
 
@@ -338,6 +382,25 @@ add_action('admin_print_footer_scripts', function () {
                 layout(picker);
             } else {
                 img.addEventListener('load', function () { layout(picker); }, { once: true });
+            }
+
+            // Size slider — resize the square live and persist via the
+            // hidden bp_focal_size input.
+            var slider = picker.querySelector('[data-bp-focal-size-slider]');
+            if (slider) {
+                slider.addEventListener('input', function () {
+                    var s = pickerState(picker);
+                    if (s.inputSize) {
+                        s.inputSize.value = slider.value;
+                        s.inputSize.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                    var xi = parseFloat(s.inputX && s.inputX.value);
+                    var yi = parseFloat(s.inputY && s.inputY.value);
+                    if (isNaN(xi)) xi = 50;
+                    if (isNaN(yi)) yi = 50;
+                    persist(picker, xi, yi);
+                    layout(picker);
+                });
             }
         }
 

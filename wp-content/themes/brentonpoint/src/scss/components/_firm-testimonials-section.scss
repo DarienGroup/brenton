@@ -33,14 +33,13 @@
     padding: 0;
     background: $white;
     color: $deep-teal;
-    border: 1px solid rgba($deep-teal, 0.2);
-    border-radius: 4px;
+    border: 1px solid $cream;
     cursor: pointer;
     transition: background-color $transition-base, color $transition-base, border-color $transition-base, opacity $transition-base;
 
     &:hover:not(:disabled) {
-      color: $cyan;
-      border-color: $sky-blue;
+      //color: $cyan;
+      border-color: $deep-teal;
     }
 
     &:focus-visible {

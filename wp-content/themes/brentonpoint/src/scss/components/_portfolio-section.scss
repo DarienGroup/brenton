@@ -80,6 +80,9 @@
   &__item {
     margin: 0;
     display: flex;
+    aspect-ratio: 464 / 280;
+    border-top: 4px solid $cream;
+    box-sizing: border-box;
 
     // The filter JS toggles .hide on the underlying <article>.
     &:has(.hide) {
@@ -161,6 +164,9 @@
 .portfolio-card {
   position: relative;
   width: 100%;
+  // Fill the parent `.portfolio-section__item`, which is the element that
+  // owns the 464/280 aspect ratio and the 4px top border.
+  height: 100%;
   background-color: $secondary-gray;
   overflow: hidden;
 
@@ -171,7 +177,7 @@
   &__media {
     position: relative;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    height: 100%;
     overflow: hidden;
   }
 
@@ -182,6 +188,12 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    // The focal point + zoom are emitted as CSS variables on the <img>
+    // (see template-parts/components/portfolio-card.php). When the editor
+    // hasn't picked one, the variables fall back to centered, no-zoom.
+    object-position: var(--focal-x, 50%) var(--focal-y, 50%);
+    transform: scale(var(--focal-zoom, 1));
+    transform-origin: var(--focal-x, 50%) var(--focal-y, 50%);
 
     &--placeholder {
       background-color: $primary-gray;
