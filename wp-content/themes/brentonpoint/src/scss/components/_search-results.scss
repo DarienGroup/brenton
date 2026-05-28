@@ -1,0 +1,75 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+.search-results {
+  background-color: $white;
+  color: $color-text;
+  padding-block: fluid-between($section-py-360, $section-py-1440, 360, 1440);
+
+  @media (min-width: 1440px) {
+    padding-block: fluid-between($section-py-1440, $section-py-1920, 1440, 1920);
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__count {
+    margin: 0 0 32px;
+    color: $color-text;
+    font-family: $font-montserrat;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.search-card {
+  display: flex;
+  flex-direction: column;
+  gap: calc($spacing-unit * 1.5);
+  padding-block: calc($spacing-unit * 3);
+  border-bottom: 1px solid $cream;
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__link {
+    color: $deep-teal;
+    text-decoration: none;
+    transition: color $transition-base;
+
+    &:hover,
+    &:focus-visible {
+      color: $cyan;
+    }
+  }
+
+  &__excerpt {
+    margin: 0;
+    color: $color-text;
+    font-family: $font-montserrat;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+  }
+}

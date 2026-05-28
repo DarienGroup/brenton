@@ -394,3 +394,10 @@ $header-nav-bp: 1025px;
     }
   }
 }
+
+// On the search results page the search bar is pinned open. The bar itself
+// stays absolutely positioned (so it tracks the sticky header), but we push
+// the page content down by its height (64px) so it doesn't overlap.
+body.search .site-content {
+  padding-block-start: 64px;
+}

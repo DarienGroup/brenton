@@ -33,9 +33,9 @@
 
                 <div class="header-actions">
                 <button
-                        class="search-toggle"
+                        class="search-toggle<?php echo is_search() ? ' is-active' : ''; ?>"
                         aria-label="<?php esc_attr_e('Toggle search', 'brentonpoint'); ?>"
-                        aria-expanded="false"
+                        aria-expanded="<?php echo is_search() ? 'true' : 'false'; ?>"
                         aria-controls="search-bar"
                 >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -84,8 +84,8 @@
             </nav>
         </div>
 
-        <!-- Search bar panel (slides down inside sticky header) -->
-        <div id="search-bar" class="search-bar" aria-hidden="true">
+        <!-- Search bar panel (slides down inside sticky header; pinned open on the search results page) -->
+        <div id="search-bar" class="search-bar<?php echo is_search() ? ' is-open' : ''; ?>" aria-hidden="<?php echo is_search() ? 'false' : 'true'; ?>">
             <form class="search-bar__form container" role="search" method="get"
                   action="<?php echo esc_url(home_url('/')); ?>">
 				<span class="search-bar__icon" aria-hidden="true">
@@ -100,7 +100,7 @@
                         class="search-bar__input"
                         name="s"
                         placeholder="<?php esc_attr_e('Search...', 'brentonpoint'); ?>"
-                        value="<?php echo get_search_query(); ?>"
+                        value="<?php echo esc_attr(get_search_query()); ?>"
                         aria-label="<?php esc_attr_e('Search', 'brentonpoint'); ?>"
                         autocomplete="off"
                 >
