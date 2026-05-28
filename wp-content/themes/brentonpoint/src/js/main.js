@@ -5,6 +5,7 @@ import { initFooter } from './parts/footer';
 import { initScrollReveal } from './parts/animations';
 import { initPortfolioReadMore, initTeamReadMore } from './parts/read-more';
 import { initContactForm } from './parts/contact-form';
+import { initFormSuccess } from './parts/form-success';
 import { initAboutTabs } from './parts/about-tabs';
 import { initInvestmentVideo } from './parts/investment-video';
 import { initHearFromUs } from './parts/hear-from-us';
@@ -22,6 +23,7 @@ ready(() => {
   initPortfolioReadMore();
   initTeamReadMore();
   initContactForm();
+  initFormSuccess();
   initAboutTabs();
   initInvestmentVideo();
   initHearFromUs();

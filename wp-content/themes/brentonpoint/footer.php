@@ -97,6 +97,8 @@ $columns = brentonpoint_get_footer_columns();
 </footer>
 </div><!-- #page -->
 
+<?php get_template_part('template-parts/components/form-success-popup'); ?>
+
 <?php wp_footer(); ?>
 </body>
 </html>

@@ -1,0 +1,122 @@
+@use 'sass:color';
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Shared "Thank you" dialog opened after any Gravity Form on the page submits
+// successfully. Markup: template-parts/components/form-success-popup.php.
+.form-success-popup {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: $color-text;
+  width: min(100% - 32px, 916px);
+  max-height: calc(100dvh - 32px);
+  overflow: visible;
+
+  &::backdrop {
+    background-color: rgba($black, 0.45);
+  }
+
+  &[open] {
+    display: block;
+  }
+
+  &__panel {
+    position: relative;
+    background-color: $white;
+    padding: calc($spacing-unit * 5) calc($spacing-unit * 3) calc($spacing-unit * 5);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc($spacing-unit * 2);
+
+    @include respond-to(md) {
+      padding: calc($spacing-unit * 8) calc($spacing-unit * 6) calc($spacing-unit * 7);
+      gap: calc($spacing-unit * 3);
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: calc($spacing-unit * 2);
+    right: calc($spacing-unit * 2);
+    width: 40px;
+    height: 40px;
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: $color-text;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+
+    &:focus-visible {
+      outline: 2px solid $color-primary;
+      outline-offset: 2px;
+    }
+  }
+
+  &__icon {
+    width: 64px;
+    height: 64px;
+    background-color: $secondary-gray;
+    color: $color-primary;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: calc($spacing-unit * 1);
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__message {
+    margin: 0;
+    max-width: 480px;
+  }
+
+  &__cta {
+    width: 100%;
+    margin-top: calc($spacing-unit * 2);
+
+    @include respond-to(md) {
+      margin-top: calc($spacing-unit * 3);
+    }
+  }
+
+  &__button {
+    appearance: none;
+    border: 0;
+    cursor: pointer;
+    background-color: $cyan;
+    color: $white;
+    font-family: $font-montserrat;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.2;
+    padding: 18px 32px;
+    min-width: 280px;
+    transition: background-color $transition-base;
+
+    &:hover,
+    &:focus-visible {
+      background-color: color.adjust($cyan, $lightness: -6%);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-primary;
+      outline-offset: 2px;
+    }
+  }
+}
+
+// Suppress Gravity Forms' inline confirmation message — the dialog replaces it.
+.gform_confirmation_wrapper,
+.gform_confirmation_message,
+[id^='gform_confirmation_message_'] {
+  display: none !important;
+}
