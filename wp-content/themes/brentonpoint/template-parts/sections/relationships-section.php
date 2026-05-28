@@ -94,7 +94,7 @@ if ('home' === $args['variant']) {
                                 'href'    => $btn_primary['href'],
                                 'target'  => $btn_primary['target'],
                                 'variant' => 'cyan',
-                                'class'   => 'relationships-section__button',
+                                'class'   => 'relationships-section__button btn--small',
                             ]); ?>
                         <?php endif; ?>
 
@@ -104,7 +104,7 @@ if ('home' === $args['variant']) {
                                 'href'    => $btn_secondary['href'],
                                 'target'  => $btn_secondary['target'],
                                 'variant' => 'white-outline',
-                                'class'   => 'relationships-section__button',
+                                'class'   => 'relationships-section__button btn--small',
                             ]); ?>
                         <?php endif; ?>
                     </div>
@@ -142,8 +142,8 @@ if ('home' === $args['variant']) {
                         </div>
 
                         <span class="relationships-section__quote-mark" aria-hidden="true">
-                            <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.2 0H0v6.3h3.6c0 2-1.2 3.6-3.6 3.9v3.5C5.2 13.4 7.2 10.2 7.2 6.7V0Zm10.8 0h-7.2v6.3h3.6c0 2-1.2 3.6-3.6 3.9v3.5C16 13.4 18 10.2 18 6.7V0Z" fill="currentColor"/>
+                            <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.5925 16.3788C15.0559 16.4913 16.1534 16.0973 16.8851 15.1968C17.6168 14.3525 17.9827 13.1706 17.9827 11.6509C17.9827 11.0318 17.9545 10.5534 17.8982 10.2157L13.0015 10.2157L13.0015 0.000113622L22.3728 0.000114441L22.3728 11.0599C22.3728 14.043 21.7255 16.3506 20.431 17.9828C19.1365 19.6714 17.3072 20.5156 14.9433 20.5156C14.5493 20.5156 13.9021 20.4593 13.0015 20.3468L13.5925 16.3788ZM0.590905 16.3788C2.05429 16.4913 3.15183 16.0973 3.88352 15.1968C4.61521 14.3525 4.98105 13.1706 4.98106 11.6509C4.98106 11.0318 4.95291 10.5534 4.89663 10.2157L-7.73008e-05 10.2157L-7.64078e-05 0.000112485L9.37121 0.000113304L9.37121 11.0599C9.3712 14.043 8.72394 16.3506 7.42941 17.9828C6.13488 19.6714 4.30565 20.5156 1.94172 20.5156C1.54773 20.5156 0.900467 20.4593 -7.81865e-05 20.3468L0.590905 16.3788Z" fill="currentColor"/>
                             </svg>
                         </span>
                     </div>

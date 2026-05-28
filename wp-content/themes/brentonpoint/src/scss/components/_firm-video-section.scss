@@ -45,7 +45,7 @@
     // Constrain heading width at lg+ so the line breaks match the design.
     // Mobile (stacked) keeps the natural full-width reading length.
     @include respond-to(lg) {
-      max-width: 380px;
+      max-width: 400px;
     }
   }
 

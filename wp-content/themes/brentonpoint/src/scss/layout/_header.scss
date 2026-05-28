@@ -86,6 +86,7 @@ $header-nav-bp: 1025px;
       // Tight (10px) at ≤1200, full (20px) at ≥1440, fluid in between.
       padding-left: fluid-between(10, 20, 1200, 1440);
       padding-right: fluid-between(10, 20, 1200, 1440);
+      font-family: $font-montserrat;
       &::after {
         content: '';
         display: block;

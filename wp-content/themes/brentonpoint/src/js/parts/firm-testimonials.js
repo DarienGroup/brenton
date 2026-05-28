@@ -37,6 +37,33 @@ function init(section) {
   const slides = Array.from(track.children);
   if (slides.length === 0) return;
 
+  // Cards are aligned to the top of the flex row (see _firm-testimonials-
+  // section.scss) so an expanded card grows without dragging its siblings.
+  // To keep all collapsed cards equal height anyway, measure the tallest
+  // natural collapsed card and pin that as min-height on each card.
+  // Skipping while any card is expanded prevents the expanded card's full
+  // height from becoming the new baseline.
+  const cards = slides
+    .map((slide) => slide.querySelector('.testimonial-card'))
+    .filter(Boolean);
+
+  const equalizeCardHeights = () => {
+    if (cards.length === 0) return;
+    const anyExpanded = cards.some((card) =>
+      card.querySelector('.testimonial-card__quote--expanded')
+    );
+    if (anyExpanded) return;
+
+    cards.forEach((card) => { card.style.minHeight = ''; });
+    const max = cards.reduce(
+      (acc, card) => Math.max(acc, card.getBoundingClientRect().height),
+      0
+    );
+    if (max > 0) {
+      cards.forEach((card) => { card.style.minHeight = `${max}px`; });
+    }
+  };
+
   let index = 0;
 
   // Number of distinct positions the track can rest at. Looping is by slide,
@@ -81,16 +108,26 @@ function init(section) {
     if (resizeTimer) cancelAnimationFrame(resizeTimer);
     resizeTimer = requestAnimationFrame(() => {
       index = wrap(index, positionCount());
+      equalizeCardHeights();
       update();
     });
   });
 
   // Re-align after a card's "Show more / Show less" toggle changes its width
   // calculation (transform is in px and slide widths are technically stable,
-  // but heights change and we want to be defensive).
+  // but heights change and we want to be defensive). `equalizeCardHeights`
+  // is a no-op while any card is expanded, so toggling one card open does
+  // not change the pinned min-height of the others.
   section.addEventListener('testimonial:toggle', () => {
-    requestAnimationFrame(update);
+    requestAnimationFrame(() => {
+      equalizeCardHeights();
+      update();
+    });
   });
+
+  // Initial pin happens after the first layout pass so we measure real
+  // rendered heights (fonts, fluid type, images for avatars settle by then).
+  requestAnimationFrame(equalizeCardHeights);
 
   update();
 }

@@ -140,7 +140,7 @@ $ellipse_svg = file_get_contents(get_template_directory() . '/images/investment-
                 <?php foreach ($cards as $card) : ?>
                     <li class="investment-card">
                         <?php if ($card['title']) : ?>
-                            <h3 class="investment-card__title text-h3 text-weight-600 text-color-black">
+                            <h3 class="investment-card__title text-h4 text-weight-600 text-color-black">
                                 <?php echo esc_html($card['title']); ?>
                             </h3>
                         <?php endif; ?>

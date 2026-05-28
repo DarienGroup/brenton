@@ -89,7 +89,7 @@ $pin_decoration = file_get_contents(get_template_directory() . '/images/about-li
                     <?php endif; ?>
 
                     <?php if (!empty($panel['body'])) : ?>
-                        <div class="about-tabs__body-text text-body-L">
+                        <div class="about-tabs__body-text text-body-M">
                             <?php echo wp_kses_post(wpautop($panel['body'])); ?>
                         </div>
                     <?php endif; ?>

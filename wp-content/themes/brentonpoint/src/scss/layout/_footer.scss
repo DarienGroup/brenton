@@ -163,7 +163,7 @@
       // Swap the container-bound border for a full-viewport-width line.
       position: relative;
       border-top: 0;
-      border-top: 1px solid rgba($white, 0.15);
+      //border-top: 1px solid rgba(58, 58, 56, .5);
 
       &::before {
         content: '';
@@ -173,7 +173,7 @@
         transform: translateX(-50%);
         width: 100vw;
         height: 1px;
-        background-color: rgba($white, 0.15);
+        background-color: rgba(58, 58, 56, .5);
       }
     }
   }

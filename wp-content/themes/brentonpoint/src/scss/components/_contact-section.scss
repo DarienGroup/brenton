@@ -4,7 +4,7 @@
 @use '../abstracts/type-scale' as ts;
 
 .contact-section {
-  background-color: $secondary-gray;
+  background-color: $white;
   color: $color-text;
   padding-block: fluid-between($section-py-360, $section-py-1440, 360, 1440);
 
@@ -55,7 +55,7 @@
   &__cards {
     @include respond-to(lg) {
       grid-area: cards;
-      align-self: center;
+      align-self: self-start;
     }
   }
 

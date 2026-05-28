@@ -116,12 +116,8 @@
     position: relative;
     background-color: $deep-teal;
     background-repeat: no-repeat;
-    // Pin the image at its native size, anchored to the tile's top-right.
-    // As the column narrows the image is CROPPED on the LEFT (empty water)
-    // — the bullet area on the right stays put. Source asset is 664×680
-    // (images/Section/why-brentonpoint-bg.webp).
     background-position: top right;
-    background-size: auto;
+    background-size: 668px 680px;
     height: 680px;
     min-width: 0;
     overflow: hidden;
@@ -153,13 +149,25 @@
       background-position: top left;
     }
 
-    // Once the tile gets narrow enough that we can no longer fit the
-    // scaled image (~554.5px) comfortably, flip the anchor to top-right
-    // so the LEFT side of the image crops as the tile shrinks. Bullets
-    // are re-anchored to the image's right edge in the matching media
-    // query below so they slide with the crop.
+    // Narrow tiles (≤629px): keep the image anchored at the tile's left
+    // edge so there's no teal gap on the left. The image's right side is
+    // transparent, so the bg-color of the tile fills out naturally.
     @media (max-width: 629px) {
+      background-position: top left;
+    }
+
+    // Once the tile is narrower than the scaled image (~554.5px), flip
+    // to top-right so the image's left side overflows the tile (cropping
+    // the rings on the left edge as the tile shrinks further).
+    @media (max-width: 554px) {
       background-position: top right;
+    }
+
+    // Phone-sized tiles: pull the image off the right edge with 85%
+    // positioning so the rings nudge toward the centre of the tile. Only
+    // valid when tile < image width (always true here since 460 < 554.5).
+    @media (max-width: 460px) {
+      background-position: 85% 0;
     }
   }
 }
@@ -196,7 +204,7 @@ $why-image-width: 664px;
     // is right-anchored on the tile, we offset by (100% - image-width).
     position: absolute;
     top: var(--bullet-y, 340px);
-    left: calc(100% - #{$why-image-width} + var(--bullet-x, 369px));
+    left: calc(100% - #{$why-image-width} + var(--bullet-x, 364px));
     transform: translate(-#{$pin-dot-x}, -50%);
     display: inline-flex;
     align-items: center;
@@ -324,8 +332,8 @@ $why-image-width: 664px;
   // ── Mobile (<lg) ────────────────────────────────────────────────────────
   // The visual block is 568px tall, the bg image is sized by height (so
   // the arc fills it vertically) and anchored to the tile's top-LEFT.
-  // Bullet x is scaled proportionally so dots still land on the arc;
-  // y is fixed per-bullet:
+  // All three bullets scale --bullet-x proportionally (× 0.835) so they
+  // track the arc; y is fixed per-bullet:
   //   1st  → 68px from top
   //   3rd  → 128px from bottom (= 568 - 128 = 440px from top)
   //   2nd  → midway between them (= (68 + 440) / 2 = 254px from top)
@@ -335,14 +343,17 @@ $why-image-width: 664px;
 
     &__item {
       // Image is top-left anchored, so x is measured directly from the
-      // tile's left edge (scaled to match the smaller image). Bullets
-      // 1 and 3 use design-tuned absolute x values; bullet 2 keeps the
-      // proportional scale of its --bullet-x so it tracks the arc apex.
-      left: calc(var(--bullet-x, 369px) * #{$mobile-scale});
+      // tile's left edge (scaled to match the smaller image).
+      left: calc(var(--bullet-x, 364px) * #{$mobile-scale});
 
-      &:nth-child(1) { top: 68px;  left: 218px; }
+      // Stacked-layout overrides: bullets 1 and 3 use design-tuned x
+      // values different from desktop (set on the variable itself with
+      // !important to override the inline `style="--bullet-x: …"` set
+      // by PHP). Every narrower breakpoint below reads var(--bullet-x),
+      // so they all inherit these stacked values automatically.
+      &:nth-child(1) { top: 68px;  --bullet-x: 264px !important; }
       &:nth-child(2) { top: 254px; }
-      &:nth-child(3) { top: 440px; left: 265px; }
+      &:nth-child(3) { top: 440px; --bullet-x: 318px !important; }
     }
 
     // In stacked mode the bullet copy is always visible — there's no
@@ -352,19 +363,37 @@ $why-image-width: 664px;
     }
   }
 
-  // Below 630px the tile is narrower than the scaled image (~554.5px)
-  // and the bg anchor flips to top-right (see &__visual above). Re-anchor
-  // the bullets to the image's right edge so they slide left with the
-  // crop instead of staying pinned to the tile's left edge.
+  // ≤629px: image is at top-left (image_left = 0). Bullets stay anchored
+  // to the tile's left edge with the scaled --bullet-x — same formula as
+  // the parent mobile block, kept here so any future override can attach.
   @media (max-width: 629px) {
+    $mobile-scale: 0.835;
+
+    &__item {
+      left: calc(var(--bullet-x, 364px) * #{$mobile-scale});
+    }
+  }
+
+  // ≤554px: tile is narrower than the scaled image; bg flips to top-right
+  // (image_left = 100% - 554.5px). Bullets re-anchor to the image's right
+  // edge so they slide left with the crop.
+  @media (max-width: 554px) {
     $mobile-img-w: 554.5px;
     $mobile-scale: 0.835;
 
     &__item {
-      left: calc(100% - #{$mobile-img-w} + var(--bullet-x, 369px) * #{$mobile-scale});
+      left: calc(100% - #{$mobile-img-w} + var(--bullet-x, 364px) * #{$mobile-scale});
+    }
+  }
 
-      &:nth-child(1) { left: calc(100% - #{$mobile-img-w} + 218px); }
-      &:nth-child(3) { left: calc(100% - #{$mobile-img-w} + 265px); }
+  // ≤460px: bg uses 85% positioning. Image_left = (100% - 554.5px) × 0.85.
+  @media (max-width: 460px) {
+    $mobile-img-w: 554.5px;
+    $mobile-scale: 0.835;
+    $bg-pos: 0.85;
+
+    &__item {
+      left: calc((100% - #{$mobile-img-w}) * #{$bg-pos} + var(--bullet-x, 364px) * #{$mobile-scale});
     }
   }
 }

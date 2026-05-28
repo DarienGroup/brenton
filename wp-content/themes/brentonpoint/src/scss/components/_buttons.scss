@@ -57,7 +57,6 @@ $button-variants: (
   max-width: 100%;
   padding: calc($spacing-unit * 2.5) calc($spacing-unit * 5);
   border: 1px solid transparent;
-  border-radius: 4px;
   font-family: $font-montserrat;
   font-weight: 600;
   text-decoration: none;
@@ -113,6 +112,10 @@ $button-variants: (
   &--short {
     width: auto;
     min-width: 260px;
+  }
+
+  &--small{
+    padding: calc($spacing-unit * 2.5) calc($spacing-unit * 3.5);
   }
 
   // Inline "Read More"-style link: transparent, no padding, full card width.

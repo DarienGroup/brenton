@@ -55,6 +55,10 @@
 
   &__track {
     display: flex;
+    // Cards size to their own content (no sibling stretch) so an expanded
+    // card grows on its own. JS pins an equal `min-height` on each card to
+    // keep the collapsed row visually uniform.
+    align-items: flex-start;
     list-style: none;
     margin: 0;
     padding: 0;

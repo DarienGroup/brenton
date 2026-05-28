@@ -92,16 +92,16 @@ foreach ((array) $bullets_raw as $row) {
 //   vertically.
 $position_map = [
     1 => [
-        ['x' => '369px', 'y' => '340px'],
+        ['x' => '364px', 'y' => '340px'],
     ],
     2 => [
-        ['x' => '299px', 'y' => '128px'],
-        ['x' => '302px', 'y' => '552px'],
+        ['x' => '296px', 'y' => '128px'],
+        ['x' => '298px', 'y' => '552px'],
     ],
     3 => [
-        ['x' => '299px', 'y' => '128px'],
-        ['x' => '369px', 'y' => '340px'],
-        ['x' => '302px', 'y' => '552px'],
+        ['x' => '296px', 'y' => '128px'],
+        ['x' => '364px', 'y' => '340px'],
+        ['x' => '298px', 'y' => '552px'],
     ],
 ];
 $positions = $position_map[count($bullets)] ?? [];
