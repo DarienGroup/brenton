@@ -122,9 +122,10 @@
       border-color: $white;
     }
 
-    // The full-width modifier at ≤467 (added in _buttons.scss) overrides
-    // this min-width via the cascade — listed here just to flag the
-    // intentional drop, not to redeclare.
+    @media (max-width: 467px) {
+      width: 100%;
+      min-width: 0;
+    }
   }
 
   // ── Right column: portrait + quote card ────────────────────────────────────

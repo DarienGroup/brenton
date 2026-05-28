@@ -112,10 +112,19 @@ $button-variants: (
   &--short {
     width: auto;
     min-width: 260px;
+
+    @media (max-width: 467px) {
+      width: 100%;
+      min-width: 0;
+    }
   }
 
   &--small{
     padding: calc($spacing-unit * 2.5) calc($spacing-unit * 3.5);
+
+    @media (max-width: 467px) {
+      width: 100%;
+    }
   }
 
   // Inline "Read More"-style link: transparent, no padding, full card width.

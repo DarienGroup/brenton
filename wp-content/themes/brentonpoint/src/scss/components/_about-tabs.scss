@@ -324,6 +324,13 @@
 
 @media (max-width: 567px) {
   .about-tabs {
+    // Break out of the surrounding .container's horizontal padding so the
+    // tab buttons span the full viewport on mobile. The negated value mirrors
+    // the container's fluid-between(20px → 64px, 360–1440) padding so we
+    // pull back by exactly as much as the container pushes in.
+    border: 0;
+    margin-inline: calc(-1 * #{fluid-between($container-px-360, $container-px-1440, 360, 1440)});
+
     &__nav {
       grid-template-columns: 1fr;
     }
@@ -335,6 +342,13 @@
       &:last-child {
         border-bottom: 0;
       }
+    }
+
+    &__body {
+      // Buttons span the full viewport (via the negative margin above),
+      // but the body text re-applies the global container padding so the
+      // copy still aligns with the rest of the page.
+      padding-inline: fluid-between($container-px-360, $container-px-1440, 360, 1440);
     }
 
     &__badge,

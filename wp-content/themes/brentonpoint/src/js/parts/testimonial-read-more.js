@@ -8,6 +8,10 @@
 
 const TRUNCATED_CLASS = 'testimonial-card__quote--truncated';
 const EXPANDED_CLASS  = 'testimonial-card__quote--expanded';
+// Match the SCSS mobile breakpoint for the testimonial slider — below this
+// viewport width the card collapses to one-per-view and the body has less
+// horizontal room, so a tighter truncation threshold reads better.
+const MOBILE_BP_PX = 768;
 
 function chevronSvg() {
   // Down chevron — flipped via CSS when expanded.
@@ -30,7 +34,10 @@ function init(quote) {
   if (quote.dataset.truncateReady === '1') return;
   quote.dataset.truncateReady = '1';
 
-  const maxChars = parseInt(quote.dataset.truncateChars, 10);
+  const desktopMax = parseInt(quote.dataset.truncateChars, 10);
+  const mobileMax  = parseInt(quote.dataset.truncateCharsMobile, 10);
+  const isMobile   = window.innerWidth < MOBILE_BP_PX;
+  const maxChars   = isMobile && Number.isFinite(mobileMax) ? mobileMax : desktopMax;
   if (!maxChars || Number.isNaN(maxChars)) return;
 
   const fullText = quote.textContent.trim();

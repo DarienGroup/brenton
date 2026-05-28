@@ -52,14 +52,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    transition: background-color $transition-base, color $transition-base;
     z-index: 1;
 
-    &:hover,
-    &:focus-visible {
-      background-color: $secondary-gray;
-      color: $color-primary;
+    @media (max-width: 767px) {
+      background-color: $white;
     }
 
     &:focus-visible {

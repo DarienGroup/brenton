@@ -107,7 +107,8 @@ if (empty($testimonials)) {
                         <article class="testimonial-card">
                             <?php if ($quote) : ?>
                                 <div class="testimonial-card__quote text-body-L"
-                                     data-truncate-chars="380">
+                                     data-truncate-chars="380"
+                                     data-truncate-chars-mobile="200">
                                     <?php echo esc_html($quote); ?>
                                 </div>
                             <?php endif; ?>

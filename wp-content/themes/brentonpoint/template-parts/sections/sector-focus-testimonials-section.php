@@ -144,6 +144,25 @@ $has_stat      = $stat_icon_url || $stat_prefix || $stat_number || $stat_label;
 
             <?php if (!empty($testimonials)) : ?>
                 <div class="sector-testimonials-section__right">
+                    <div class="sector-testimonials-section__nav sector-testimonials-section__nav--mobile" data-testimonials-nav>
+                        <button type="button"
+                                class="firm-testimonials-section__nav-btn"
+                                data-testimonials-prev
+                                aria-label="<?php esc_attr_e('Previous testimonial', 'brentonpoint'); ?>">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <button type="button"
+                                class="firm-testimonials-section__nav-btn"
+                                data-testimonials-next
+                                aria-label="<?php esc_attr_e('Next testimonial', 'brentonpoint'); ?>">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+
                     <div class="sector-testimonials-section__slider" data-testimonials-slider>
 
                         <ul class="sector-testimonials-section__track" data-testimonials-track>
@@ -165,7 +184,7 @@ $has_stat      = $stat_icon_url || $stat_prefix || $stat_number || $stat_label;
                                 <li class="sector-testimonials-section__slide">
                                     <article class="testimonial-card">
                                         <?php if ($quote) : ?>
-                                            <div class="testimonial-card__quote text-body-L" data-truncate-chars="380">
+                                            <div class="testimonial-card__quote text-body-L" data-truncate-chars="380" data-truncate-chars-mobile="200">
                                                 <?php echo esc_html($quote); ?>
                                             </div>
                                         <?php endif; ?>
@@ -197,25 +216,6 @@ $has_stat      = $stat_icon_url || $stat_prefix || $stat_number || $stat_label;
                                 </li>
                             <?php endforeach; ?>
                         </ul>
-                    </div>
-
-                    <div class="sector-testimonials-section__nav sector-testimonials-section__nav--mobile" data-testimonials-nav>
-                        <button type="button"
-                                class="firm-testimonials-section__nav-btn"
-                                data-testimonials-prev
-                                aria-label="<?php esc_attr_e('Previous testimonial', 'brentonpoint'); ?>">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                                <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                        <button type="button"
-                                class="firm-testimonials-section__nav-btn"
-                                data-testimonials-next
-                                aria-label="<?php esc_attr_e('Next testimonial', 'brentonpoint'); ?>">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                                <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
                     </div>
                 </div>
             <?php endif; ?>
